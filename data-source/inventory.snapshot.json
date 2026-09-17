@@ -1,0 +1,1035 @@
+{
+  "schemaVersion": 1,
+  "sourceWorkbook": "NailKaratas_Unit_Envanteri_Doldurulmus-1.xlsm",
+  "notes": [
+    "This is a normalized snapshot derived from the approved filled inventory workbook.",
+    "sourceTourMarkedAvailable and sourceDemoMarked on UnitType are source metadata only; they are not baseline UnitType domain fields.",
+    "Do not invent planImage, gallery, tourId, hotspot or grossArea values when absent."
+  ],
+  "counts": {
+    "unitTypes": 10,
+    "units": 78,
+    "demoUnits": 9,
+    "blocks": {
+      "a": 6,
+      "b": 32,
+      "c": 40
+    }
+  },
+  "unitTypes": [
+    {
+      "id": "A-T01",
+      "sourceBlocks": [
+        "A"
+      ],
+      "category": "commercial",
+      "name": "Mağaza Tip 1",
+      "rooms": null,
+      "bathrooms": 1,
+      "netArea": 697.0,
+      "grossArea": null,
+      "planVariant": "normal",
+      "sourceTourMarkedAvailable": false,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "A-T02",
+      "sourceBlocks": [
+        "A"
+      ],
+      "category": "commercial",
+      "name": "Mağaza Tip 2",
+      "rooms": null,
+      "bathrooms": 1,
+      "netArea": 537.0,
+      "grossArea": null,
+      "planVariant": "normal",
+      "sourceTourMarkedAvailable": false,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "A-T03",
+      "sourceBlocks": [
+        "A"
+      ],
+      "category": "commercial",
+      "name": "Mağaza Tip 3",
+      "rooms": null,
+      "bathrooms": 1,
+      "netArea": 537.0,
+      "grossArea": null,
+      "planVariant": "normal",
+      "sourceTourMarkedAvailable": false,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "A-T03-M",
+      "sourceBlocks": [
+        "A"
+      ],
+      "category": "commercial",
+      "name": "Mağaza Tip 3",
+      "rooms": null,
+      "bathrooms": 1,
+      "netArea": 537.0,
+      "grossArea": null,
+      "planVariant": "mirrored",
+      "sourceTourMarkedAvailable": false,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "A-T04",
+      "sourceBlocks": [
+        "A"
+      ],
+      "category": "commercial",
+      "name": "Mağaza Tip 4",
+      "rooms": null,
+      "bathrooms": 1,
+      "netArea": 448.0,
+      "grossArea": null,
+      "planVariant": "normal",
+      "sourceTourMarkedAvailable": false,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "A-T04-M",
+      "sourceBlocks": [
+        "A"
+      ],
+      "category": "commercial",
+      "name": "Mağaza Tip 4",
+      "rooms": null,
+      "bathrooms": 1,
+      "netArea": 448.0,
+      "grossArea": null,
+      "planVariant": "mirrored",
+      "sourceTourMarkedAvailable": false,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "BC-T01",
+      "sourceBlocks": [
+        "B",
+        "C"
+      ],
+      "category": "residential",
+      "name": "2+1 Tip",
+      "rooms": "2+1",
+      "bathrooms": 1,
+      "netArea": 91.0,
+      "grossArea": null,
+      "planVariant": "normal",
+      "sourceTourMarkedAvailable": true,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "BC-T01-M",
+      "sourceBlocks": [
+        "B",
+        "C"
+      ],
+      "category": "residential",
+      "name": "2+1 Tip",
+      "rooms": "2+1",
+      "bathrooms": 1,
+      "netArea": 91.0,
+      "grossArea": null,
+      "planVariant": "mirrored",
+      "sourceTourMarkedAvailable": true,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "BC-T02",
+      "sourceBlocks": [
+        "B",
+        "C"
+      ],
+      "category": "residential",
+      "name": "1+1 Tip",
+      "rooms": "1+1",
+      "bathrooms": 1,
+      "netArea": 60.0,
+      "grossArea": null,
+      "planVariant": "normal",
+      "sourceTourMarkedAvailable": true,
+      "sourceDemoMarked": true
+    },
+    {
+      "id": "BC-T02-M",
+      "sourceBlocks": [
+        "B",
+        "C"
+      ],
+      "category": "residential",
+      "name": "1+1 Tip",
+      "rooms": "1+1",
+      "bathrooms": 1,
+      "netArea": 60.0,
+      "grossArea": null,
+      "planVariant": "mirrored",
+      "sourceTourMarkedAvailable": true,
+      "sourceDemoMarked": true
+    }
+  ],
+  "units": [
+    {
+      "id": "A-001",
+      "blockId": "a",
+      "floor": "Bodrum + Zemin + Asma",
+      "unitNo": "1",
+      "unitTypeId": "A-T01",
+      "category": "commercial",
+      "orientation": "Yol / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "A-002",
+      "blockId": "a",
+      "floor": "Bodrum + Zemin + Asma",
+      "unitNo": "2",
+      "unitTypeId": "A-T02",
+      "category": "commercial",
+      "orientation": "Yol / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "A-003",
+      "blockId": "a",
+      "floor": "Bodrum + Zemin + Asma",
+      "unitNo": "3",
+      "unitTypeId": "A-T03",
+      "category": "commercial",
+      "orientation": "Yol / Güney",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "A-004",
+      "blockId": "a",
+      "floor": "Bodrum + Zemin + Asma",
+      "unitNo": "4",
+      "unitTypeId": "A-T03-M",
+      "category": "commercial",
+      "orientation": "Yol / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "A-005",
+      "blockId": "a",
+      "floor": "Bodrum + Zemin + Asma",
+      "unitNo": "5",
+      "unitTypeId": "A-T04",
+      "category": "commercial",
+      "orientation": "Yol / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "A-006",
+      "blockId": "a",
+      "floor": "Bodrum + Zemin + Asma",
+      "unitNo": "6",
+      "unitTypeId": "A-T04-M",
+      "category": "commercial",
+      "orientation": "Yol / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-Z01",
+      "blockId": "b",
+      "floor": "Zemin Kat",
+      "unitNo": "1",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-Z02",
+      "blockId": "b",
+      "floor": "Zemin Kat",
+      "unitNo": "2",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-Z03",
+      "blockId": "b",
+      "floor": "Zemin Kat",
+      "unitNo": "3",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-Z04",
+      "blockId": "b",
+      "floor": "Zemin Kat",
+      "unitNo": "4",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-101",
+      "blockId": "b",
+      "floor": "1. Kat",
+      "unitNo": "5",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-102",
+      "blockId": "b",
+      "floor": "1. Kat",
+      "unitNo": "6",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-103",
+      "blockId": "b",
+      "floor": "1. Kat",
+      "unitNo": "7",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-104",
+      "blockId": "b",
+      "floor": "1. Kat",
+      "unitNo": "8",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-201",
+      "blockId": "b",
+      "floor": "2. Kat",
+      "unitNo": "9",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-202",
+      "blockId": "b",
+      "floor": "2. Kat",
+      "unitNo": "10",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-203",
+      "blockId": "b",
+      "floor": "2. Kat",
+      "unitNo": "11",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-204",
+      "blockId": "b",
+      "floor": "2. Kat",
+      "unitNo": "12",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-301",
+      "blockId": "b",
+      "floor": "3. Kat",
+      "unitNo": "13",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "B-302",
+      "blockId": "b",
+      "floor": "3. Kat",
+      "unitNo": "14",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "B-303",
+      "blockId": "b",
+      "floor": "3. Kat",
+      "unitNo": "15",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "B-304",
+      "blockId": "b",
+      "floor": "3. Kat",
+      "unitNo": "16",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "B-401",
+      "blockId": "b",
+      "floor": "4. Kat",
+      "unitNo": "17",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-402",
+      "blockId": "b",
+      "floor": "4. Kat",
+      "unitNo": "18",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-403",
+      "blockId": "b",
+      "floor": "4. Kat",
+      "unitNo": "19",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-404",
+      "blockId": "b",
+      "floor": "4. Kat",
+      "unitNo": "20",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-501",
+      "blockId": "b",
+      "floor": "5. Kat",
+      "unitNo": "21",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-502",
+      "blockId": "b",
+      "floor": "5. Kat",
+      "unitNo": "22",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-503",
+      "blockId": "b",
+      "floor": "5. Kat",
+      "unitNo": "23",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-504",
+      "blockId": "b",
+      "floor": "5. Kat",
+      "unitNo": "24",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-601",
+      "blockId": "b",
+      "floor": "6. Kat",
+      "unitNo": "25",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-602",
+      "blockId": "b",
+      "floor": "6. Kat",
+      "unitNo": "26",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-603",
+      "blockId": "b",
+      "floor": "6. Kat",
+      "unitNo": "27",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-604",
+      "blockId": "b",
+      "floor": "6. Kat",
+      "unitNo": "28",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-701",
+      "blockId": "b",
+      "floor": "7. Kat",
+      "unitNo": "29",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-702",
+      "blockId": "b",
+      "floor": "7. Kat",
+      "unitNo": "30",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-703",
+      "blockId": "b",
+      "floor": "7. Kat",
+      "unitNo": "31",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "B-704",
+      "blockId": "b",
+      "floor": "7. Kat",
+      "unitNo": "32",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Doğu",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-Z01",
+      "blockId": "c",
+      "floor": "Zemin Kat",
+      "unitNo": "1",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-Z02",
+      "blockId": "c",
+      "floor": "Zemin Kat",
+      "unitNo": "2",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-Z03",
+      "blockId": "c",
+      "floor": "Zemin Kat",
+      "unitNo": "3",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-Z04",
+      "blockId": "c",
+      "floor": "Zemin Kat",
+      "unitNo": "4",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-Z05",
+      "blockId": "c",
+      "floor": "Zemin Kat",
+      "unitNo": "5",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-101",
+      "blockId": "c",
+      "floor": "1. Kat",
+      "unitNo": "6",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-102",
+      "blockId": "c",
+      "floor": "1. Kat",
+      "unitNo": "7",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-103",
+      "blockId": "c",
+      "floor": "1. Kat",
+      "unitNo": "8",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-104",
+      "blockId": "c",
+      "floor": "1. Kat",
+      "unitNo": "9",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-105",
+      "blockId": "c",
+      "floor": "1. Kat",
+      "unitNo": "10",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-201",
+      "blockId": "c",
+      "floor": "2. Kat",
+      "unitNo": "11",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-202",
+      "blockId": "c",
+      "floor": "2. Kat",
+      "unitNo": "12",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-203",
+      "blockId": "c",
+      "floor": "2. Kat",
+      "unitNo": "13",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-204",
+      "blockId": "c",
+      "floor": "2. Kat",
+      "unitNo": "14",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-205",
+      "blockId": "c",
+      "floor": "2. Kat",
+      "unitNo": "15",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-301",
+      "blockId": "c",
+      "floor": "3. Kat",
+      "unitNo": "16",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-302",
+      "blockId": "c",
+      "floor": "3. Kat",
+      "unitNo": "17",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-303",
+      "blockId": "c",
+      "floor": "3. Kat",
+      "unitNo": "18",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-304",
+      "blockId": "c",
+      "floor": "3. Kat",
+      "unitNo": "19",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-305",
+      "blockId": "c",
+      "floor": "3. Kat",
+      "unitNo": "20",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-401",
+      "blockId": "c",
+      "floor": "4. Kat",
+      "unitNo": "21",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "C-402",
+      "blockId": "c",
+      "floor": "4. Kat",
+      "unitNo": "22",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "C-403",
+      "blockId": "c",
+      "floor": "4. Kat",
+      "unitNo": "23",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "C-404",
+      "blockId": "c",
+      "floor": "4. Kat",
+      "unitNo": "24",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": true
+    },
+    {
+      "id": "C-405",
+      "blockId": "c",
+      "floor": "4. Kat",
+      "unitNo": "25",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-501",
+      "blockId": "c",
+      "floor": "5. Kat",
+      "unitNo": "26",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-502",
+      "blockId": "c",
+      "floor": "5. Kat",
+      "unitNo": "27",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-503",
+      "blockId": "c",
+      "floor": "5. Kat",
+      "unitNo": "28",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-504",
+      "blockId": "c",
+      "floor": "5. Kat",
+      "unitNo": "29",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-505",
+      "blockId": "c",
+      "floor": "5. Kat",
+      "unitNo": "30",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-601",
+      "blockId": "c",
+      "floor": "6. Kat",
+      "unitNo": "31",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-602",
+      "blockId": "c",
+      "floor": "6. Kat",
+      "unitNo": "32",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-603",
+      "blockId": "c",
+      "floor": "6. Kat",
+      "unitNo": "33",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-604",
+      "blockId": "c",
+      "floor": "6. Kat",
+      "unitNo": "34",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-605",
+      "blockId": "c",
+      "floor": "6. Kat",
+      "unitNo": "35",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-701",
+      "blockId": "c",
+      "floor": "7. Kat",
+      "unitNo": "36",
+      "unitTypeId": "BC-T01",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-702",
+      "blockId": "c",
+      "floor": "7. Kat",
+      "unitNo": "37",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-703",
+      "blockId": "c",
+      "floor": "7. Kat",
+      "unitNo": "38",
+      "unitTypeId": "BC-T02-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-704",
+      "blockId": "c",
+      "floor": "7. Kat",
+      "unitNo": "39",
+      "unitTypeId": "BC-T02",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    },
+    {
+      "id": "C-705",
+      "blockId": "c",
+      "floor": "7. Kat",
+      "unitNo": "40",
+      "unitTypeId": "BC-T01-M",
+      "category": "residential",
+      "orientation": "Bahçe / Güney",
+      "availability": "available",
+      "demoEnabled": false
+    }
+  ]
+}

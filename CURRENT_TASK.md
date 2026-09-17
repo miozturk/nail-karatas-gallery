@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-001 — Project Bootstrap**
+**IMP-002 — Domain Types and Seed Data**
 
 Task specification:
 
-`tasks/IMP-001-PROJECT-BOOTSTRAP.md`
+`tasks/IMP-002-DOMAIN-TYPES-AND-SEED-DATA.md`
 
-Do not implement tasks beyond IMP-001.
+Do not implement tasks beyond IMP-002.
