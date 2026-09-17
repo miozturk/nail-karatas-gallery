@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-002 — Domain Types and Seed Data**
+**IMP-003 — Router and App Shell**
 
 Task specification:
 
-`tasks/IMP-002-DOMAIN-TYPES-AND-SEED-DATA.md`
+`tasks/IMP-003-ROUTER-AND-APP-SHELL.md`
 
-Do not implement tasks beyond IMP-002.
+Do not implement tasks beyond IMP-003.
