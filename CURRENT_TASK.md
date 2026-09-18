@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-003 — Router and App Shell**
+**IMP-004 — SceneStage**
 
 Task specification:
 
-`tasks/IMP-003-ROUTER-AND-APP-SHELL.md`
+`tasks/IMP-004-SCENE-STAGE.md`
 
-Do not implement tasks beyond IMP-003.
+Do not implement tasks beyond IMP-004.
