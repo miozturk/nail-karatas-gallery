@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { blocks } from '../../data'
+import { blocks, units } from '../../data'
 import NotFoundPage from '../../app/NotFoundPage'
 import SceneStage from '../../components/SceneStage/SceneStage'
 import TransitionLayer from '../../components/TransitionLayer/TransitionLayer'
+import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
 import { developmentReverseVideo } from './developmentMedia'
+import { developmentUnitPolygons } from './developmentUnitPolygons'
 import './BlockPage.css'
 
 export default function BlockPage() {
@@ -12,7 +14,23 @@ export default function BlockPage() {
   const navigate = useNavigate()
   const pending = useRef(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [hoveredUnit, setHoveredUnit] = useState<string | null>(null)
+  const [focusedUnit, setFocusedUnit] = useState<string | null>(null)
   const block = blocks.find((item) => item.id === blockId)
+  // Seed-first lookup: orphan geometry cannot produce a target, and missing
+  // geometry cannot produce a clickable Unit. Never infer domain data from IDs.
+  const hotspots = units.flatMap((unit) => {
+    const points = developmentUnitPolygons[unit.id]
+    return unit.blockId === blockId && unit.demoEnabled === true && points
+      ? [{ id: unit.id, points, label: `Bağımsız bölüm ${unit.id}, kat ${unit.floor}`,
+          disabled: isTransitioning }]
+      : []
+  })
+  const highlightedUnit = isTransitioning ? null : focusedUnit ?? hoveredUnit
+  const activateUnit = (id: string) => {
+    if (pending.current || !hotspots.some((hotspot) => hotspot.id === id)) return
+    void navigate(`/block/${blockId}/unit/${id}`)
+  }
 
   const returnHome = () => {
     if (!pending.current) return
@@ -24,6 +42,8 @@ export default function BlockPage() {
     // Protect even repeated activation before disabled is rendered.
     if (pending.current) return
     pending.current = true
+    setHoveredUnit(null)
+    setFocusedUnit(null)
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       returnHome()
       return
@@ -40,19 +60,25 @@ export default function BlockPage() {
       <button className="block-scene__home" type="button" disabled={isTransitioning}
         onClick={activateHome}>Home — Ana görünüme dön</button>
       <p role="status">{isTransitioning
-        ? 'Geliştirme geri dönüş videosu oynatılıyor — Home kilitli.'
+        ? 'Geliştirme geri dönüş videosu oynatılıyor — Home ve Unit etkileşimi kilitli.'
         : 'Geri dönüş hazır — Home açık.'}</p>
+      <p>Geliştirme Unit vurgusu: {highlightedUnit ?? 'Yok'}</p>
       <figure className="block-scene">
         <SceneStage label={`${block.name} Blok geliştirme sahnesi: 1920 × 1440`}
           base={<div className="block-scene__background">
             <strong>{block.name}</strong>
             <span>GELİŞTİRME SAHNESİ</span>
           </div>}
+          interaction={<SvgHotspotLayer label={`${block.name} Blok geliştirme Unit hedefleri`}
+              hotspots={hotspots} hoveredId={highlightedUnit}
+              onHover={setHoveredUnit} onLeave={() => setHoveredUnit(null)}
+              onFocus={setFocusedUnit} onBlur={() => setFocusedUnit(null)}
+              onActivate={activateUnit} />}
           overlay={<TransitionLayer src={developmentReverseVideo} active={isTransitioning}
             label="Geliştirme geri dönüş videosu"
             onComplete={returnHome} onFailure={returnHome} />}
         />
-        <figcaption>1920 × 1440 · 4:3 · Temsili geliştirme görseli ve videosu; gerçek proje medyası değildir.</figcaption>
+        <figcaption>1920 × 1440 · 4:3 · DEVELOPMENT-ONLY: yapay Unit poligonları gerçek cephelerle eşleşmez. Temsili geliştirme görseli ve videosu; gerçek proje medyası değildir.</figcaption>
       </figure>
     </>
   )
