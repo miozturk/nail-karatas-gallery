@@ -19,3 +19,5 @@
 }
 .masterplan__controls button[data-highlighted='true'] { background: #c3cbd1; border-color: #202830; }
 .masterplan__controls button:focus-visible { outline: 3px solid #244c80; outline-offset: 3px; }
+.masterplan__controls button:disabled { opacity: 0.5; cursor: not-allowed; }
+.masterplan__status { min-height: 3em; }

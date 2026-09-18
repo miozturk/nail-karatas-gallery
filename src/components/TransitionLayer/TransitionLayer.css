@@ -1,0 +1,11 @@
+.scene-stage__overlay > .transition-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #e1e5e8;
+  pointer-events: auto;
+}
