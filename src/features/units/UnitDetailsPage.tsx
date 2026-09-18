@@ -1,12 +1,5 @@
-import { Link, useParams } from 'react-router-dom'
+import BlockPage from '../blocks/BlockPage'
 
 export default function UnitDetailsPage() {
-  const { blockId, unitId } = useParams()
-  return (
-    <>
-      <h1>Unit Details</h1>
-      <p>Detay yer tutucusu. blockId: {blockId}, unitId: {unitId}</p>
-      <Link to={`/block/${blockId}/unit/${unitId}`}>Return to Unit</Link>
-    </>
-  )
+  return <BlockPage showDetails />
 }

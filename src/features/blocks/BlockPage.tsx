@@ -8,9 +8,10 @@ import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
 import { developmentReverseVideo } from './developmentMedia'
 import { developmentUnitPolygons } from './developmentUnitPolygons'
 import UnitQuickCard from '../units/UnitQuickCard'
+import UnitDetailsDrawer from '../units/UnitDetailsDrawer'
 import './BlockPage.css'
 
-export default function BlockPage() {
+export default function BlockPage({ showDetails = false }: { showDetails?: boolean }) {
   const { blockId, unitId } = useParams()
   const navigate = useNavigate()
   const pending = useRef(false)
@@ -82,7 +83,9 @@ export default function BlockPage() {
               label="Geliştirme geri dönüş videosu"
               onComplete={returnHome} onFailure={returnHome} />}
           />
-          {unit && unitType && <UnitQuickCard unit={unit} unitType={unitType} disabled={isTransitioning} />}
+          {unit && unitType && (showDetails
+            ? <UnitDetailsDrawer unit={unit} unitType={unitType} disabled={isTransitioning} />
+            : <UnitQuickCard unit={unit} unitType={unitType} disabled={isTransitioning} />)}
         </div>
         <figcaption>1920 × 1440 · 4:3 · DEVELOPMENT-ONLY: yapay Unit poligonları gerçek cephelerle eşleşmez. Temsili geliştirme görseli ve videosu; gerçek proje medyası değildir.</figcaption>
       </figure>

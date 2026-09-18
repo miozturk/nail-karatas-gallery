@@ -1,0 +1,72 @@
+.unit-details-drawer {
+  /* Overlap the empty stage edge without covering the development hotspots. */
+  position: relative;
+  box-sizing: border-box;
+  width: min(36rem, calc(100% - 2rem));
+  margin: -3rem 1rem 0 auto;
+  padding: 1.25rem;
+  border: 1px solid #92999f;
+  background: #f5f6f3;
+  overflow-wrap: anywhere;
+}
+
+.unit-details-drawer header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.unit-details-drawer h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.unit-details-drawer dl > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.25rem 0;
+}
+
+.unit-details-drawer dd {
+  margin: 0;
+}
+
+.unit-details-drawer__media {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.unit-details-drawer__placeholder {
+  min-height: 9rem;
+  padding: 1rem;
+  border: 1px dashed #657078;
+  background: #e1e5e3;
+}
+
+.unit-details-drawer__placeholder h3 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.unit-details-drawer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.unit-details-drawer a:focus-visible {
+  outline: 3px solid #244c80;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .unit-details-drawer {
+    width: 100%;
+    margin: -1rem 0 0;
+    padding: 1rem;
+  }
+}
