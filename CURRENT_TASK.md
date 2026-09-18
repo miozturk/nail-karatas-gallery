@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-005 — SVG Hotspot Layer**
+**IMP-006 — Masterplan Scene**
 
 Task specification:
 
-`tasks/IMP-005-SVG-HOTSPOT-LAYER.md`
+`tasks/IMP-006-MASTERPLAN-SCENE.md`
 
-Do not implement tasks beyond IMP-005.
+Do not implement tasks beyond IMP-006.
