@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-004 — SceneStage**
+**IMP-005 — SVG Hotspot Layer**
 
 Task specification:
 
-`tasks/IMP-004-SCENE-STAGE.md`
+`tasks/IMP-005-SVG-HOTSPOT-LAYER.md`
 
-Do not implement tasks beyond IMP-004.
+Do not implement tasks beyond IMP-005.
