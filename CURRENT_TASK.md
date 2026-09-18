@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-011 — Unit Details Drawer**
+**IMP-012 — Hotspot Editor v1**
 
 Task specification:
 
-`tasks/IMP-011-UNIT-DETAILS-DRAWER.md`
+`tasks/IMP-012-HOTSPOT-EDITOR-V1.md`
 
-Do not implement tasks beyond IMP-011.
+Do not implement tasks beyond IMP-012.
