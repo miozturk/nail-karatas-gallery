@@ -1,0 +1,39 @@
+.scene-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  min-width: 0;
+  min-height: 0;
+  isolation: isolate;
+}
+
+.scene-stage__coordinates {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1440px;
+  transform-origin: center;
+}
+
+.scene-stage__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scene-stage__layer > * {
+  pointer-events: auto;
+}
+
+.scene-stage__base { z-index: 0; }
+.scene-stage__interaction { z-index: 1; }
+.scene-stage__overlay { z-index: 2; }
+
+.scene-stage__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
