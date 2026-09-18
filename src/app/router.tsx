@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Outlet, Route, Routes, useParams } from 'react-router-dom'
 import { blocks, units, unitTypes } from '../data'
 import MasterplanPage from '../features/masterplan/MasterplanPage'
@@ -8,6 +9,10 @@ import TourPage from '../features/tours/TourPage'
 import VideoPage from '../features/video/VideoPage'
 import AppShell from './AppShell'
 import NotFoundPage from './NotFoundPage'
+
+const HotspotEditor = import.meta.env.DEV
+  ? lazy(() => import('../features/devtools/hotspot-editor/HotspotEditor'))
+  : null
 
 function BlockRoute() {
   const { blockId } = useParams()
@@ -25,6 +30,9 @@ function UnitRoute() {
 export default function AppRouter() {
   return (
     <Routes>
+      {HotspotEditor && <Route path="/__dev/hotspot-editor" element={
+        <Suspense fallback={<p>Editör yükleniyor…</p>}><HotspotEditor /></Suspense>
+      } />}
       <Route element={<AppShell />}>
         <Route index element={<MasterplanPage />} />
         <Route path="block/:blockId" element={<BlockRoute />}>
