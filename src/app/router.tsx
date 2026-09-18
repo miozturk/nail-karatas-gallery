@@ -14,6 +14,10 @@ const HotspotEditor = import.meta.env.DEV
   ? lazy(() => import('../features/devtools/hotspot-editor/HotspotEditor'))
   : null
 
+const PanoramaSpike = import.meta.env.DEV
+  ? lazy(() => import('../features/devtools/panorama-spike/PanoramaSpike'))
+  : null
+
 function BlockRoute() {
   const { blockId } = useParams()
   return blocks.some((block) => block.id === blockId)
@@ -30,6 +34,9 @@ function UnitRoute() {
 export default function AppRouter() {
   return (
     <Routes>
+      {PanoramaSpike && <Route path="/__dev/panorama-spike" element={
+        <Suspense fallback={<p>Panorama yükleniyor…</p>}><PanoramaSpike /></Suspense>
+      } />}
       {HotspotEditor && <Route path="/__dev/hotspot-editor" element={
         <Suspense fallback={<p>Editör yükleniyor…</p>}><HotspotEditor /></Suspense>
       } />}

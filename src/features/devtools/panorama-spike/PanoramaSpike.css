@@ -1,0 +1,10 @@
+.panorama-spike { max-width: 75rem; padding: 1rem; }
+.panorama-spike button { min-height: 44px; padding: .5rem 1rem; cursor: pointer; }
+.panorama-spike button[aria-pressed='true'] { background: #244c80; color: white; font-weight: bold; }
+.panorama-spike-viewer { width: 100%; height: clamp(280px, 60vh, 720px); margin-top: 1rem; }
+.panorama-spike-map { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; padding: .5rem; border: 2px dashed #667; }
+.panorama-spike-map button { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 480px) {
+  .panorama-spike-map { grid-template-columns: 1fr; }
+  .panorama-spike h1 { font-size: 1.6rem; }
+}
