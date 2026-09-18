@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-010 — Unit Quick Card**
+**IMP-011 — Unit Details Drawer**
 
 Task specification:
 
-`tasks/IMP-010-UNIT-QUICK-CARD.md`
+`tasks/IMP-011-UNIT-DETAILS-DRAWER.md`
 
-Do not implement tasks beyond IMP-010.
+Do not implement tasks beyond IMP-011.
