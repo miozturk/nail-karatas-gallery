@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-006 — Masterplan Scene**
+**IMP-007 — Transition Layer**
 
 Task specification:
 
-`tasks/IMP-006-MASTERPLAN-SCENE.md`
+`tasks/IMP-007-TRANSITION-LAYER.md`
 
-Do not implement tasks beyond IMP-006.
+Do not implement tasks beyond IMP-007.
