@@ -1,0 +1,64 @@
+.block-scene__composition {
+  position: relative;
+}
+
+.unit-quick-card {
+  /* Overlap only the empty lower edge, keeping every Unit polygon reachable. */
+  position: relative;
+  margin: -3rem 1rem 0 auto;
+  box-sizing: border-box;
+  width: min(19rem, calc(100% - 2rem));
+  padding: 1rem;
+  border: 1px solid #92999f;
+  background: #f5f6f3;
+  overflow-wrap: anywhere;
+}
+
+.unit-quick-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.unit-quick-card__plan {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px dashed #657078;
+  background: #e1e5e3;
+}
+
+.unit-quick-card dl {
+  margin: 0.75rem 0;
+  font-size: 0.875rem;
+}
+
+.unit-quick-card dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.unit-quick-card dd {
+  margin: 0;
+  text-align: right;
+}
+
+.unit-quick-card a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.unit-quick-card a:focus-visible {
+  outline: 3px solid #244c80;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .unit-quick-card {
+    position: static;
+    width: 100%;
+    margin: 0.75rem 0 0;
+  }
+}

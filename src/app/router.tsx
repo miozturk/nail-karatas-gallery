@@ -1,5 +1,5 @@
 import { Outlet, Route, Routes, useParams } from 'react-router-dom'
-import { blocks, units } from '../data'
+import { blocks, units, unitTypes } from '../data'
 import MasterplanPage from '../features/masterplan/MasterplanPage'
 import BlockPage from '../features/blocks/BlockPage'
 import UnitPage from '../features/units/UnitPage'
@@ -17,7 +17,8 @@ function BlockRoute() {
 
 function UnitRoute() {
   const { blockId, unitId } = useParams()
-  return units.some((unit) => unit.id === unitId && unit.blockId === blockId)
+  return units.some((unit) => unit.id === unitId && unit.blockId === blockId
+    && unitTypes.some((type) => type.id === unit.unitTypeId))
     ? <Outlet /> : <NotFoundPage />
 }
 

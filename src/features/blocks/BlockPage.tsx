@@ -1,22 +1,25 @@
 import { useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { blocks, units } from '../../data'
+import { blocks, units, unitTypes } from '../../data'
 import NotFoundPage from '../../app/NotFoundPage'
 import SceneStage from '../../components/SceneStage/SceneStage'
 import TransitionLayer from '../../components/TransitionLayer/TransitionLayer'
 import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
 import { developmentReverseVideo } from './developmentMedia'
 import { developmentUnitPolygons } from './developmentUnitPolygons'
+import UnitQuickCard from '../units/UnitQuickCard'
 import './BlockPage.css'
 
 export default function BlockPage() {
-  const { blockId } = useParams()
+  const { blockId, unitId } = useParams()
   const navigate = useNavigate()
   const pending = useRef(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [hoveredUnit, setHoveredUnit] = useState<string | null>(null)
   const [focusedUnit, setFocusedUnit] = useState<string | null>(null)
   const block = blocks.find((item) => item.id === blockId)
+  const unit = units.find((item) => item.id === unitId && item.blockId === blockId)
+  const unitType = unitTypes.find((item) => item.id === unit?.unitTypeId)
   // Seed-first lookup: orphan geometry cannot produce a target, and missing
   // geometry cannot produce a clickable Unit. Never infer domain data from IDs.
   const hotspots = units.flatMap((unit) => {
@@ -51,7 +54,7 @@ export default function BlockPage() {
     setIsTransitioning(true)
   }
 
-  if (!block) return <NotFoundPage />
+  if (!block || (unitId && (!unit || !unitType))) return <NotFoundPage />
 
   return (
     <>
@@ -64,20 +67,23 @@ export default function BlockPage() {
         : 'Geri dönüş hazır — Home açık.'}</p>
       <p>Geliştirme Unit vurgusu: {highlightedUnit ?? 'Yok'}</p>
       <figure className="block-scene">
-        <SceneStage label={`${block.name} Blok geliştirme sahnesi: 1920 × 1440`}
-          base={<div className="block-scene__background">
-            <strong>{block.name}</strong>
-            <span>GELİŞTİRME SAHNESİ</span>
-          </div>}
-          interaction={<SvgHotspotLayer label={`${block.name} Blok geliştirme Unit hedefleri`}
-              hotspots={hotspots} hoveredId={highlightedUnit}
-              onHover={setHoveredUnit} onLeave={() => setHoveredUnit(null)}
-              onFocus={setFocusedUnit} onBlur={() => setFocusedUnit(null)}
-              onActivate={activateUnit} />}
-          overlay={<TransitionLayer src={developmentReverseVideo} active={isTransitioning}
-            label="Geliştirme geri dönüş videosu"
-            onComplete={returnHome} onFailure={returnHome} />}
-        />
+        <div className="block-scene__composition">
+          <SceneStage label={`${block.name} Blok geliştirme sahnesi: 1920 × 1440`}
+            base={<div className="block-scene__background">
+              <strong>{block.name}</strong>
+              <span>GELİŞTİRME SAHNESİ</span>
+            </div>}
+            interaction={<SvgHotspotLayer label={`${block.name} Blok geliştirme Unit hedefleri`}
+                hotspots={hotspots} hoveredId={highlightedUnit} activeId={unit?.id}
+                onHover={setHoveredUnit} onLeave={() => setHoveredUnit(null)}
+                onFocus={setFocusedUnit} onBlur={() => setFocusedUnit(null)}
+                onActivate={activateUnit} />}
+            overlay={<TransitionLayer src={developmentReverseVideo} active={isTransitioning}
+              label="Geliştirme geri dönüş videosu"
+              onComplete={returnHome} onFailure={returnHome} />}
+          />
+          {unit && unitType && <UnitQuickCard unit={unit} unitType={unitType} disabled={isTransitioning} />}
+        </div>
         <figcaption>1920 × 1440 · 4:3 · DEVELOPMENT-ONLY: yapay Unit poligonları gerçek cephelerle eşleşmez. Temsili geliştirme görseli ve videosu; gerçek proje medyası değildir.</figcaption>
       </figure>
     </>

@@ -3,7 +3,8 @@ import { blocks } from '../data'
 
 export default function AppShell() {
   const blockRoute = useMatch('/block/:blockId')
-  const hasBlockHome = blocks.some((block) => block.id === blockRoute?.params.blockId)
+  const unitRoute = useMatch('/block/:blockId/unit/:unitId')
+  const hasBlockHome = blocks.some((block) => block.id === (blockRoute ?? unitRoute)?.params.blockId)
   return (
     <>
       <header className="app-header">
