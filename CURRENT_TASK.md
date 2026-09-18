@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-013 — Panorama Technology Spike**
+**IMP-014 — Panorama Adapter**
 
 Task specification:
 
-`tasks/IMP-013-PANORAMA-TECH-SPIKE.md`
+`tasks/IMP-014-PANORAMA-ADAPTER.md`
 
-Do not implement tasks beyond IMP-013.
+Do not implement tasks beyond IMP-014.
