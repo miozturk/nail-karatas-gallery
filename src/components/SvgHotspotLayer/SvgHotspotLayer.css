@@ -1,0 +1,40 @@
+.svg-hotspot-layer.svg-hotspot-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.svg-hotspot-layer__polygon {
+  pointer-events: all;
+  cursor: pointer;
+  fill: rgb(75 85 95 / 8%);
+  stroke: #657078;
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+.svg-hotspot-layer__polygon[data-hovered='true'] {
+  fill: rgb(75 85 95 / 30%);
+}
+
+.svg-hotspot-layer__polygon[aria-pressed='true'] {
+  fill: rgb(75 85 95 / 45%);
+  stroke: #202830;
+}
+
+.svg-hotspot-layer__polygon:focus-visible {
+  outline: none;
+  stroke: #101820;
+  stroke-width: 5px;
+  stroke-dasharray: 8 4;
+}
+
+.svg-hotspot-layer__polygon[aria-disabled='true'] {
+  pointer-events: none;
+  cursor: default;
+  fill: rgb(75 85 95 / 4%);
+  stroke: #92999f;
+  stroke-dasharray: 3 5;
+}

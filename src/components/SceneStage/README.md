@@ -20,7 +20,8 @@ medya verisinden gelmelidir.
 
 Home'daki `SceneStageProof` yalnızca `import.meta.env.DEV` koşulunda görünür.
 CSS ile oluşturulmuş nötr zemin ve (960, 720) merkez işareti geçici geliştirme
-kanıtıdır. Üretim medyası veya SVG poligon kullanılmaz.
+kanıtıdır. Üretim medyası kullanılmaz. IMP-005 ile interaction alanına sahte
+geliştirme poligonları eklenmiştir; API için `../SvgHotspotLayer/README.md` dosyasına bakın.
 
 Doğrulama: 1440 × 1000 viewport'ta sahne 768 × 576; 390 × 844 viewport'ta
 342 × 256,5 piksel. Her ikisinde merkez sapması (0, 0), oran 4:3; yatay
