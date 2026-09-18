@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-009 — Unit Hotspots**
+**IMP-010 — Unit Quick Card**
 
 Task specification:
 
-`tasks/IMP-009-UNIT-HOTSPOTS.md`
+`tasks/IMP-010-UNIT-QUICK-CARD.md`
 
-Do not implement tasks beyond IMP-009.
+Do not implement tasks beyond IMP-010.
