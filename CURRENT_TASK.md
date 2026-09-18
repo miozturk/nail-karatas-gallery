@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-007 — Transition Layer**
+**IMP-008 — Block Scenes and Home Return**
 
 Task specification:
 
-`tasks/IMP-007-TRANSITION-LAYER.md`
+`tasks/IMP-008-BLOCK-SCENES-AND-HOME-RETURN.md`
 
-Do not implement tasks beyond IMP-007.
+Do not implement tasks beyond IMP-008.
