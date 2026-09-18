@@ -19,3 +19,24 @@ main {
   margin: 0 auto;
   padding: 4rem 1.5rem;
 }
+
+.app-header {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #ccd1cc;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+a {
+  color: #244c80;
+}
+
+a[aria-current='page'] {
+  font-weight: 700;
+}
