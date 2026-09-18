@@ -16,11 +16,13 @@ export interface SvgHotspotLayerProps {
   activeId?: string | null
   onHover?: (id: string) => void
   onLeave?: (id: string) => void
+  onFocus?: (id: string) => void
+  onBlur?: (id: string) => void
   onActivate: (id: string) => void
 }
 
 export default function SvgHotspotLayer({
-  label, hotspots, hoveredId, activeId, onHover, onLeave, onActivate,
+  label, hotspots, hoveredId, activeId, onHover, onLeave, onFocus, onBlur, onActivate,
 }: SvgHotspotLayerProps) {
   const spacePressed = useRef<string | null>(null)
 
@@ -53,7 +55,11 @@ export default function SvgHotspotLayer({
             if (!disabled && spacePressed.current === id) onActivate(id)
             spacePressed.current = null
           }}
-          onBlur={() => { spacePressed.current = null }}
+          onFocus={() => { if (!disabled) onFocus?.(id) }}
+          onBlur={() => {
+            spacePressed.current = null
+            if (!disabled) onBlur?.(id)
+          }}
         />
       ))}
     </svg>
