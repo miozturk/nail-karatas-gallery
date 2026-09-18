@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-008 — Block Scenes and Home Return**
+**IMP-009 — Unit Hotspots**
 
 Task specification:
 
-`tasks/IMP-008-BLOCK-SCENES-AND-HOME-RETURN.md`
+`tasks/IMP-009-UNIT-HOTSPOTS.md`
 
-Do not implement tasks beyond IMP-008.
+Do not implement tasks beyond IMP-009.
