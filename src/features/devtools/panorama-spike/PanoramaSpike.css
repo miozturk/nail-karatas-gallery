@@ -8,3 +8,5 @@
   .panorama-spike-map { grid-template-columns: 1fr; }
   .panorama-spike h1 { font-size: 1.6rem; }
 }
+
+.panorama-spike > a { display: inline-flex; align-items: center; min-height: 44px; }

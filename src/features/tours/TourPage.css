@@ -31,3 +31,11 @@
   .unit-tour__map { width: 100%; }
   .unit-tour .unit-tour__viewer { height: 55dvh; min-height: 320px; }
 }
+
+.unit-tour__header a { display: inline-flex; align-items: center; min-height: 44px; box-sizing: border-box; }
+.unit-tour__map button { min-width: 44px; }
+/* Leave the whole panorama available for dragging on short landscape screens. */
+@media (max-width: 900px) and (max-height: 500px) {
+  .unit-tour__minimap { position: relative; bottom: auto; right: auto; max-width: 100%; margin-top: 0.75rem; }
+  .unit-tour .unit-tour__viewer { height: 70dvh; min-height: 240px; }
+}

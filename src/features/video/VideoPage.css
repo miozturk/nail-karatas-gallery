@@ -14,3 +14,5 @@
   outline: 3px solid #244c80;
   outline-offset: 4px;
 }
+
+.project-video > a { display: inline-flex; align-items: center; min-height: 44px; }

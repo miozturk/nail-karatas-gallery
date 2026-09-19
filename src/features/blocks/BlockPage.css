@@ -38,3 +38,8 @@
   outline: 3px solid #244c80;
   outline-offset: 3px;
 }
+
+.block-scene__status { min-height: 3em; }
+@media (max-width: 600px) {
+  .block-scene__status { min-height: 4.5em; }
+}

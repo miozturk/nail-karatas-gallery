@@ -17,3 +17,7 @@
 .hotspot-editor button { min-height: 44px; }
 .hotspot-editor li { margin-block: .4rem; overflow-wrap: anywhere; }
 .hotspot-editor :focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+
+.hotspot-editor input { min-height: 44px; }
+.hotspot-editor > a { display: inline-flex; align-items: center; min-height: 44px; }
+.hotspot-editor textarea { resize: vertical; }

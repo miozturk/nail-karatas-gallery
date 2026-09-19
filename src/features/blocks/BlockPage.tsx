@@ -63,7 +63,7 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
       <p>{block.category === 'commercial' ? 'Ticari' : 'Konut'} · Geliştirme sahnesi</p>
       <button className="block-scene__home" type="button" disabled={isTransitioning}
         onClick={activateHome}>Home — Ana görünüme dön</button>
-      <p role="status">{isTransitioning
+      <p className="block-scene__status" role="status">{isTransitioning
         ? 'Geliştirme geri dönüş videosu oynatılıyor — Home ve Unit etkileşimi kilitli.'
         : 'Geri dönüş hazır — Home açık.'}</p>
       <p>Geliştirme Unit vurgusu: {highlightedUnit ?? 'Yok'}</p>
