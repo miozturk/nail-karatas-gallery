@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-016 — Virtual Tour First-Use Help**
+**IMP-017 — Project Video**
 
 Task specification:
 
-`tasks/IMP-016-VIRTUAL-TOUR-FIRST-USE-HELP.md`
+`tasks/IMP-017-PROJECT-VIDEO.md`
 
-Do not implement tasks beyond IMP-016.
+Do not implement tasks beyond IMP-017.
