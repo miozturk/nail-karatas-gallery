@@ -1,0 +1,16 @@
+.project-video {
+  min-width: 0;
+}
+
+.project-video__player {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #151a17;
+}
+
+.project-video :focus-visible {
+  outline: 3px solid #244c80;
+  outline-offset: 4px;
+}
