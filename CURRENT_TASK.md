@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-014 — Panorama Adapter**
+**IMP-015 — Virtual Tour UI**
 
 Task specification:
 
-`tasks/IMP-014-PANORAMA-ADAPTER.md`
+`tasks/IMP-015-VIRTUAL-TOUR-UI.md`
 
-Do not implement tasks beyond IMP-014.
+Do not implement tasks beyond IMP-015.
