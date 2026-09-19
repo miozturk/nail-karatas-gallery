@@ -4,6 +4,7 @@ import './TransitionLayer.css'
 export interface TransitionLayerProps {
   src: string
   active: boolean
+  preloadRequested?: boolean
   onComplete: () => void
   onFailure: () => void
   label?: string
@@ -11,12 +12,54 @@ export interface TransitionLayerProps {
 }
 
 export default function TransitionLayer({
-  src, active, onComplete, onFailure,
+  src, active, preloadRequested = false, onComplete, onFailure,
   label = 'Geliştirme geçiş videosu', timeoutMs = 10000,
 }: TransitionLayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const callbacks = useRef({ onComplete, onFailure })
   useEffect(() => { callbacks.current = { onComplete, onFailure } }, [onComplete, onFailure])
+
+  // Intent-only warmup reuses the playback element and its buffered resource.
+  // Defer idle work so brief pointer passes and StrictMode do not start requests.
+  useEffect(() => {
+    const video = videoRef.current!
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let timer: number | undefined
+    const prepare = () => {
+      window.clearTimeout(timer)
+      if (!active && motion.matches) {
+        if (video.hasAttribute('src')) {
+          video.removeAttribute('src')
+          video.load()
+        }
+        return
+      }
+      if (!active && !preloadRequested) return
+      const load = () => {
+        if (video.getAttribute('src') !== src) {
+          video.src = src
+          video.load()
+        }
+      }
+      if (active) load()
+      else timer = window.setTimeout(load, 150)
+    }
+    prepare()
+    motion.addEventListener('change', prepare)
+    return () => {
+      window.clearTimeout(timer)
+      motion.removeEventListener('change', prepare)
+    }
+  }, [active, preloadRequested, src])
+
+  useEffect(() => {
+    const video = videoRef.current!
+    return () => {
+      video.pause()
+      video.removeAttribute('src')
+      video.load()
+    }
+  }, [])
 
   useEffect(() => {
     const video = videoRef.current
@@ -55,6 +98,7 @@ export default function TransitionLayer({
     }
   }, [active, src, timeoutMs])
 
-  return active ? <video ref={videoRef} className="transition-layer" src={src}
-    muted playsInline preload="auto" aria-label={label} /> : null
+  return <video ref={videoRef} className="transition-layer"
+    style={active ? undefined : { display: 'none' }}
+    muted playsInline preload="auto" aria-label={label} />
 }

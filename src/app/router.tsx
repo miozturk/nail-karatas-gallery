@@ -5,10 +5,11 @@ import MasterplanPage from '../features/masterplan/MasterplanPage'
 import BlockPage from '../features/blocks/BlockPage'
 import UnitPage from '../features/units/UnitPage'
 import UnitDetailsPage from '../features/units/UnitDetailsPage'
-import TourPage from '../features/tours/TourPage'
-import VideoPage from '../features/video/VideoPage'
 import AppShell from './AppShell'
 import NotFoundPage from './NotFoundPage'
+
+const TourPage = lazy(() => import('../features/tours/TourPage'))
+const VideoPage = lazy(() => import('../features/video/VideoPage'))
 
 const HotspotEditor = import.meta.env.DEV
   ? lazy(() => import('../features/devtools/hotspot-editor/HotspotEditor'))
@@ -47,10 +48,14 @@ export default function AppRouter() {
           <Route path="unit/:unitId" element={<UnitRoute />}>
             <Route index element={<UnitPage />} />
             <Route path="details" element={<UnitDetailsPage />} />
-            <Route path="tour" element={<TourPage />} />
+            <Route path="tour" element={
+              <Suspense fallback={<p role="status">Sanal tur sayfası yükleniyor…</p>}><TourPage /></Suspense>
+            } />
           </Route>
         </Route>
-        <Route path="video" element={<VideoPage />} />
+        <Route path="video" element={
+          <Suspense fallback={<p role="status">Video sayfası yükleniyor…</p>}><VideoPage /></Suspense>
+        } />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

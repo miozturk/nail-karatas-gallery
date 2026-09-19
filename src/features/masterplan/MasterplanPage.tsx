@@ -73,6 +73,7 @@ export default function MasterplanPage() {
             </text>)}
           </svg>
             <TransitionLayer src={developmentTransitionVideo} active={isTransitioning}
+              preloadRequested={highlightedId !== null}
               onComplete={resolveTransition} onFailure={resolveTransition} />
           </>}
         />

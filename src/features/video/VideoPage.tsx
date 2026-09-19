@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { developmentVideo } from './developmentMedia'
 import './VideoPage.css'
@@ -13,6 +13,17 @@ const statusMessages: Record<MediaStatus, string> = {
 
 export default function VideoPage() {
   const [status, setStatus] = useState<MediaStatus>('loading')
+  const player = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = player.current!
+    video.src = developmentVideo.src
+    return () => {
+      video.pause()
+      video.removeAttribute('src')
+      video.load()
+    }
+  }, [])
 
   return (
     <section className="project-video" aria-labelledby="project-video-heading">
@@ -23,7 +34,7 @@ export default function VideoPage() {
       </p>
       <video
         className="project-video__player"
-        src={developmentVideo.src}
+        ref={player}
         controls
         playsInline
         preload="metadata"

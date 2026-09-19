@@ -16,6 +16,7 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
   const navigate = useNavigate()
   const pending = useRef(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [homeIntent, setHomeIntent] = useState(false)
   const [hoveredUnit, setHoveredUnit] = useState<string | null>(null)
   const [focusedUnit, setFocusedUnit] = useState<string | null>(null)
   const block = blocks.find((item) => item.id === blockId)
@@ -62,6 +63,7 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
       <h1>{block.name} Blok</h1>
       <p>{block.category === 'commercial' ? 'Ticari' : 'Konut'} · Geliştirme sahnesi</p>
       <button className="block-scene__home" type="button" disabled={isTransitioning}
+        onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
         onClick={activateHome}>Home — Ana görünüme dön</button>
       <p className="block-scene__status" role="status">{isTransitioning
         ? 'Geliştirme geri dönüş videosu oynatılıyor — Home ve Unit etkileşimi kilitli.'
@@ -80,6 +82,7 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
                 onFocus={setFocusedUnit} onBlur={() => setFocusedUnit(null)}
                 onActivate={activateUnit} />}
             overlay={<TransitionLayer src={developmentReverseVideo} active={isTransitioning}
+              preloadRequested={homeIntent}
               label="Geliştirme geri dönüş videosu"
               onComplete={returnHome} onFailure={returnHome} />}
           />
