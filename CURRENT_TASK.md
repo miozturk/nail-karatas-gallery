@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-018 — Responsive / Mobile Pass**
+**IMP-019 — Media Loading / Performance**
 
 Task specification:
 
-`tasks/IMP-018-RESPONSIVE-MOBILE-PASS.md`
+`tasks/IMP-019-MEDIA-LOADING-PERFORMANCE.md`
 
-Do not implement tasks beyond IMP-018.
+Do not implement tasks beyond IMP-019.
