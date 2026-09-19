@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-015 — Virtual Tour UI**
+**IMP-016 — Virtual Tour First-Use Help**
 
 Task specification:
 
-`tasks/IMP-015-VIRTUAL-TOUR-UI.md`
+`tasks/IMP-016-VIRTUAL-TOUR-FIRST-USE-HELP.md`
 
-Do not implement tasks beyond IMP-015.
+Do not implement tasks beyond IMP-016.
