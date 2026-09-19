@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-020 — Staging Build Readiness**
+**IMP-021 — TR / EN / RU Localization Foundation**
 
 Task specification:
 
-`tasks/IMP-020-STAGING-BUILD-READINESS.md`
+`tasks/IMP-021-LOCALIZATION-TR-EN-RU.md`
 
-Do not implement tasks beyond IMP-020.
+Do not implement tasks beyond IMP-021.
