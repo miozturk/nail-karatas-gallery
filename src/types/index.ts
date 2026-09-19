@@ -43,3 +43,26 @@ export interface Unit {
   hotspot?: Polygon
   demoEnabled: boolean
 }
+
+export interface TourHotspot {
+  targetSceneId: string
+  label: string
+  pitch: number
+  yaw: number
+}
+
+export interface PanoramaScene {
+  id: string
+  name: string
+  panoramaImage: string
+  minimap?: { x: number; y: number }
+  initialView?: { yaw: number; pitch: number; hfov: number }
+  hotspots: TourHotspot[]
+}
+
+export interface Tour {
+  id: string
+  unitTypeId: string
+  floorPlanImage?: string
+  scenes: PanoramaScene[]
+}

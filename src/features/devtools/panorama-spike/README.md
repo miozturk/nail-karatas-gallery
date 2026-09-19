@@ -1,5 +1,36 @@
 # IMP-013 — Panorama Technology Spike
 
+## IMP-014 güncellemesi
+
+Spike artık `PanoramaAdapter` üzerinden çalışır. Paket/CSS import'ları,
+motor config dönüşümü ve TypeScript motor bildirimi `src/panorama/` altına
+taşındı. `scenes.ts` domain sahnelerini ve `initialSceneId` değerini sağlar.
+UI yalnızca mount/loadTour/goToScene/getActiveScene/onSceneChange/onError/destroy
+kullanır. Aşağıdaki IMP-013 bölümleri önceki spike'ın tarihsel kaydıdır;
+güncel lifecycle/error sözleşmesi için `src/panorama/README.md` esas alınır.
+
+IMP-014 kontrolü: Living Room → Hall → Bedroom → Hall → Living Room hotspot
+zinciri, harici oda menüsü, minimap ve React aktif sahne eşleşmesi başarılı.
+Sürükleme/zoom çalıştı. Üç unmount/remount döngüsünde canvas 0 → 1 kaldı;
+konsolda yeni runtime hatası yoktu. 4175 production preview'da spike route'u
+NotFound ve 0 canvas verdi. Sözleşme testleri `node scripts/test-panorama-adapter.mjs`
+ile ayrıca çalıştırılır. Üretim Virtual Tour arayüzü bağlanmadı; IMP-015 başlamadı.
+
+Regresyon tarayıcı kontrolü: Home → A ileri video/kilit → A-003 hotspot →
+Quick Card → Details → Home ters video/kilit → Home başarılı. B/C sahneleri,
+Tour/Video yer tutucuları ve Hotspot Editor açıldı. Geçersiz blok,
+yanlış block/unit eşleşmesi ve /availability NotFound verdi. Konsolda hata yok.
+
+`npm run validate:data`, `npm run build`, `npm run lint`,
+`node scripts/test-panorama-adapter.mjs`, `git diff --check`: PASS.
+Build ilk sandbox denemesinde esbuild spawn EPERM verdi; izinli tekrar geçti.
+`rg` kaynak sınırı kontrolünde motor import/API kullanımı yalnızca
+`src/panorama/` altında; feature'daki somut adapter import/new yalnızca
+composition sınırında. `npm ls pannellum --depth=0`: 2.5.7.
+Dev sunucu 5174, preview 4175 portunda doğrulandı.
+
+## IMP-013 tarihsel sonuç
+
 SPIKE RESULT: PASS
 
 2026-09-18: Pannellum **2.5.7** (`pannellum`, MIT) mevcut motor adayı olarak

@@ -1,33 +1,39 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import 'pannellum'
-import 'pannellum/build/pannellum.css'
-import { configuration, scenes } from './scenes'
+import type { PanoramaAdapter } from '../../../panorama/PanoramaAdapter'
+import { PannellumAdapter } from '../../../panorama/PannellumAdapter'
+import { tour, scenes } from './scenes'
 import './PanoramaSpike.css'
 
 function ViewerProof() {
   const container = useRef<HTMLDivElement>(null)
-  const viewer = useRef<SpikeViewer | null>(null)
+  const viewer = useRef<PanoramaAdapter | null>(null)
   const [active, setActive] = useState('living-room')
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const instance = window.pannellum.viewer(container.current!, configuration)
+    const instance: PanoramaAdapter = new PannellumAdapter()
     viewer.current = instance
     const sceneChanged = (id: string) => { setActive(id); setError('') }
     const failed = (message: string) => setError(message)
-    instance.on('scenechange', sceneChanged)
-    instance.on('error', failed)
+    const unsubscribe = instance.onSceneChange(sceneChanged)
+    const unsubscribeError = instance.onError(failed)
+    instance.mount(container.current!)
+    try {
+      instance.loadTour(tour)
+    } catch (cause) {
+      failed(cause instanceof Error ? cause.message : String(cause))
+    }
     return () => {
-      instance.off('scenechange', sceneChanged)
-      instance.off('error', failed)
+      unsubscribe()
+      unsubscribeError()
       instance.destroy()
       viewer.current = null
     }
   }, [])
 
   function navigate(id: string) {
-    if (viewer.current?.getScene() !== id) viewer.current?.loadScene(id)
+    if (viewer.current?.getActiveScene() !== id) viewer.current?.goToScene(id)
   }
 
   return <>
