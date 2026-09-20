@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-021 — TR / EN / RU Localization Foundation**
+**IMP-022 — Visual Design Foundation & Exterior Polish**
 
 Task specification:
 
-`tasks/IMP-021-LOCALIZATION-TR-EN-RU.md`
+`tasks/IMP-022-VISUAL-DESIGN-FOUNDATION-EXTERIOR.md`
 
-Do not implement tasks beyond IMP-021.
+Do not implement tasks beyond IMP-022.
