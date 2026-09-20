@@ -15,10 +15,12 @@ export default function AppShell() {
   const unitRoute = useMatch('/block/:blockId/unit/:unitId')
   const detailsRoute = useMatch('/block/:blockId/unit/:unitId/details')
   const tourRoute = useMatch('/block/:blockId/unit/:unitId/tour')
+  const videoRoute = useMatch('/video')
   const hasBlockHome = blocks.some((block) => block.id === (blockRoute ?? unitRoute ?? detailsRoute ?? tourRoute)?.params.blockId)
   const mainClassName = tourRoute
     ? 'app-main--tour'
-    : homeRoute || hasBlockHome ? 'app-main--exterior' : undefined
+    : homeRoute || hasBlockHome ? 'app-main--exterior'
+      : videoRoute ? 'app-main--video' : undefined
   return (
     <>
       <header className="app-header">

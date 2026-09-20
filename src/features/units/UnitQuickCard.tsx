@@ -17,7 +17,8 @@ export default function UnitQuickCard({ unit, unitType, disabled }: UnitQuickCar
     <section className="unit-quick-card" aria-labelledby="unit-quick-card-title" inert={disabled}>
       <header>
         <h2 id="unit-quick-card-title">{t('unit.quickTitle', { unit: unit.id })}</h2>
-        <Link to={`/block/${unit.blockId}`} aria-label={t('unit.closeAria')}>{t('unit.close')}</Link>
+        <Link className="ui-action ui-action--quiet" to={`/block/${unit.blockId}`}
+          aria-label={t('unit.closeAria')}>{t('unit.close')}</Link>
       </header>
       <div className="unit-quick-card__plan">
         <strong>{t('unit.planPreview')}</strong>
@@ -32,8 +33,8 @@ export default function UnitQuickCard({ unit, unitType, disabled }: UnitQuickCar
         {unitType.netArea !== undefined && <div><dt>{t('unit.netArea')}</dt><dd>{formatArea(unitType.netArea, locale)}</dd></div>}
       </dl>
       <nav aria-label={t('unit.actionsLabel', { unit: unit.id })}>
-        <Link to={`${route}/tour`}>{t('unit.virtualTour')}</Link>
-        <Link to={`${route}/details`}>{t('unit.details')}</Link>
+        <Link className="ui-action ui-action--primary" to={`${route}/tour`}>{t('unit.virtualTour')}</Link>
+        <Link className="ui-action ui-action--secondary" to={`${route}/details`}>{t('unit.details')}</Link>
       </nav>
     </section>
   )

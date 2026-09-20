@@ -37,6 +37,6 @@ export default function TourHelp({ returnFocus }: {
       <li>{t('help.collapse')}</li>
       <li>{t('help.returnPrefix')} <strong>{t('tour.returnUnit')}</strong> {t('help.returnSuffix')}</li>
     </ul>
-    <button type="button" onClick={dismiss}>{t('help.explore')}</button>
+    <button className="ui-action ui-action--primary" type="button" onClick={dismiss}>{t('help.explore')}</button>
   </dialog>
 }

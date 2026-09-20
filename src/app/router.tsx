@@ -51,12 +51,12 @@ export default function AppRouter() {
             <Route index element={<UnitPage />} />
             <Route path="details" element={<UnitDetailsPage />} />
             <Route path="tour" element={
-              <Suspense fallback={<p role="status">{t('loading.tour')}</p>}><TourPage /></Suspense>
+              <Suspense fallback={<p className="route-loading" role="status">{t('loading.tour')}</p>}><TourPage /></Suspense>
             } />
           </Route>
         </Route>
         <Route path="video" element={
-          <Suspense fallback={<p role="status">{t('loading.video')}</p>}><VideoPage /></Suspense>
+          <Suspense fallback={<p className="route-loading" role="status">{t('loading.video')}</p>}><VideoPage /></Suspense>
         } />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

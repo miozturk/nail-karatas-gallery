@@ -66,12 +66,13 @@ export default function VirtualTour({ tour }: { tour: PanoramaTourDefinition }) 
         disabled={!active || !!error} aria-pressed={active === scene.id}
         onClick={() => navigate(scene.id)}>{scene.name}</button>)}
     </nav>
-    <p role="status">{activeRoom ? t('tour.activeRoom', { room: activeRoom.name })
+    <p className="ui-status unit-tour__status" role="status">{activeRoom ? t('tour.activeRoom', { room: activeRoom.name })
       : !error ? t('tour.starting') : t('tour.unavailableStatus')}</p>
-    {error && <p role="alert">{error}</p>}
+    {error && <p className="unit-tour__error" role="alert">{error}</p>}
     <div className="unit-tour__stage">
       <div ref={host} className="unit-tour__viewer" role="region" aria-label={t('tour.viewerLabel')} />
-      <section className="unit-tour__minimap" aria-label={t('tour.minimapLabel')}>
+      <section className={`unit-tour__minimap${collapsed ? ' unit-tour__minimap--collapsed' : ''}`}
+        aria-label={t('tour.minimapLabel')}>
         <button type="button" aria-expanded={!collapsed} aria-controls="tour-minimap"
           onClick={() => setCollapsed((value) => !value)}>
           {collapsed ? t('tour.minimapOpen') : t('tour.minimapCollapse')}

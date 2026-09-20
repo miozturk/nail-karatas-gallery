@@ -24,14 +24,15 @@ export default function TourPage() {
     <section className="unit-tour" aria-labelledby="unit-tour-title">
       <header className="unit-tour__header">
         <h1 id="unit-tour-title">{t('tour.title', { unit: unit.id })}</h1>
-        <Link ref={returnLink} to={`/block/${block.id}/unit/${unit.id}`}>{t('tour.returnUnit')}</Link>
+        <Link className="ui-action ui-action--secondary" ref={returnLink}
+          to={`/block/${block.id}/unit/${unit.id}`}>{t('tour.returnUnit')}</Link>
       </header>
-      <p>{block.name} · {formatUnitTypeName(unitType.name, unitType.rooms, t)} · {formatFloor(unit.floor, t)}</p>
+      <p className="unit-tour__context">{block.name} · {formatUnitTypeName(unitType.name, unitType.rooms, t)} · {formatFloor(unit.floor, t)}</p>
       {localizedTour ? <>
-        <p className="unit-tour__notice">{t('tour.notice')}</p>
+        <p className="ui-notice unit-tour__notice">{t('tour.notice')}</p>
         <VirtualTour key={unit.id} tour={localizedTour} />
         <TourHelp key={`help-${unit.id}`} returnFocus={returnLink} />
-      </> : <p role="status">{t('tour.unavailable')}</p>}
+      </> : <p className="unit-tour__unavailable" role="status">{t('tour.unavailable')}</p>}
     </section>
   )
 }

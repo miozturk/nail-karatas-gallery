@@ -20,7 +20,7 @@ export default function UnitDetailsDrawer({ unit, unitType, disabled }: UnitDeta
     <section className="unit-details-drawer" aria-labelledby="unit-details-title" inert={disabled}>
       <header>
         <h2 id="unit-details-title">{t('details.title', { unit: unit.id })}</h2>
-        <Link to={`/block/${unit.blockId}`}>{t('details.backBlock')}</Link>
+        <Link className="ui-action ui-action--quiet" to={`/block/${unit.blockId}`}>{t('details.backBlock')}</Link>
       </header>
       <dl>
         <div><dt>{t('details.unitId')}</dt><dd>{unit.id}</dd></div>
@@ -44,8 +44,8 @@ export default function UnitDetailsDrawer({ unit, unitType, disabled }: UnitDeta
         </section>
       </div>
       <nav aria-label={t('details.actionsLabel', { unit: unit.id })}>
-        <Link to={route}>{t('details.backQuickCard')}</Link>
-        <Link to={`${route}/tour`}>{t('unit.virtualTour')}</Link>
+        <Link className="ui-action ui-action--secondary" to={route}>{t('details.backQuickCard')}</Link>
+        <Link className="ui-action ui-action--primary" to={`${route}/tour`}>{t('unit.virtualTour')}</Link>
       </nav>
     </section>
   )
