@@ -28,6 +28,40 @@ main {
   border-bottom: 1px solid #ccd1cc;
 }
 
+.app-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.app-header__top > p { margin: 0; }
+
+.language-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.language-selector button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #708278;
+  border-radius: 4px;
+  background: #fff;
+  color: #243029;
+  cursor: pointer;
+}
+
+.language-selector button[aria-pressed='true'] {
+  border-color: #244c80;
+  background: #244c80;
+  color: #fff;
+  font-weight: 700;
+}
+
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -60,5 +94,6 @@ a:focus-visible, button:focus-visible {
 @media (max-width: 600px) {
   main { padding: 1.5rem 1rem; }
   .app-header { padding: 0.75rem 1rem; }
+  .app-header__top { align-items: flex-start; }
   h1 { font-size: 1.6rem; }
 }

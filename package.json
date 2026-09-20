@@ -13,6 +13,7 @@
     "staging:serve": "node scripts/staging-server.mjs",
     "staging:verify": "node scripts/verify-staging.mjs",
     "lint": "eslint .",
+    "test:localization": "node scripts/test-localization.mjs",
     "validate:data": "node scripts/validate-data.mjs",
     "preview": "vite preview"
   },

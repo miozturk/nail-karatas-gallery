@@ -21,7 +21,7 @@
 .unit-tour__stage { position: relative; }
 .unit-tour .unit-tour__viewer { width: 100%; height: clamp(360px, 65dvh, 900px); background: #d7ded9; }
 .unit-tour__minimap { position: absolute; bottom: 1rem; right: 1rem; z-index: 2; max-width: calc(100% - 2rem); padding: 0.5rem; background: #f5f6f3f5; border: 1px solid #708278; border-radius: 4px; box-sizing: border-box; }
-.unit-tour__minimap p { font-size: 0.75rem; margin: 0.5rem 0; }
+.unit-tour__minimap p { font-size: 0.75rem; margin: 0.5rem 0; white-space: pre-line; }
 .unit-tour__map { position: relative; width: 290px; max-width: 100%; height: 150px; background: #e1e5e3; }
 .unit-tour__map svg { width: 100%; height: 100%; }
 .unit-tour__map button { position: absolute; transform: translate(-50%, -50%); font-size: 0.75rem; padding: 0.4rem; white-space: nowrap; }

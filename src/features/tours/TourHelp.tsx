@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import { dismissTourHelp, isTourHelpDismissed } from './tourHelpStorage'
+import { useI18n } from '../../i18n/useI18n'
 
 export default function TourHelp({ returnFocus }: {
   returnFocus: RefObject<HTMLAnchorElement | null>
 }) {
+  const { t } = useI18n()
   const dialog = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState(() => !isTourHelpDismissed())
 
@@ -25,16 +27,16 @@ export default function TourHelp({ returnFocus }: {
   if (!open) return null
   return <dialog ref={dialog} className="tour-help" aria-labelledby="tour-help-title"
     aria-describedby="tour-help-intro" onCancel={(event) => { event.preventDefault(); dismiss() }}>
-    <h2 id="tour-help-title">Sanal tur nasıl kullanılır?</h2>
-    <p id="tour-help-intro">Odaları keşfetmek için:</p>
+    <h2 id="tour-help-title">{t('help.title')}</h2>
+    <p id="tour-help-intro">{t('help.intro')}</p>
     <ul>
-      <li>Etrafınıza bakmak için panoramayı sürükleyin.</li>
-      <li>Odalar arasında geçmek için panorama içindeki geçiş noktalarını seçin.</li>
-      <li>Oda menüsünden doğrudan başka bir odaya geçin.</li>
-      <li>Minimap üzerindeki bakış noktası düğmeleriyle konum değiştirin.</li>
-      <li>Minimap’i daraltabilir ve yeniden açabilirsiniz.</li>
-      <li><strong>Daireye Dön</strong> ile seçili daireye dönün.</li>
+      <li>{t('help.drag')}</li>
+      <li>{t('help.hotspots')}</li>
+      <li>{t('help.roomMenu')}</li>
+      <li>{t('help.minimap')}</li>
+      <li>{t('help.collapse')}</li>
+      <li>{t('help.returnPrefix')} <strong>{t('tour.returnUnit')}</strong> {t('help.returnSuffix')}</li>
     </ul>
-    <button type="button" onClick={dismiss}>Turu Keşfet</button>
+    <button type="button" onClick={dismiss}>{t('help.explore')}</button>
   </dialog>
 }

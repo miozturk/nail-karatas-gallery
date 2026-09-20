@@ -5,29 +5,33 @@ import NotFoundPage from '../../app/NotFoundPage'
 import { getDevelopmentTour } from './developmentTours'
 import VirtualTour from './VirtualTour'
 import TourHelp from './TourHelp'
+import { formatFloor, formatUnitTypeName, localizeTour } from '../../i18n/formatters'
+import { useI18n } from '../../i18n/useI18n'
 import './TourPage.css'
 
 export default function TourPage() {
+  const { t } = useI18n()
   const returnLink = useRef<HTMLAnchorElement>(null)
   const { blockId, unitId } = useParams()
   const block = blocks.find((item) => item.id === blockId)
   const unit = units.find((item) => item.id === unitId && item.blockId === blockId)
   const unitType = unitTypes.find((item) => item.id === unit?.unitTypeId)
+  const tour = unitType ? getDevelopmentTour(unitType.id) : undefined
+  const localizedTour = tour ? localizeTour(tour, t) : undefined
   if (!block || !unit || !unitType) return <NotFoundPage />
-  const tour = getDevelopmentTour(unitType.id)
 
   return (
     <section className="unit-tour" aria-labelledby="unit-tour-title">
       <header className="unit-tour__header">
-        <h1 id="unit-tour-title">Sanal Tur · {unit.id}</h1>
-        <Link ref={returnLink} to={`/block/${block.id}/unit/${unit.id}`}>Daireye Dön</Link>
+        <h1 id="unit-tour-title">{t('tour.title', { unit: unit.id })}</h1>
+        <Link ref={returnLink} to={`/block/${block.id}/unit/${unit.id}`}>{t('tour.returnUnit')}</Link>
       </header>
-      <p>{block.name} · {unitType.name} · {unit.floor}</p>
-      {tour ? <>
-        <p className="unit-tour__notice">DEVELOPMENT-ONLY · Sentetik test görselleri; gerçek proje iç mekânları değildir.</p>
-        <VirtualTour key={unit.id} tour={tour} />
+      <p>{block.name} · {formatUnitTypeName(unitType.name, unitType.rooms, t)} · {formatFloor(unit.floor, t)}</p>
+      {localizedTour ? <>
+        <p className="unit-tour__notice">{t('tour.notice')}</p>
+        <VirtualTour key={unit.id} tour={localizedTour} />
         <TourHelp key={`help-${unit.id}`} returnFocus={returnLink} />
-      </> : <p role="status">Sanal tur henüz mevcut değil</p>}
+      </> : <p role="status">{t('tour.unavailable')}</p>}
     </section>
   )
 }

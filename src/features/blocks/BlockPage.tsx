@@ -9,9 +9,12 @@ import { developmentReverseVideo } from './developmentMedia'
 import { developmentUnitPolygons } from './developmentUnitPolygons'
 import UnitQuickCard from '../units/UnitQuickCard'
 import UnitDetailsDrawer from '../units/UnitDetailsDrawer'
+import { formatCategory, formatFloor } from '../../i18n/formatters'
+import { useI18n } from '../../i18n/useI18n'
 import './BlockPage.css'
 
 export default function BlockPage({ showDetails = false }: { showDetails?: boolean }) {
+  const { t } = useI18n()
   const { blockId, unitId } = useParams()
   const navigate = useNavigate()
   const pending = useRef(false)
@@ -27,7 +30,9 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
   const hotspots = units.flatMap((unit) => {
     const points = developmentUnitPolygons[unit.id]
     return unit.blockId === blockId && unit.demoEnabled === true && points
-      ? [{ id: unit.id, points, label: `Bağımsız bölüm ${unit.id}, kat ${unit.floor}`,
+      ? [{ id: unit.id, points, label: t('block.hotspotLabel', {
+          unit: unit.id, floor: formatFloor(unit.floor, t),
+        }),
           disabled: isTransitioning }]
       : []
   })
@@ -60,37 +65,37 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
 
   return (
     <>
-      <h1>{block.name} Blok</h1>
-      <p>{block.category === 'commercial' ? 'Ticari' : 'Konut'} · Geliştirme sahnesi</p>
+      <h1>{t('block.title', { block: block.name })}</h1>
+      <p>{formatCategory(block.category, t)} · {t('block.developmentScene')}</p>
       <button className="block-scene__home" type="button" disabled={isTransitioning}
         onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
-        onClick={activateHome}>Home — Ana görünüme dön</button>
+        onClick={activateHome}>{t('block.home')}</button>
       <p className="block-scene__status" role="status">{isTransitioning
-        ? 'Geliştirme geri dönüş videosu oynatılıyor — Home ve Unit etkileşimi kilitli.'
-        : 'Geri dönüş hazır — Home açık.'}</p>
-      <p>Geliştirme Unit vurgusu: {highlightedUnit ?? 'Yok'}</p>
+        ? t('block.statusPlaying')
+        : t('block.statusReady')}</p>
+      <p>{t('block.highlight', { unit: highlightedUnit ?? t('block.none') })}</p>
       <figure className="block-scene">
         <div className="block-scene__composition">
-          <SceneStage label={`${block.name} Blok geliştirme sahnesi: 1920 × 1440`}
+          <SceneStage label={t('block.stageLabel', { block: block.name })}
             base={<div className="block-scene__background">
               <strong>{block.name}</strong>
-              <span>GELİŞTİRME SAHNESİ</span>
+              <span>{t('block.backgroundLabel')}</span>
             </div>}
-            interaction={<SvgHotspotLayer label={`${block.name} Blok geliştirme Unit hedefleri`}
+            interaction={<SvgHotspotLayer label={t('block.hotspotGroupLabel', { block: block.name })}
                 hotspots={hotspots} hoveredId={highlightedUnit} activeId={unit?.id}
                 onHover={setHoveredUnit} onLeave={() => setHoveredUnit(null)}
                 onFocus={setFocusedUnit} onBlur={() => setFocusedUnit(null)}
                 onActivate={activateUnit} />}
             overlay={<TransitionLayer src={developmentReverseVideo} active={isTransitioning}
               preloadRequested={homeIntent}
-              label="Geliştirme geri dönüş videosu"
+              label={t('block.transitionLabel')}
               onComplete={returnHome} onFailure={returnHome} />}
           />
           {unit && unitType && (showDetails
             ? <UnitDetailsDrawer unit={unit} unitType={unitType} disabled={isTransitioning} />
             : <UnitQuickCard unit={unit} unitType={unitType} disabled={isTransitioning} />)}
         </div>
-        <figcaption>1920 × 1440 · 4:3 · DEVELOPMENT-ONLY: yapay Unit poligonları gerçek cephelerle eşleşmez. Temsili geliştirme görseli ve videosu; gerçek proje medyası değildir.</figcaption>
+        <figcaption>{t('block.caption')}</figcaption>
       </figure>
     </>
   )

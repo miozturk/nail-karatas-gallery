@@ -6,23 +6,24 @@ import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
 import TransitionLayer from '../../components/TransitionLayer/TransitionLayer'
 import { developmentTransitionVideo } from './developmentMedia'
 import { developmentBlockPolygons } from './developmentHotspots'
+import { useI18n } from '../../i18n/useI18n'
 import './MasterplanPage.css'
-
-const hotspots = blocks.map((block) => ({
-  id: block.id,
-  label: `${block.name} Blok — geliştirme bölgesi`,
-  points: developmentBlockPolygons[block.id],
-}))
 
 type Source = 'polygon-pointer' | 'polygon-focus' | 'control-pointer' | 'control-focus'
 
 export default function MasterplanPage() {
+  const { t } = useI18n()
   const navigate = useNavigate()
   const destination = useRef<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
   // Most recently entered source owns the highlight; leaving restores any owner below it.
   const [interactions, setInteractions] = useState<{ source: Source; id: string }[]>([])
   const highlightedId = interactions.at(-1)?.id ?? null
+  const hotspots = blocks.map((block) => ({
+    id: block.id,
+    label: t('masterplan.hotspotLabel', { block: block.name }),
+    points: developmentBlockPolygons[block.id],
+  }))
   const enter = (source: Source, id: string) => setInteractions((current) => [
     ...current.filter((item) => item.source !== source), { source, id },
   ])
@@ -49,14 +50,14 @@ export default function MasterplanPage() {
 
   return (
     <>
-      <h1>Home / Masterplan</h1>
-      <p>Geliştirme sahnesi: A, B ve C bloklarını işaretleyin veya klavye ile seçin.</p>
+      <h1>{t('masterplan.title')}</h1>
+      <p>{t('masterplan.intro')}</p>
       <figure className="masterplan">
         <SceneStage
-          label="Masterplan geliştirme sahnesi: 1920 × 1440"
+          label={t('masterplan.stageLabel')}
           base={<div className="masterplan__background" />}
           interaction={<SvgHotspotLayer
-            label="Geliştirme blok bölgeleri"
+            label={t('masterplan.hotspotGroupLabel')}
             hotspots={hotspots.map((hotspot) => ({ ...hotspot, disabled: isTransitioning }))}
             hoveredId={highlightedId}
             onHover={(id) => enter('polygon-pointer', id)}
@@ -74,15 +75,16 @@ export default function MasterplanPage() {
           </svg>
             <TransitionLayer src={developmentTransitionVideo} active={isTransitioning}
               preloadRequested={highlightedId !== null}
+              label={t('masterplan.transitionLabel')}
               onComplete={resolveTransition} onFailure={resolveTransition} />
           </>}
         />
-        <figcaption>Yalnızca geliştirme: 4:3 alanındaki temsili dikdörtgenler gerçek bina sınırları değildir.</figcaption>
+        <figcaption>{t('masterplan.caption')}</figcaption>
       </figure>
       <p className="masterplan__status" role="status">{isTransitioning
-        ? 'Geliştirme videosu oynatılıyor — blok seçimi kilitli.'
-        : 'Geliştirme geçişi hazır — blok seçimi açık.'}</p>
-      <div className="masterplan__controls" role="group" aria-label="Blok seçimi">
+        ? t('masterplan.statusPlaying')
+        : t('masterplan.statusReady')}</p>
+      <div className="masterplan__controls" role="group" aria-label={t('masterplan.controlsLabel')}>
         {blocks.map((block) => (
           <button key={block.id} type="button"
             disabled={isTransitioning}
@@ -91,7 +93,7 @@ export default function MasterplanPage() {
             onPointerLeave={() => leave('control-pointer', block.id)}
             onFocus={() => enter('control-focus', block.id)}
             onBlur={() => leave('control-focus', block.id)}
-            onClick={() => activate(block.id)}>{block.name} Blok</button>
+            onClick={() => activate(block.id)}>{t('masterplan.blockButton', { block: block.name })}</button>
         ))}
       </div>
     </>

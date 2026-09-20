@@ -5,6 +5,7 @@ import MasterplanPage from '../features/masterplan/MasterplanPage'
 import BlockPage from '../features/blocks/BlockPage'
 import UnitPage from '../features/units/UnitPage'
 import UnitDetailsPage from '../features/units/UnitDetailsPage'
+import { useI18n } from '../i18n/useI18n'
 import AppShell from './AppShell'
 import NotFoundPage from './NotFoundPage'
 
@@ -33,6 +34,7 @@ function UnitRoute() {
 }
 
 export default function AppRouter() {
+  const { t } = useI18n()
   return (
     <Routes>
       {PanoramaSpike && <Route path="/__dev/panorama-spike" element={
@@ -49,12 +51,12 @@ export default function AppRouter() {
             <Route index element={<UnitPage />} />
             <Route path="details" element={<UnitDetailsPage />} />
             <Route path="tour" element={
-              <Suspense fallback={<p role="status">Sanal tur sayfası yükleniyor…</p>}><TourPage /></Suspense>
+              <Suspense fallback={<p role="status">{t('loading.tour')}</p>}><TourPage /></Suspense>
             } />
           </Route>
         </Route>
         <Route path="video" element={
-          <Suspense fallback={<p role="status">Video sayfası yükleniyor…</p>}><VideoPage /></Suspense>
+          <Suspense fallback={<p role="status">{t('loading.video')}</p>}><VideoPage /></Suspense>
         } />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

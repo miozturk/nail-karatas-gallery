@@ -1,17 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { developmentVideo } from './developmentMedia'
+import { useI18n } from '../../i18n/useI18n'
 import './VideoPage.css'
 
 type MediaStatus = 'loading' | 'ready' | 'error'
 
-const statusMessages: Record<MediaStatus, string> = {
-  loading: 'Video yükleniyor… Oynatmak için yerel video kontrollerini kullanın.',
-  ready: 'Video oynatılmaya hazır.',
-  error: 'Video yüklenemedi veya oynatılamadı. Ana sayfaya dönebilirsiniz.',
-}
-
 export default function VideoPage() {
+  const { t } = useI18n()
   const [status, setStatus] = useState<MediaStatus>('loading')
   const player = useRef<HTMLVideoElement>(null)
 
@@ -27,10 +23,9 @@ export default function VideoPage() {
 
   return (
     <section className="project-video" aria-labelledby="project-video-heading">
-      <h1 id="project-video-heading">Proje Videosu</h1>
+      <h1 id="project-video-heading">{t('video.title')}</h1>
       <p id="project-video-description">
-        DEVELOPMENT-ONLY · Bu sessiz klip yalnızca oynatma deneyimini doğrulamak
-        içindir; Nail Karataş projesinin tanıtım filmi değildir.
+        {t('video.description')}
       </p>
       <video
         className="project-video__player"
@@ -38,7 +33,7 @@ export default function VideoPage() {
         controls
         playsInline
         preload="metadata"
-        aria-label="Geliştirme amaçlı sessiz video"
+        aria-label={t('video.label')}
         aria-describedby="project-video-description project-video-status"
         onLoadStart={() => setStatus('loading')}
         onCanPlay={() => setStatus('ready')}
@@ -46,12 +41,13 @@ export default function VideoPage() {
         onPlaying={() => setStatus('ready')}
         onError={() => setStatus('error')}
       >
-        Tarayıcınız HTML5 video oynatmayı desteklemiyor.
+        {t('video.fallback')}
       </video>
       <p id="project-video-status" role="status" aria-live="polite" aria-atomic="true">
-        {statusMessages[status]}
+        {status === 'loading' ? t('video.statusLoading')
+          : status === 'ready' ? t('video.statusReady') : t('video.statusError')}
       </p>
-      <Link to="/">Ana sayfaya dön</Link>
+      <Link to="/">{t('video.home')}</Link>
     </section>
   )
 }

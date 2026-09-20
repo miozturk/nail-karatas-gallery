@@ -1,7 +1,15 @@
 import { NavLink, Outlet, useMatch } from 'react-router-dom'
 import { blocks } from '../data'
+import { useI18n } from '../i18n/useI18n'
+
+const localeOptions = [
+  { locale: 'tr', label: 'locale.tr' },
+  { locale: 'en', label: 'locale.en' },
+  { locale: 'ru', label: 'locale.ru' },
+] as const
 
 export default function AppShell() {
+  const { locale, setLocale, t } = useI18n()
   const blockRoute = useMatch('/block/:blockId')
   const unitRoute = useMatch('/block/:blockId/unit/:unitId')
   const detailsRoute = useMatch('/block/:blockId/unit/:unitId/details')
@@ -10,11 +18,18 @@ export default function AppShell() {
   return (
     <>
       <header className="app-header">
-        <p>Nail Karataş Gallery</p>
-        <nav aria-label="Global navigation">
+        <div className="app-header__top">
+          <p>{t('app.brand')}</p>
+          <div className="language-selector" role="group" aria-label={t('locale.selectorLabel')}>
+            {localeOptions.map((option) => <button key={option.locale} type="button"
+              aria-label={t(option.label)} aria-pressed={locale === option.locale}
+              onClick={() => setLocale(option.locale)}>{option.locale.toUpperCase()}</button>)}
+          </div>
+        </div>
+        <nav aria-label={t('nav.globalLabel')}>
           {/* The block's contextual Home owns reverse playback. */}
-          {!hasBlockHome && <NavLink to="/" end>Home</NavLink>}
-          <NavLink to="/video">Video</NavLink>
+          {!hasBlockHome && <NavLink to="/" end>{t('nav.home')}</NavLink>}
+          <NavLink to="/video">{t('nav.video')}</NavLink>
         </nav>
       </header>
       <main className={tourRoute ? 'app-main--tour' : undefined}><Outlet /></main>

@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom'
-import type { AvailabilityStatus, Unit, UnitType } from '../../types'
+import type { Unit, UnitType } from '../../types'
+import {
+  formatArea, formatAvailability, formatCategory, formatFloor, formatOrientation, formatUnitTypeName,
+} from '../../i18n/formatters'
+import { useI18n } from '../../i18n/useI18n'
 import './UnitDetailsDrawer.css'
-
-const availabilityLabels: Record<AvailabilityStatus, string> = {
-  unknown: 'Bilinmiyor',
-  available: 'Satışa uygun',
-  reserved: 'Rezerve',
-  sold: 'Satıldı',
-}
 
 interface UnitDetailsDrawerProps {
   unit: Unit
@@ -16,38 +13,39 @@ interface UnitDetailsDrawerProps {
 }
 
 export default function UnitDetailsDrawer({ unit, unitType, disabled }: UnitDetailsDrawerProps) {
+  const { locale, t } = useI18n()
   const route = `/block/${unit.blockId}/unit/${unit.id}`
 
   return (
     <section className="unit-details-drawer" aria-labelledby="unit-details-title" inert={disabled}>
       <header>
-        <h2 id="unit-details-title">Bölüm detayları: {unit.id}</h2>
-        <Link to={`/block/${unit.blockId}`}>Bloğa Dön</Link>
+        <h2 id="unit-details-title">{t('details.title', { unit: unit.id })}</h2>
+        <Link to={`/block/${unit.blockId}`}>{t('details.backBlock')}</Link>
       </header>
       <dl>
-        <div><dt>Unit ID</dt><dd>{unit.id}</dd></div>
-        <div><dt>Resmî bağımsız bölüm no</dt><dd>{unit.unitNo}</dd></div>
-        <div><dt>Kat</dt><dd>{unit.floor}</dd></div>
-        <div><dt>Bölüm tipi</dt><dd>{unitType.name}</dd></div>
-        <div><dt>Kategori</dt><dd>{unitType.category === 'commercial' ? 'Ticari' : 'Konut'}</dd></div>
-        {unitType.rooms && <div><dt>Oda</dt><dd>{unitType.rooms}</dd></div>}
-        {unitType.netArea !== undefined && <div><dt>Net alan</dt><dd>{unitType.netArea} m²</dd></div>}
-        {unit.orientation && <div><dt>Yön</dt><dd>{unit.orientation}</dd></div>}
-        <div><dt>Satış durumu</dt><dd>{availabilityLabels[unit.availability]}</dd></div>
+        <div><dt>{t('details.unitId')}</dt><dd>{unit.id}</dd></div>
+        <div><dt>{t('unit.officialNumber')}</dt><dd>{unit.unitNo}</dd></div>
+        <div><dt>{t('unit.floor')}</dt><dd>{formatFloor(unit.floor, t)}</dd></div>
+        <div><dt>{t('unit.type')}</dt><dd>{formatUnitTypeName(unitType.name, unitType.rooms, t)}</dd></div>
+        <div><dt>{t('unit.category')}</dt><dd>{formatCategory(unitType.category, t)}</dd></div>
+        {unitType.rooms && <div><dt>{t('unit.rooms')}</dt><dd>{unitType.rooms}</dd></div>}
+        {unitType.netArea !== undefined && <div><dt>{t('unit.netArea')}</dt><dd>{formatArea(unitType.netArea, locale)}</dd></div>}
+        {unit.orientation && <div><dt>{t('unit.orientation')}</dt><dd>{formatOrientation(unit.orientation, t)}</dd></div>}
+        <div><dt>{t('unit.availability')}</dt><dd>{formatAvailability(unit.availability, t)}</dd></div>
       </dl>
       <div className="unit-details-drawer__media">
-        <section className="unit-details-drawer__placeholder" aria-label="Plan yer tutucusu">
-          <h3>Kat planı alanı</h3>
-          <p>DEVELOPMENT-ONLY · Gerçek plan henüz entegre edilmedi.</p>
+        <section className="unit-details-drawer__placeholder" aria-label={t('details.planAria')}>
+          <h3>{t('details.planTitle')}</h3>
+          <p>{t('details.planNotice')}</p>
         </section>
-        <section className="unit-details-drawer__placeholder" aria-label="Galeri yer tutucusu">
-          <h3>Galeri / görsel alanı</h3>
-          <p>DEVELOPMENT-ONLY · Gerçek galeri henüz entegre edilmedi.</p>
+        <section className="unit-details-drawer__placeholder" aria-label={t('details.galleryAria')}>
+          <h3>{t('details.galleryTitle')}</h3>
+          <p>{t('details.galleryNotice')}</p>
         </section>
       </div>
-      <nav aria-label={`${unit.id} detay işlemleri`}>
-        <Link to={route}>Quick Card'a Dön</Link>
-        <Link to={`${route}/tour`}>Sanal Tur</Link>
+      <nav aria-label={t('details.actionsLabel', { unit: unit.id })}>
+        <Link to={route}>{t('details.backQuickCard')}</Link>
+        <Link to={`${route}/tour`}>{t('unit.virtualTour')}</Link>
       </nav>
     </section>
   )
