@@ -41,30 +41,6 @@
   text-align: right;
 }
 
-.block-scene__background {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-scene);
-  color: #5e5b53;
-  box-shadow: inset 0 0 0 24px #cbc7bd;
-}
-
-.block-scene__background strong {
-  font-size: 400px;
-  font-weight: 600;
-  letter-spacing: -0.06em;
-  line-height: 1.2;
-}
-
-.block-scene__background span {
-  font-size: 64px;
-  letter-spacing: 0.03em;
-}
-
 .block-scene__composition > .scene-stage {
   overflow: hidden;
   border-radius: var(--radius-lg);

@@ -2,11 +2,12 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { blocks } from '../../data'
 import SceneStage from '../../components/SceneStage/SceneStage'
+import SceneStageImage from '../../components/SceneStage/SceneStageImage'
 import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
 import TransitionLayer from '../../components/TransitionLayer/TransitionLayer'
-import { developmentTransitionVideo } from './developmentMedia'
 import { developmentBlockPolygons } from './developmentHotspots'
 import { useI18n } from '../../i18n/useI18n'
+import { exteriorMedia, getExteriorBlockMedia } from '../../media/exteriorMedia'
 import './MasterplanPage.css'
 
 type Source = 'polygon-pointer' | 'polygon-focus' | 'control-pointer' | 'control-focus'
@@ -16,9 +17,12 @@ export default function MasterplanPage() {
   const navigate = useNavigate()
   const destination = useRef<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [transitionBlockId, setTransitionBlockId] = useState<string | null>(null)
   // Most recently entered source owns the highlight; leaving restores any owner below it.
   const [interactions, setInteractions] = useState<{ source: Source; id: string }[]>([])
   const highlightedId = interactions.at(-1)?.id ?? null
+  const transitionVideo = getExteriorBlockMedia(transitionBlockId ?? highlightedId)?.forwardTransition
+    ?? exteriorMedia.blocks.a.forwardTransition
   const hotspots = blocks.map((block) => ({
     id: block.id,
     label: t('masterplan.hotspotLabel', { block: block.name }),
@@ -33,6 +37,7 @@ export default function MasterplanPage() {
     const id = destination.current
     if (!id) return
     destination.current = null
+    setTransitionBlockId(null)
     setIsTransitioning(false)
     void navigate(`/block/${id}`)
   }
@@ -40,6 +45,7 @@ export default function MasterplanPage() {
     // Ref closes the gap before React renders disabled controls.
     if (destination.current) return
     destination.current = id
+    setTransitionBlockId(id)
     setInteractions([])
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       resolveTransition()
@@ -57,7 +63,7 @@ export default function MasterplanPage() {
       <figure className="masterplan">
         <SceneStage
           label={t('masterplan.stageLabel')}
-          base={<div className="masterplan__background" />}
+          base={<SceneStageImage src={exteriorMedia.masterplan} alt={t('masterplan.stageLabel')} />}
           interaction={<SvgHotspotLayer
             label={t('masterplan.hotspotGroupLabel')}
             hotspots={hotspots.map((hotspot) => ({ ...hotspot, disabled: isTransitioning }))}
@@ -75,7 +81,7 @@ export default function MasterplanPage() {
               {blocks.find((block) => block.id === hotspot.id)?.name}
             </text>)}
           </svg>
-            <TransitionLayer src={developmentTransitionVideo} active={isTransitioning}
+            <TransitionLayer src={transitionVideo} active={isTransitioning}
               preloadRequested={highlightedId !== null}
               label={t('masterplan.transitionLabel')}
               onComplete={resolveTransition} onFailure={resolveTransition} />

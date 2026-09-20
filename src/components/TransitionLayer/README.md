@@ -21,7 +21,8 @@ Masterplan hotspot ve düğmeleri aynı `activate` yolunu kullanır. Yerel ref i
 hemen kilitler; React state düğmeleri ve hotspotları disabled yapar. Normal bitişte
 kilit çözülür ve hedef Block rotasına gidilir. Hata durumunda da aynı hedefe doğrudan
 gidilmesi kasıtlı fail-safe davranışıdır; retry UI yoktur. Reduced-motion etkinse
-video ve kilit atlanır. Bütün bloklar yalnızca development proof klibini kullanır.
+video ve kilit atlanır. IMP-024 sonrasında müşteri akışında her blok, merkezi exterior
+medya yapılandırmasındaki ayrı forward ve ayrı reverse proje klibini kullanır.
 
 ## Tarayıcı doğrulaması (2026-09-18)
 
@@ -44,4 +45,5 @@ geçici HTML test girişinden gerçek uygulama yüklendi; test girişi sonrasın
 - Geçersiz block, başka bloğa ait unit ve /availability: not-found.
 - Tarayıcı konsolunda yeni runtime hatası/uyarısı görülmedi.
 
-Üretim medyası, ters geçiş ve Block sahnesi bu görevin kapsamında değildir.
+Bu bölüm IMP-007 doğrulama kaydıdır. Gerçek exterior medya ve ters geçiş entegrasyonu
+IMP-024 kapsamında ayrıca doğrulanmıştır.

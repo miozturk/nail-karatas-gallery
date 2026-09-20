@@ -18,8 +18,16 @@ const appRoutes = [
   '/__dev/panorama-spike',
 ]
 const media = [
-  ['/media/transitions/dev-transition-proof.mp4', 'video/mp4'],
-  ['/media/transitions/dev-reverse-transition-proof.mp4', 'video/mp4'],
+  ['/media/scenes/project/masterplan.webp', 'image/webp'],
+  ['/media/scenes/project/block-a.webp', 'image/webp'],
+  ['/media/scenes/project/block-b.webp', 'image/webp'],
+  ['/media/scenes/project/block-c.webp', 'image/webp'],
+  ['/media/transitions/project/home-to-a.mp4', 'video/mp4'],
+  ['/media/transitions/project/home-to-b.mp4', 'video/mp4'],
+  ['/media/transitions/project/home-to-c.mp4', 'video/mp4'],
+  ['/media/transitions/project/a-to-home.mp4', 'video/mp4'],
+  ['/media/transitions/project/b-to-home.mp4', 'video/mp4'],
+  ['/media/transitions/project/c-to-home.mp4', 'video/mp4'],
   ['/media/panoramas/dev/living-room.jpg', 'image/jpeg'],
   ['/media/panoramas/dev/hall.jpg', 'image/jpeg'],
   ['/media/panoramas/dev/bedroom.jpg', 'image/jpeg'],
@@ -90,7 +98,14 @@ try {
   const textAssetFiles = assetFiles.filter((filePath) => /\.(?:css|js|map)$/.test(filePath))
   const productionText = [indexHtml, ...await Promise.all(textAssetFiles.map((filePath) => readFile(filePath, 'utf8')))].join('\n')
 
-  for (const forbidden of ['/__dev/hotspot-editor', '/__dev/panorama-spike', 'HotspotEditor', 'PanoramaSpike']) {
+  for (const forbidden of [
+    '/__dev/hotspot-editor',
+    '/__dev/panorama-spike',
+    'HotspotEditor',
+    'PanoramaSpike',
+    '/media/transitions/dev-transition-proof.mp4',
+    '/media/transitions/dev-reverse-transition-proof.mp4',
+  ]) {
     assert(!productionText.includes(forbidden), `production assets must exclude ${forbidden}`)
   }
   for (const forbidden of ['127.0.0.1', 'file://']) {

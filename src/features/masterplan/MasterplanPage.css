@@ -42,14 +42,6 @@
   letter-spacing: 0.04em;
 }
 
-.masterplan__background {
-  position: absolute;
-  inset: 0;
-  background: var(--color-scene);
-  border: 8px solid #918b7e;
-  box-sizing: border-box;
-}
-
 .masterplan figcaption {
   margin-top: var(--space-3);
   color: var(--color-text-muted);

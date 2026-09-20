@@ -3,14 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { blocks, units, unitTypes } from '../../data'
 import NotFoundPage from '../../app/NotFoundPage'
 import SceneStage from '../../components/SceneStage/SceneStage'
+import SceneStageImage from '../../components/SceneStage/SceneStageImage'
 import TransitionLayer from '../../components/TransitionLayer/TransitionLayer'
 import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
-import { developmentReverseVideo } from './developmentMedia'
 import { developmentUnitPolygons } from './developmentUnitPolygons'
 import UnitQuickCard from '../units/UnitQuickCard'
 import UnitDetailsDrawer from '../units/UnitDetailsDrawer'
 import { formatCategory, formatFloor } from '../../i18n/formatters'
 import { useI18n } from '../../i18n/useI18n'
+import { getExteriorBlockMedia } from '../../media/exteriorMedia'
 import './BlockPage.css'
 
 export default function BlockPage({ showDetails = false }: { showDetails?: boolean }) {
@@ -23,6 +24,7 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
   const [hoveredUnit, setHoveredUnit] = useState<string | null>(null)
   const [focusedUnit, setFocusedUnit] = useState<string | null>(null)
   const block = blocks.find((item) => item.id === blockId)
+  const blockMedia = getExteriorBlockMedia(blockId)
   const unit = units.find((item) => item.id === unitId && item.blockId === blockId)
   const unitType = unitTypes.find((item) => item.id === unit?.unitTypeId)
   // Seed-first lookup: orphan geometry cannot produce a target, and missing
@@ -61,13 +63,13 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
     setIsTransitioning(true)
   }
 
-  if (!block || (unitId && (!unit || !unitType))) return <NotFoundPage />
+  if (!block || !blockMedia || (unitId && (!unit || !unitType))) return <NotFoundPage />
 
   return (
     <>
       <header className="block-scene__header">
         <div className="block-scene__intro">
-          <p className="block-scene__meta">{formatCategory(block.category, t)} · {t('block.developmentScene')}</p>
+          <p className="block-scene__meta">{formatCategory(block.category, t)}</p>
           <h1>{t('block.title', { block: block.name })}</h1>
         </div>
         <button className="block-scene__home" type="button" disabled={isTransitioning}
@@ -83,16 +85,14 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
       <figure className="block-scene">
         <div className="block-scene__composition">
           <SceneStage label={t('block.stageLabel', { block: block.name })}
-            base={<div className="block-scene__background">
-              <strong>{block.name}</strong>
-              <span>{t('block.backgroundLabel')}</span>
-            </div>}
+            base={<SceneStageImage src={blockMedia.scene}
+              alt={t('block.stageLabel', { block: block.name })} />}
             interaction={<SvgHotspotLayer label={t('block.hotspotGroupLabel', { block: block.name })}
                 hotspots={hotspots} hoveredId={highlightedUnit} activeId={unit?.id}
                 onHover={setHoveredUnit} onLeave={() => setHoveredUnit(null)}
                 onFocus={setFocusedUnit} onBlur={() => setFocusedUnit(null)}
                 onActivate={activateUnit} />}
-            overlay={<TransitionLayer src={developmentReverseVideo} active={isTransitioning}
+            overlay={<TransitionLayer src={blockMedia.reverseTransition} active={isTransitioning}
               preloadRequested={homeIntent}
               label={t('block.transitionLabel')}
               onComplete={returnHome} onFailure={returnHome} />}

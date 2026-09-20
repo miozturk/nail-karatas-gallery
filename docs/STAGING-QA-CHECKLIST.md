@@ -6,7 +6,7 @@ Bu liste, root path altında sunulan müşteri-demo production build'inin elle d
 
 - [ ] Temiz checkout sonrasında `npm install`, `npm run staging:build` ve `npm run staging:verify` başarılı.
 - [ ] `npm run staging:serve` ile açılan URL kullanılıyor; test boyunca tarayıcı konsolu ve Network paneli izleniyor.
-- [ ] Kullanılan medya sentetik `DEVELOPMENT-ONLY` proof varlıkları olarak kabul ediliyor; müşteriye gerçek proje medyası diye sunulmuyor.
+- [ ] Exterior sahneler ve forward/reverse geçişler gerçek proje medyasını kullanıyor; panorama ve Project Video içerikleri hâlâ sentetik `DEVELOPMENT-ONLY` proof varlıkları olarak kabul ediliyor.
 
 ## Ana müşteri akışı
 
@@ -30,7 +30,7 @@ Bu liste, root path altında sunulan müşteri-demo production build'inin elle d
 
 ## Medya ve görünüm
 
-- [ ] Forward/reverse transition MP4, üç panorama JPG ve project-video MP4 istekleri başarılı; content type değerleri doğru.
+- [ ] Dört gerçek exterior WebP, altı gerçek forward/reverse transition MP4, üç proof panorama JPG ve proof project-video MP4 istekleri başarılı; content type değerleri doğru.
 - [ ] Doğrudan Tour rotasında lazy JS/CSS ile panorama varlığı; doğrudan Video rotasında video varlığı doğru root-relative URL'den yükleniyor.
 - [ ] 390 px viewportta Home, Block, Quick Card, Details, Tour ve Video kullanılabilir; yatay taşma yok.
 - [ ] 1280 px viewportta aynı rotalar kullanılabilir; sahne/overlay hizası ve 4:3 exterior oranı korunuyor.
