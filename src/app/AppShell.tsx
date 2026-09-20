@@ -10,29 +10,35 @@ const localeOptions = [
 
 export default function AppShell() {
   const { locale, setLocale, t } = useI18n()
+  const homeRoute = useMatch('/')
   const blockRoute = useMatch('/block/:blockId')
   const unitRoute = useMatch('/block/:blockId/unit/:unitId')
   const detailsRoute = useMatch('/block/:blockId/unit/:unitId/details')
   const tourRoute = useMatch('/block/:blockId/unit/:unitId/tour')
   const hasBlockHome = blocks.some((block) => block.id === (blockRoute ?? unitRoute ?? detailsRoute ?? tourRoute)?.params.blockId)
+  const mainClassName = tourRoute
+    ? 'app-main--tour'
+    : homeRoute || hasBlockHome ? 'app-main--exterior' : undefined
   return (
     <>
       <header className="app-header">
-        <div className="app-header__top">
-          <p>{t('app.brand')}</p>
-          <div className="language-selector" role="group" aria-label={t('locale.selectorLabel')}>
-            {localeOptions.map((option) => <button key={option.locale} type="button"
-              aria-label={t(option.label)} aria-pressed={locale === option.locale}
-              onClick={() => setLocale(option.locale)}>{option.locale.toUpperCase()}</button>)}
+        <div className="app-header__inner">
+          <div className="app-header__top">
+            <p className="app-header__brand">{t('app.brand')}</p>
+            <div className="language-selector" role="group" aria-label={t('locale.selectorLabel')}>
+              {localeOptions.map((option) => <button key={option.locale} type="button"
+                aria-label={t(option.label)} aria-pressed={locale === option.locale}
+                onClick={() => setLocale(option.locale)}>{option.locale.toUpperCase()}</button>)}
+            </div>
           </div>
+          <nav className="app-nav" aria-label={t('nav.globalLabel')}>
+            {/* The block's contextual Home owns reverse playback. */}
+            {!hasBlockHome && <NavLink to="/" end>{t('nav.home')}</NavLink>}
+            <NavLink to="/video">{t('nav.video')}</NavLink>
+          </nav>
         </div>
-        <nav aria-label={t('nav.globalLabel')}>
-          {/* The block's contextual Home owns reverse playback. */}
-          {!hasBlockHome && <NavLink to="/" end>{t('nav.home')}</NavLink>}
-          <NavLink to="/video">{t('nav.video')}</NavLink>
-        </nav>
       </header>
-      <main className={tourRoute ? 'app-main--tour' : undefined}><Outlet /></main>
+      <main className={mainClassName}><Outlet /></main>
     </>
   )
 }

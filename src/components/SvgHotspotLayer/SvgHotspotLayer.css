@@ -9,32 +9,37 @@
 .svg-hotspot-layer__polygon {
   pointer-events: all;
   cursor: pointer;
-  fill: rgb(75 85 95 / 8%);
-  stroke: #657078;
-  stroke-width: 2px;
+  fill: rgb(117 90 57 / 4%);
+  stroke: rgb(71 67 59 / 42%);
+  stroke-width: 1.5px;
   vector-effect: non-scaling-stroke;
+  transition: fill var(--duration-fast) var(--ease-standard), stroke var(--duration-fast) var(--ease-standard), stroke-width var(--duration-fast) var(--ease-standard);
 }
 
 .svg-hotspot-layer__polygon[data-hovered='true'] {
-  fill: rgb(75 85 95 / 30%);
+  fill: rgb(117 90 57 / 20%);
+  stroke: var(--color-accent-hover);
+  stroke-width: 2.5px;
 }
 
 .svg-hotspot-layer__polygon[aria-pressed='true'] {
-  fill: rgb(75 85 95 / 45%);
-  stroke: #202830;
+  fill: rgb(117 90 57 / 32%);
+  stroke: var(--color-accent-hover);
+  stroke-width: 3px;
 }
 
 .svg-hotspot-layer__polygon:focus-visible {
   outline: none;
-  stroke: #101820;
+  fill: rgb(40 93 120 / 16%);
+  stroke: var(--color-focus);
   stroke-width: 5px;
-  stroke-dasharray: 8 4;
+  stroke-dasharray: 12 6;
 }
 
 .svg-hotspot-layer__polygon[aria-disabled='true'] {
   pointer-events: none;
   cursor: default;
-  fill: rgb(75 85 95 / 4%);
-  stroke: #92999f;
-  stroke-dasharray: 3 5;
+  fill: rgb(71 67 59 / 2%);
+  stroke: rgb(71 67 59 / 24%);
+  stroke-dasharray: 4 7;
 }

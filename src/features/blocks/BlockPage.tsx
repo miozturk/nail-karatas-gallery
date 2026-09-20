@@ -65,15 +65,21 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
 
   return (
     <>
-      <h1>{t('block.title', { block: block.name })}</h1>
-      <p>{formatCategory(block.category, t)} · {t('block.developmentScene')}</p>
-      <button className="block-scene__home" type="button" disabled={isTransitioning}
-        onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
-        onClick={activateHome}>{t('block.home')}</button>
-      <p className="block-scene__status" role="status">{isTransitioning
-        ? t('block.statusPlaying')
-        : t('block.statusReady')}</p>
-      <p>{t('block.highlight', { unit: highlightedUnit ?? t('block.none') })}</p>
+      <header className="block-scene__header">
+        <div className="block-scene__intro">
+          <p className="block-scene__meta">{formatCategory(block.category, t)} · {t('block.developmentScene')}</p>
+          <h1>{t('block.title', { block: block.name })}</h1>
+        </div>
+        <button className="block-scene__home" type="button" disabled={isTransitioning}
+          onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
+          onClick={activateHome}>{t('block.home')}</button>
+      </header>
+      <div className="block-scene__feedback">
+        <p className="block-scene__status" role="status">{isTransitioning
+          ? t('block.statusPlaying')
+          : t('block.statusReady')}</p>
+        <p className="block-scene__highlight">{t('block.highlight', { unit: highlightedUnit ?? t('block.none') })}</p>
+      </div>
       <figure className="block-scene">
         <div className="block-scene__composition">
           <SceneStage label={t('block.stageLabel', { block: block.name })}

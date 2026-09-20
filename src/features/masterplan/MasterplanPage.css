@@ -1,23 +1,146 @@
-.masterplan { margin: 1.5rem 0; }
-.scene-stage__overlay > .masterplan__labels { width: 100%; height: 100%; pointer-events: none; }
+.masterplan__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+  align-items: end;
+  gap: var(--space-4) var(--space-7);
+  margin-bottom: var(--space-6);
+}
+
+.masterplan__intro h1 {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(2.35rem, 5vw, 4.5rem);
+}
+
+.masterplan__intro p {
+  max-width: 42rem;
+  margin: 0 0 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.masterplan { margin: 0; }
+
+.masterplan > .scene-stage {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  outline: 1px solid var(--color-border-strong);
+  outline-offset: -1px;
+  box-shadow: var(--shadow-subtle);
+}
+
+.scene-stage__overlay > .masterplan__labels {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.masterplan__labels text {
+  fill: var(--color-text);
+  font-family: inherit;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
 .masterplan__background {
   position: absolute;
   inset: 0;
-  background: #e1e5e8;
-  border: 8px solid #657078;
+  background: var(--color-scene);
+  border: 8px solid #918b7e;
   box-sizing: border-box;
 }
-.masterplan__controls { display: flex; flex-wrap: wrap; gap: 1rem; }
-.masterplan__controls button {
-  padding: 0.75rem 1.25rem;
-  border: 2px solid #657078;
-  border-radius: 4px;
-  background: #fff;
-  color: #243029;
-  font: inherit;
-  cursor: pointer;
+
+.masterplan figcaption {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.015em;
 }
-.masterplan__controls button[data-highlighted='true'] { background: #c3cbd1; border-color: #202830; }
-.masterplan__controls button:focus-visible { outline: 3px solid #244c80; outline-offset: 3px; }
-.masterplan__controls button:disabled { opacity: 0.5; cursor: not-allowed; }
-.masterplan__status { min-height: 3em; }
+
+.masterplan__selector {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.65fr) minmax(0, 1.35fr);
+  align-items: center;
+  gap: var(--space-4) var(--space-7);
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.masterplan__controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.masterplan__controls button {
+  min-height: 56px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 650;
+  letter-spacing: 0.015em;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgb(52 46 37 / 4%);
+  transition: transform var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.masterplan__controls button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: var(--color-accent);
+  box-shadow: 0 6px 16px rgb(56 43 27 / 10%);
+}
+
+.masterplan__controls button[data-highlighted='true'] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-inverse);
+}
+
+.masterplan__controls button:disabled {
+  opacity: 0.52;
+  cursor: wait;
+}
+
+.masterplan__status {
+  min-height: 3em;
+  margin: 0;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 760px) {
+  .masterplan__intro,
+  .masterplan__selector {
+    grid-template-columns: 1fr;
+  }
+
+  .masterplan__intro {
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  .masterplan__intro h1 {
+    max-width: none;
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .masterplan__selector { gap: var(--space-4); }
+}
+
+@media (max-width: 360px) {
+  .masterplan__controls { gap: var(--space-1); }
+  .masterplan__controls button {
+    min-height: 52px;
+    padding-inline: var(--space-2);
+    font-size: 0.78rem;
+  }
+}

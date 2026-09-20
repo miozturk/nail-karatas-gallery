@@ -50,8 +50,10 @@ export default function MasterplanPage() {
 
   return (
     <>
-      <h1>{t('masterplan.title')}</h1>
-      <p>{t('masterplan.intro')}</p>
+      <header className="masterplan__intro">
+        <h1>{t('masterplan.title')}</h1>
+        <p>{t('masterplan.intro')}</p>
+      </header>
       <figure className="masterplan">
         <SceneStage
           label={t('masterplan.stageLabel')}
@@ -81,20 +83,22 @@ export default function MasterplanPage() {
         />
         <figcaption>{t('masterplan.caption')}</figcaption>
       </figure>
-      <p className="masterplan__status" role="status">{isTransitioning
-        ? t('masterplan.statusPlaying')
-        : t('masterplan.statusReady')}</p>
-      <div className="masterplan__controls" role="group" aria-label={t('masterplan.controlsLabel')}>
-        {blocks.map((block) => (
-          <button key={block.id} type="button"
-            disabled={isTransitioning}
-            data-highlighted={highlightedId === block.id}
-            onPointerEnter={() => enter('control-pointer', block.id)}
-            onPointerLeave={() => leave('control-pointer', block.id)}
-            onFocus={() => enter('control-focus', block.id)}
-            onBlur={() => leave('control-focus', block.id)}
-            onClick={() => activate(block.id)}>{t('masterplan.blockButton', { block: block.name })}</button>
-        ))}
+      <div className="masterplan__selector">
+        <p className="masterplan__status" role="status">{isTransitioning
+          ? t('masterplan.statusPlaying')
+          : t('masterplan.statusReady')}</p>
+        <div className="masterplan__controls" role="group" aria-label={t('masterplan.controlsLabel')}>
+          {blocks.map((block) => (
+            <button key={block.id} type="button"
+              disabled={isTransitioning}
+              data-highlighted={highlightedId === block.id}
+              onPointerEnter={() => enter('control-pointer', block.id)}
+              onPointerLeave={() => leave('control-pointer', block.id)}
+              onFocus={() => enter('control-focus', block.id)}
+              onBlur={() => leave('control-focus', block.id)}
+              onClick={() => activate(block.id)}>{t('masterplan.blockButton', { block: block.name })}</button>
+          ))}
+        </div>
       </div>
     </>
   )
