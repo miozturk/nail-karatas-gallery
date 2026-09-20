@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-024 — Real Exterior Media Integration**
+**IMP-025 — Transition Media Remaster & Browser Delivery**
 
 Task specification:
 
-`tasks/IMP-024-REAL-EXTERIOR-MEDIA-INTEGRATION.md`
+`tasks/IMP-025-TRANSITION-MEDIA-REMASTER.md`
 
-Do not implement tasks beyond IMP-024.
+Do not implement tasks beyond IMP-025.
