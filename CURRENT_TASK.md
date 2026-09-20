@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-022 — Visual Design Foundation & Exterior Polish**
+**IMP-023 — Customer UI Polish: Unit / Tour / Video**
 
 Task specification:
 
-`tasks/IMP-022-VISUAL-DESIGN-FOUNDATION-EXTERIOR.md`
+`tasks/IMP-023-CUSTOMER-UI-POLISH.md`
 
-Do not implement tasks beyond IMP-022.
+Do not implement tasks beyond IMP-023.
