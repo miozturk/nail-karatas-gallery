@@ -56,10 +56,12 @@ export default function MasterplanPage() {
 
   return (
     <>
-      <header className="masterplan__intro">
-        <h1>{t('masterplan.title')}</h1>
-        <p>{t('masterplan.intro')}</p>
-      </header>
+      <div className="exterior-intro-slot">
+        <header className="masterplan__intro">
+          <h1>{t('masterplan.title')}</h1>
+          <p>{t('masterplan.intro')}</p>
+        </header>
+      </div>
       <figure className="masterplan">
         <SceneStage
           label={t('masterplan.stageLabel')}
@@ -83,6 +85,7 @@ export default function MasterplanPage() {
           </svg>
             <TransitionLayer src={transitionVideo} active={isTransitioning}
               preloadRequested={highlightedId !== null}
+              destinationImageSrc={getExteriorBlockMedia(transitionBlockId)?.scene}
               label={t('masterplan.transitionLabel')}
               onComplete={resolveTransition} onFailure={resolveTransition} />
           </>}

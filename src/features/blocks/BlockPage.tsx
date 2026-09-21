@@ -11,7 +11,7 @@ import UnitQuickCard from '../units/UnitQuickCard'
 import UnitDetailsDrawer from '../units/UnitDetailsDrawer'
 import { formatCategory, formatFloor } from '../../i18n/formatters'
 import { useI18n } from '../../i18n/useI18n'
-import { getExteriorBlockMedia } from '../../media/exteriorMedia'
+import { exteriorMedia, getExteriorBlockMedia } from '../../media/exteriorMedia'
 import './BlockPage.css'
 
 export default function BlockPage({ showDetails = false }: { showDetails?: boolean }) {
@@ -67,20 +67,22 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
 
   return (
     <>
-      <header className="block-scene__header">
-        <div className="block-scene__intro">
-          <p className="block-scene__meta">{formatCategory(block.category, t)}</p>
-          <h1>{t('block.title', { block: block.name })}</h1>
+      <div className="exterior-intro-slot">
+        <header className="block-scene__header">
+          <div className="block-scene__intro">
+            <p className="block-scene__meta">{formatCategory(block.category, t)}</p>
+            <h1>{t('block.title', { block: block.name })}</h1>
+          </div>
+          <button className="block-scene__home" type="button" disabled={isTransitioning}
+            onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
+            onClick={activateHome}>{t('block.home')}</button>
+        </header>
+        <div className="block-scene__feedback">
+          <p className="block-scene__status" role="status">{isTransitioning
+            ? t('block.statusPlaying')
+            : t('block.statusReady')}</p>
+          <p className="block-scene__highlight">{t('block.highlight', { unit: highlightedUnit ?? t('block.none') })}</p>
         </div>
-        <button className="block-scene__home" type="button" disabled={isTransitioning}
-          onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
-          onClick={activateHome}>{t('block.home')}</button>
-      </header>
-      <div className="block-scene__feedback">
-        <p className="block-scene__status" role="status">{isTransitioning
-          ? t('block.statusPlaying')
-          : t('block.statusReady')}</p>
-        <p className="block-scene__highlight">{t('block.highlight', { unit: highlightedUnit ?? t('block.none') })}</p>
       </div>
       <figure className="block-scene">
         <div className="block-scene__composition">
@@ -94,6 +96,7 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
                 onActivate={activateUnit} />}
             overlay={<TransitionLayer src={blockMedia.reverseTransition} active={isTransitioning}
               preloadRequested={homeIntent}
+              destinationImageSrc={exteriorMedia.masterplan}
               label={t('block.transitionLabel')}
               onComplete={returnHome} onFailure={returnHome} />}
           />

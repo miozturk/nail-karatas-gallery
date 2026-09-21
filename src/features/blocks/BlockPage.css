@@ -1,5 +1,5 @@
 .block-scene {
-  margin: var(--space-5) 0 0;
+  margin: var(--exterior-stage-gap) 0 0;
 }
 
 .block-scene__header {
@@ -7,7 +7,6 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--space-5);
-  margin-bottom: var(--space-5);
 }
 
 .block-scene__intro h1 {
@@ -103,6 +102,6 @@
     grid-template-columns: 1fr;
     gap: 0;
   }
-  .block-scene__status { min-height: 4.5em; }
+  .block-scene__status { min-height: 3em; }
   .block-scene__highlight { text-align: left; }
 }

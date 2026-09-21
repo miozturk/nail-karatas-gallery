@@ -3,7 +3,6 @@
   grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
   align-items: end;
   gap: var(--space-4) var(--space-7);
-  margin-bottom: var(--space-6);
 }
 
 .masterplan__intro h1 {
@@ -19,7 +18,7 @@
   font-size: 1rem;
 }
 
-.masterplan { margin: 0; }
+.masterplan { margin: var(--exterior-stage-gap) 0 0; }
 
 .masterplan > .scene-stage {
   overflow: hidden;
@@ -117,7 +116,6 @@
 
   .masterplan__intro {
     gap: var(--space-3);
-    margin-bottom: var(--space-5);
   }
 
   .masterplan__intro h1 {

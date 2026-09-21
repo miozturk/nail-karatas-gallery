@@ -1,4 +1,5 @@
 :root {
+  scrollbar-gutter: stable;
   --color-page: #f2f0ea;
   --color-text: #24241f;
   --color-text-muted: #6b6a61;
@@ -29,6 +30,8 @@
   --duration-normal: 240ms;
   --ease-standard: cubic-bezier(0.2, 0.75, 0.25, 1);
   --content-max: 70rem;
+  --exterior-intro-slot-height: 10.75rem;
+  --exterior-stage-gap: var(--space-5);
   --focus-ring: 3px solid var(--color-focus);
   font-family: "Segoe UI Variable", "Segoe UI", "Noto Sans", Arial, sans-serif;
   line-height: 1.55;
@@ -65,6 +68,10 @@ main {
 .app-main--video {
   width: min(100%, var(--content-max));
   max-width: none;
+}
+
+.exterior-intro-slot {
+  height: var(--exterior-intro-slot-height);
 }
 
 .app-header {
@@ -146,7 +153,8 @@ a {
   text-underline-offset: 0.18em;
 }
 
-.app-nav a {
+.app-nav a,
+.app-nav__home-placeholder {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -160,6 +168,10 @@ a {
   font-weight: 650;
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
+}
+
+.app-nav__home-placeholder {
+  visibility: hidden;
 }
 
 .app-nav a:hover {
@@ -318,6 +330,7 @@ a:focus-visible, button:focus-visible {
 }
 
 @media (max-width: 600px) {
+  :root { --exterior-intro-slot-height: 15rem; }
   main { padding: var(--space-6) var(--space-4) var(--space-7); }
   .app-header__inner {
     min-height: 0;
@@ -329,9 +342,14 @@ a:focus-visible, button:focus-visible {
   .app-header__top {
     width: 100%;
     justify-content: space-between;
+    flex-wrap: nowrap;
     gap: var(--space-2);
   }
-  .app-header__brand { max-width: 8.5rem; }
+  .app-header__brand {
+    flex: 0 1 7.75rem;
+    max-width: 7.75rem;
+  }
+  .language-selector { flex: none; }
   .app-nav { width: 100%; }
   h1 { font-size: 1.85rem; }
   .ui-action { width: 100%; }

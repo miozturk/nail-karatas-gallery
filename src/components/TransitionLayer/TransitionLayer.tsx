@@ -5,6 +5,7 @@ export interface TransitionLayerProps {
   src: string
   active: boolean
   preloadRequested?: boolean
+  destinationImageSrc?: string
   onComplete: () => void
   onFailure: () => void
   label?: string
@@ -12,7 +13,7 @@ export interface TransitionLayerProps {
 }
 
 export default function TransitionLayer({
-  src, active, preloadRequested = false, onComplete, onFailure,
+  src, active, preloadRequested = false, destinationImageSrc, onComplete, onFailure,
   label = 'Geliştirme geçiş videosu', timeoutMs = 10000,
 }: TransitionLayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -65,6 +66,13 @@ export default function TransitionLayer({
     const video = videoRef.current
     if (!active || !video) return
     let settled = false
+    const destinationImage = destinationImageSrc ? new Image() : null
+    const destinationReady = destinationImage
+      ? (() => {
+          destinationImage.src = destinationImageSrc!
+          return destinationImage.decode().catch(() => undefined)
+        })()
+      : Promise.resolve()
     const reset = () => {
       video.pause()
       video.currentTime = 0
@@ -73,11 +81,14 @@ export default function TransitionLayer({
       if (settled) return
       settled = true
       clearTimeout(timer)
-      reset()
       if (success) callbacks.current.onComplete()
-      else callbacks.current.onFailure()
+      else {
+        reset()
+        callbacks.current.onFailure()
+      }
     }
-    const ended = () => finish(true)
+    // Keep the terminal video frame visible while the destination WebP decodes.
+    const ended = () => { void destinationReady.then(() => finish(true)) }
     const failed = () => finish(false)
     // Also resolve stalled loading/playback instead of leaving the feature locked.
     const timer = window.setTimeout(failed, timeoutMs)
@@ -96,7 +107,7 @@ export default function TransitionLayer({
       video.removeEventListener('error', failed)
       reset()
     }
-  }, [active, src, timeoutMs])
+  }, [active, destinationImageSrc, src, timeoutMs])
 
   return <video ref={videoRef} className="transition-layer"
     style={active ? undefined : { display: 'none' }}

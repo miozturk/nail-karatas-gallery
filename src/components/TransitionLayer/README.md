@@ -3,7 +3,12 @@
 Yönlendirmeden bağımsız, SceneStage overlay slotunda kullanılan HTML5 video katmanı.
 
 - `src`: merkezi medya verisinden gelen kaynak.
-- `active`: oynatmayı başlatır; pasifken video DOM'a eklenmez.
+- `active`: oynatmayı başlatır; pasifken video gizli ve kaynaksız kalır.
+- `preloadRequested`: kullanıcı intent'i sonrasında aynı video elementinde gecikmeli
+  kaynak hazırlığı yapar.
+- `destinationImageSrc`: active geçişle paralel native `Image.decode()` çalıştırır;
+  başarı callback'i hedef görsel hazırlandıktan sonra devam eder. Decode hatası
+  navigation'ı engellemez.
 - `onComplete`: yalnızca `ended` ile çağrılır.
 - `onFailure`: `play()` reddi, senkron hata, medya `error` olayı veya zaman aşımı.
 - `label`: erişilebilir video açıklaması; varsayılan geliştirme etiketi.
@@ -13,8 +18,9 @@ Yönlendirmeden bağımsız, SceneStage overlay slotunda kullanılan HTML5 video
 Çağıran bileşen her iki callback'te de `active` değerini kapatmalıdır.
 Kaynak/aktiflik/süre sınırı değişince önceki oynatma temizlenir. Callback kimliğinin
 değişmesi videoyu yeniden başlatmaz. Her oynatma en fazla bir sonuç üretir.
-Bitiş, hata ve unmount sırasında video durdurulur, zaman sıfırlanır; olay dinleyicileri
-ve zamanlayıcı temizlenir. Geç sonuçlanan play promise'i temizlenmiş oturumu etkilemez.
+Başarılı bitişte terminal kare hedef route commit'ine kadar korunur; reset unmount
+cleanup'ında yapılır. Hata ve unmount sırasında video durdurulur, zaman sıfırlanır;
+olay dinleyicileri ve zamanlayıcı temizlenir. Geç sonuçlanan play promise'i temizlenmiş oturumu etkilemez.
 Video muted + playsInline oynar; negatif playbackRate kullanılmaz.
 
 Masterplan hotspot ve düğmeleri aynı `activate` yolunu kullanır. Yerel ref ilk isteği

@@ -35,7 +35,9 @@ export default function AppShell() {
           </div>
           <nav className="app-nav" aria-label={t('nav.globalLabel')}>
             {/* The block's contextual Home owns reverse playback. */}
-            {!hasBlockHome && <NavLink to="/" end>{t('nav.home')}</NavLink>}
+            {hasBlockHome
+              ? <span className="app-nav__home-placeholder" aria-hidden="true">{t('nav.home')}</span>
+              : <NavLink to="/" end>{t('nav.home')}</NavLink>}
             <NavLink to="/video">{t('nav.video')}</NavLink>
           </nav>
         </div>
