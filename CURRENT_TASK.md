@@ -1,6 +1,6 @@
 # Current Task
 
-**IMP-027 — Real Masterplan Hotspot Authoring**
+**IMP-027 — Human-Assisted Real Masterplan Hotspot Authoring**
 
 Task specification:
 

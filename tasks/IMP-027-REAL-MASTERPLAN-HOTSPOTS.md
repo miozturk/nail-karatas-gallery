@@ -1,202 +1,210 @@
-# IMP-027 — Real Masterplan Hotspot Authoring
+# IMP-027 — Human-Assisted Real Masterplan Hotspot Authoring
 
-Status: **READY**
+Status: READY — TWO PHASES
 
 ## Objective
 
-Replace the DEVELOPMENT-ONLY A/B/C Masterplan hotspot polygons with real polygons authored against the actual Nail Karataş `masterplan.webp`.
+Replace the DEVELOPMENT-ONLY A/B/C Masterplan hotspot polygons with production geometry authored against the actual Nail Karataş `masterplan.webp`.
 
-IMP-026 stabilized the exterior layout and SceneStage screen-space contract. IMP-027 now uses that stable geometry to author the three production Block-selection polygons.
+Critical rule: Codex must not guess which visible building mass is A, B or C and must not independently invent final polygon geometry from visual inference.
 
-This task covers **only the three Block-selection polygons on the Home / Masterplan scene**.
+The human operator (İdris) is the source of truth for:
+- which visible building is A / B / C
+- where each clickable polygon should run on the rendered image
 
-Do not modify Unit hotspot geometry in this task. Unit hotspot realignment will be handled separately.
+Codex is responsible for:
+- preparing the existing DEV-only Hotspot Editor against the real Masterplan image
+- preserving logical 1920×1440 coordinate mapping
+- receiving the human-authored A/B/C coordinates
+- integrating those coordinates into the canonical production data source
+- running regressions and documenting the result
 
-## Required reading
+This task covers only the three Home/Masterplan Block-selection polygons.
+Do not modify Unit hotspot geometry.
 
-Follow `AGENTS.md` and read all locked baseline documents.
+# PHASE A — Editor preparation and operator handoff
+
+## A1. Required reading
+
+Follow `AGENTS.md` and locked baseline documents.
 
 Also read:
-
 - `docs/IMP-024-COMPLETION-REPORT.md`
 - `docs/IMP-025-COMPLETION-REPORT.md`
 - `docs/IMP-026-COMPLETION-REPORT.md`
 - `src/media/exteriorMedia.ts`
-- current Masterplan hotspot/polygon source
+- current Masterplan polygon data source
 - current Hotspot Editor implementation and README
 - `docs/STAGING-QA-CHECKLIST.md`
 
-Relevant locked behavior:
+## A2. Audit
 
-- Masterplan SceneStage logical space is exactly 1920 × 1440.
-- Real Home scene is `/media/scenes/project/masterplan.webp`.
-- Exterior SceneStage X/Y/W/H is now stable route-to-route per IMP-026.
-- A/B/C control ↔ polygon synchronization already works.
-- Forward transition mapping/lifecycle must not change.
-- TR/EN/RU behavior must not change.
-- Hotspot geometry must remain data-driven and UI-independent.
-- Production customer flow must not depend on DEV-only editor routes.
+Before changes, record:
+- current DEVELOPMENT-ONLY Masterplan A/B/C polygon source
+- current polygon IDs and coordinates
+- how Masterplan consumes the data
+- whether coordinate literals are duplicated
+- how the Hotspot Editor loads its background scene
+- how screen coordinates map to logical 1920×1440
+- how export output is produced
 
-## 1. Geometry-source audit
+Do not alter production polygon geometry in Phase A.
 
-Locate the current DEVELOPMENT-ONLY Masterplan A/B/C polygon data.
+## A3. Prepare existing DEV-only Hotspot Editor
 
-Record:
-- source file(s)
-- current polygon IDs
-- current coordinates
-- how Masterplan consumes them
-- whether any geometry is duplicated in component code
+The editor must allow the operator to author polygons directly over:
 
-Do not change behavior before completing this audit.
-
-## 2. Authoring method
-
-Use the existing DEV-only Hotspot Editor where practical.
-
-The authoring reference must be the real:
 `/media/scenes/project/masterplan.webp`
 
-All coordinates must be authored in the existing 1920 × 1440 logical coordinate space.
+Requirements:
+- reuse the existing editor
+- do not create a second editor
+- do not add a dependency
+- preserve logical 1920×1440 mapping
+- preserve deterministic export
+- remain DEV-only
+- production build must not expose editor route/bundle
+- do not change customer-facing Home geometry
+- do not change production hotspot coordinates yet
 
-If the existing editor cannot load the real Masterplan image without a small, clearly scoped improvement, a minimal DEV-only editor enhancement is allowed.
+If the editor already supports the real Masterplan cleanly, do not modify it unnecessarily.
 
-Do not add a new dependency.
-Do not create a second hotspot editor.
+## A4. Phase A manual QA
 
-## 3. Polygon intent
+Verify:
+- real `masterplan.webp` is visible in the editor
+- rendered image and authoring overlay align exactly
+- clicks map correctly to 1920×1440
+- viewport resize does not change exported logical coordinates
+- polygon completion/reset/export controls still work
+- production `/__dev/hotspot-editor` remains NotFound
 
-Author exactly three production Block polygons:
+## A5. Mandatory STOP point
+
+After Phase A is ready, STOP.
+
+Do not guess or draw A/B/C yourself.
+
+Report in Turkish:
+1. exact local DEV URL to open
+2. exact steps to create polygon A
+3. exact steps to finish/save/export polygon A
+4. repeat for B and C if needed
+5. what exact exported JSON/text the user should paste back into the same Codex conversation
+6. practical vertex-count guidance
+
+Then wait for user-provided A/B/C exported coordinates.
+
+Do not start Phase B until the user supplies coordinates.
+
+# HUMAN AUTHORING GUIDANCE
+
+The operator will visually identify the buildings.
+
+Recommended polygon intent:
+- trace the clickable visible mass / façade footprint, not every tiny architectural edge
+- use a modest number of meaningful vertices
+- avoid large sky/ground regions
+- avoid overlaps unless projection genuinely overlaps
+- prioritize predictable selection behavior over microscopic precision
+- author only against the real Masterplan view
+
+Codex must not relabel or reinterpret the operator's A/B/C assignment.
+
+# PHASE B — Production integration after user coordinates are supplied
+
+## B1. Validate operator input
+
+Require exactly three IDs:
 - `a`
 - `b`
 - `c`
 
-Each polygon should trace the visible mass / façade footprint of its corresponding block sufficiently closely for hover/click selection.
+Each:
+- minimum 3 vertices
+- coordinates within 0..1920 / 0..1440
+- no duplicate polygon IDs
 
-Guidelines:
-- prefer a modest number of meaningful vertices
-- avoid hundreds of points
-- do not include large empty sky/ground regions
-- avoid overlap between A/B/C polygons unless the rendered architecture genuinely overlaps in projection
-- prioritize predictable selection over microscopic edge tracing
-- polygon should feel correct at both desktop and narrow responsive sizes because coordinates are logical-space based
+Preserve the user's A/B/C assignment exactly.
 
-Do not change Block IDs.
+Do not algorithmically “improve” the polygon shapes.
 
-## 4. Production geometry replacement
+## B2. Replace DEVELOPMENT-ONLY Masterplan geometry
 
-Replace only the existing DEVELOPMENT-ONLY Masterplan polygons with the newly authored real geometry.
+Integrate only the three operator-authored Masterplan polygons.
 
 Requirements:
 - one canonical data source
 - no duplicate coordinate literals in UI components
-- preserve existing `SvgHotspotLayer` API
+- preserve `SvgHotspotLayer` API
 - preserve hover/focus/active/disabled semantics
 - preserve keyboard activation
-- preserve A/B/C control synchronization
-- remove or update DEVELOPMENT-ONLY geometry comments/labels that are no longer truthful for Masterplan polygons
+- preserve selector ↔ polygon synchronization
+- update only Masterplan DEVELOPMENT-ONLY geometry comments that are no longer truthful
 
-Do not remove development warnings related to Unit polygons or other still-placeholder content.
+Do not remove warnings for Unit hotspots or other placeholder content.
 
-## 5. Visual QA
+## B3. Visual QA
 
-On the real Masterplan image verify:
-- A polygon visually corresponds to Block A
-- B polygon visually corresponds to Block B
-- C polygon visually corresponds to Block C
-- hover from polygon highlights matching selector control
-- hover/focus from selector control highlights matching polygon
-- active/transition-lock state remains correct
-- polygons do not visibly select another block's primary façade area
+Verify:
+- A polygon highlights A
+- B polygon highlights B
+- C polygon highlights C
+- selector hover/focus highlights matching polygon
+- polygon hover highlights matching selector
+- no obvious drift
+- no unintended large overlap
 
-## 6. Responsive geometry QA
+Codex may verify rendering alignment, but must not rename or redesign user-authored polygons.
 
-Verify at:
-- 320 × 844
-- 390 × 844
-- 768 × 1024
-- 1280 × 800
-- 1440 × 900
+## B4. Responsive QA
+
+Verify:
+- 320×844
+- 390×844
+- 768×1024
+- 1280×800
+- 1440×900
 
 Requirements:
 - SceneStage remains 4:3
-- image and SVG rect remain aligned
-- polygons scale correctly with the scene
-- hit targets remain attached to the intended building
+- image / SVG rects align
+- logical coordinates unchanged
 - no horizontal overflow
 - no coordinate drift
-- IMP-026 exterior stage-anchor contract remains intact
+- IMP-026 stage-anchor contract remains intact
 
-The polygon data itself must remain expressed only in 1920 × 1440 logical coordinates.
+## B5. Transition regression
 
-## 7. Transition regression
+Verify Home -> A/B/C:
+- correct polygon activates correct Block
+- correct transition mapping
+- transition lock remains
+- target route correct
+- no preload regression
+- no IMP-026 layout/handoff regression
 
-For each Block:
-- Home -> A
-- Home -> B
-- Home -> C
+Do not modify transition MP4 files.
+
+## B6. Accessibility/localization
 
 Verify:
-- clicking/focusing the newly aligned polygon still triggers the correct forward transition
-- transition file mapping remains correct
-- controls lock during transition
-- route ends at correct Block
-- no change to preload behavior
-- no transition handoff regression from IMP-026
-
-Do not touch the six MP4 delivery files.
-
-## 8. Accessibility / localization regression
-
-Verify at minimum:
-- keyboard Tab / focus -> A/B/C controls
-- keyboard activation
+- keyboard focus/activation
 - visible polygon focus state
-- translated hotspot accessible labels
-- TR / EN / RU on Home
-- locale changes do not alter geometry or route
+- translated accessible labels
+- TR / EN / RU Home
+- locale switch does not alter geometry or route
 
-No new translation keys are expected unless an existing development-only geometry label must be cleaned safely.
+## B7. DEV editor regression
 
-## 9. DEV editor regression
+If editor changed:
+- keep DEV-only
+- production route NotFound
+- logical mapping correct
+- export deterministic
+- production bundle gains no DEV editor chunk
 
-If the Hotspot Editor is touched:
-- it must remain DEV-only
-- production route remains NotFound
-- coordinate mapping screen -> logical 1920 × 1440 remains correct
-- existing JSON export remains deterministic
-- production bundle must not gain DEV editor chunks
-
-Do not redesign the editor.
-
-## 10. Geometry documentation
-
-Create a concise geometry record in the completion report.
-
-For each A/B/C polygon include:
-- vertex count
-- final logical-space coordinates
-- brief description of the visual region traced
-
-Do not add screenshots to Git unless they are already part of the repository workflow.
-
-## 11. Scope protection
-
-Do not in IMP-027:
-- change Unit hotspot coordinates
-- modify Block scene images
-- modify transition videos
-- modify Unit/UnitType data
-- modify panorama/tour behavior
-- modify Quick Card/Details behavior
-- redesign customer UI
-- add new product features
-- add dependencies
-- deploy to a provider
-- alter IMP-026 layout contract unless a clear regression is found and documented
-- begin the next IMP
-
-## 12. Required automated validation
+## B8. Required checks
 
 Run:
 - `npm run validate:exterior-media`
@@ -210,77 +218,68 @@ Run:
 - `npm run staging:verify`
 - `git diff --check`
 
-If an existing geometry validation script exists, run it.
-
-A tiny deterministic Masterplan-polygon validator may be added only if useful and dependency-free.
-
-## 13. Manual browser validation
-
-Production/staging:
-
-Flow A:
-Home -> hover/focus/click A -> Block A -> Browser Back -> Home.
-
-Flow B:
-Home -> hover/focus/click B -> Block B -> Home using contextual reverse transition.
-
-Flow C:
-Home -> hover/focus/click C -> Block C -> Home.
-
-Verify at 390 and 1280.
-Also inspect Home at 320, 768 and 1440 for geometry alignment.
-
-Verify:
-- no console warning/error
-- no horizontal overflow
-- correct locale behavior
-- correct transition mapping
-- SceneStage anchor remains stable
-
-## 14. Completion report
+## B9. Completion report
 
 Create:
 `docs/IMP-027-COMPLETION-REPORT.md`
 
-Return the report in Turkish and include:
-1. Özet.
-2. Oluşturulan / değiştirilen dosyalar.
-3. Eski DEVELOPMENT-ONLY geometry audit sonucu.
-4. Authoring yöntemi.
-5. A polygon koordinatları / vertex sayısı / görsel bölge açıklaması.
-6. B polygon koordinatları / vertex sayısı / görsel bölge açıklaması.
-7. C polygon koordinatları / vertex sayısı / görsel bölge açıklaması.
-8. Production geometry entegrasyonu.
-9. Selector ↔ polygon senkron doğrulaması.
-10. 320 / 390 / 768 / 1280 / 1440 geometry sonucu.
-11. IMP-026 layout-contract regression sonucu.
-12. A/B/C transition regression sonucu.
-13. Keyboard/accessibility sonucu.
-14. TR / EN / RU sonucu.
-15. DEV editor regression sonucu (editor değiştiyse ayrıntılı).
-16. Staging sonucu.
-17. Çalıştırılan komutlar.
-18. Tüm zorunlu kontrol sonuçları.
-19. Dependency değişikliği varsa listesi.
-20. Görsel doğruluk açısından kalan belirsizlik / insan gözüyle review gereken nokta.
-21. Uyarılar / blocker / mimari çelişki.
-22. Sonraki IMP'ye başlama.
+Include in Turkish:
+1. Özet
+2. Değişen dosyalar
+3. Eski DEVELOPMENT-ONLY geometry audit
+4. Phase A editor hazırlığı
+5. Human authoring workflow
+6. A coordinates / vertex count
+7. B coordinates / vertex count
+8. C coordinates / vertex count
+9. Production geometry integration
+10. Selector ↔ polygon sync
+11. Responsive geometry result
+12. IMP-026 layout-contract regression
+13. Transition regression
+14. Keyboard/accessibility
+15. TR / EN / RU
+16. DEV editor regression
+17. Staging
+18. Commands
+19. Required checks
+20. Dependency changes
+21. Human-eye review note
+22. Warnings/blockers
+23. Confirmation that next IMP was not started
 
-## Acceptance criteria
+# Explicitly forbidden
+
+Do not:
+- guess final A/B/C polygon geometry without user input
+- infer or change the user's A/B/C building assignment
+- alter Unit hotspot coordinates
+- modify Block scene images
+- modify transition videos
+- modify Unit/UnitType data
+- modify panorama/tour behavior
+- redesign customer UI
+- add product features
+- add dependencies
+- deploy
+- change locked baseline documents
+- begin IMP-028
+
+# Acceptance criteria
 
 IMP-027 passes only if:
-- Masterplan A/B/C production polygons are authored against the real `masterplan.webp`
-- the old DEVELOPMENT-ONLY Masterplan geometry is no longer used in customer production flow
-- only three canonical A/B/C polygons exist
-- geometry remains in logical 1920 × 1440 coordinates
+- Phase A stops for user-authored polygon input
+- final production polygons come from user's editor authoring
+- real `masterplan.webp` is the authoring reference
+- exactly three canonical A/B/C polygons exist
+- logical 1920×1440 coordinates are preserved
 - selector ↔ polygon sync remains correct
-- A/B/C transition routing remains correct
+- A/B/C routes/transitions remain correct
 - IMP-026 stage-anchor stability remains intact
-- all five viewport checks show correct alignment/no drift
-- keyboard/focus/accessibility behavior remains intact
-- TR/EN/RU behavior remains intact
+- five viewport checks pass
+- accessibility and TR/EN/RU remain intact
 - Unit hotspot geometry remains untouched
 - staging/build/lint/tests pass
-- no new dependency is added
-- locked baseline documents remain unchanged
-- no later IMP is started
+- no new dependency
+- locked baselines unchanged
+- no later IMP started
