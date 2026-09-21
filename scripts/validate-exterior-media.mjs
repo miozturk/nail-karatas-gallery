@@ -54,6 +54,72 @@ function findBox(buffer, type) {
   return { start, size }
 }
 
+function createBitReader(bytes) {
+  let bitOffset = 0
+
+  function readBit() {
+    assert(bitOffset < bytes.length * 8, 'Unexpected end of H.264 SPS data')
+    const value = (bytes[bitOffset >> 3] >> (7 - (bitOffset & 7))) & 1
+    bitOffset += 1
+    return value
+  }
+
+  function readBits(count) {
+    let value = 0
+    for (let index = 0; index < count; index += 1) value = (value << 1) | readBit()
+    return value
+  }
+
+  function readUnsignedExpGolomb() {
+    let leadingZeroBits = 0
+    while (readBit() === 0) leadingZeroBits += 1
+    return ((2 ** leadingZeroBits) - 1) + readBits(leadingZeroBits)
+  }
+
+  return { readBit, readBits, readUnsignedExpGolomb }
+}
+
+function removeEmulationPreventionBytes(bytes) {
+  const result = []
+  for (let index = 0; index < bytes.length; index += 1) {
+    if (index >= 2 && bytes[index] === 0x03 && bytes[index - 1] === 0x00 && bytes[index - 2] === 0x00) continue
+    result.push(bytes[index])
+  }
+  return Buffer.from(result)
+}
+
+function readAvcPixelFormat(buffer) {
+  const avcConfiguration = findBox(buffer, 'avcC')
+  const dataOffset = avcConfiguration.start + 8
+  assert.equal(buffer[dataOffset], 1, 'Unsupported AVC decoder configuration version')
+  assert((buffer[dataOffset + 5] & 0x1f) > 0, 'H.264 stream must contain an SPS')
+
+  const sequenceLength = buffer.readUInt16BE(dataOffset + 6)
+  const sequenceStart = dataOffset + 8
+  const sequence = buffer.subarray(sequenceStart, sequenceStart + sequenceLength)
+  assert(sequence.length > 1, 'H.264 SPS is missing')
+  assert.equal(sequence[0] & 0x1f, 7, 'H.264 configuration must begin with an SPS NAL unit')
+
+  const reader = createBitReader(removeEmulationPreventionBytes(sequence.subarray(1)))
+  const profileIdc = reader.readBits(8)
+  reader.readBits(8)
+  reader.readBits(8)
+  reader.readUnsignedExpGolomb()
+
+  const extendedProfiles = new Set([44, 83, 86, 100, 110, 118, 122, 128, 134, 135, 138, 139, 144, 244])
+  if (!extendedProfiles.has(profileIdc)) return 'yuv420p'
+
+  const chromaFormatIdc = reader.readUnsignedExpGolomb()
+  const separateColourPlane = chromaFormatIdc === 3 ? reader.readBit() : 0
+  const bitDepthLuma = 8 + reader.readUnsignedExpGolomb()
+  const bitDepthChroma = 8 + reader.readUnsignedExpGolomb()
+
+  if (chromaFormatIdc === 1 && separateColourPlane === 0 && bitDepthLuma === 8 && bitDepthChroma === 8) {
+    return 'yuv420p'
+  }
+  return `chroma-${chromaFormatIdc}-${bitDepthLuma}bit-${bitDepthChroma}bit`
+}
+
 function readMp4Metadata(buffer) {
   assert.equal(buffer.toString('ascii', 4, 8), 'ftyp')
   const mvhd = findBox(buffer, 'mvhd')
@@ -72,7 +138,12 @@ function readMp4Metadata(buffer) {
   const codec = buffer.includes(Buffer.from('av01'))
     ? 'av01'
     : buffer.includes(Buffer.from('avc1')) ? 'avc1' : 'unknown'
-  return { width, height, duration: durationUnits / timescale, codec }
+  const sampleTable = findBox(buffer, 'stsz')
+  const sampleCount = buffer.readUInt32BE(sampleTable.start + 16)
+  const duration = durationUnits / timescale
+  const frameRate = sampleCount / duration
+  const pixelFormat = codec === 'avc1' ? readAvcPixelFormat(buffer) : 'unknown'
+  return { width, height, duration, codec, frameRate, pixelFormat }
 }
 
 for (const relativePath of expectedImages) {
@@ -90,7 +161,9 @@ for (const relativePath of expectedVideos) {
   const metadata = readMp4Metadata(buffer)
   assert.equal(metadata.width, 1920, `${relativePath} width`)
   assert.equal(metadata.height, 1440, `${relativePath} height`)
-  assert(metadata.duration > 0, `${relativePath} duration`)
-  assert.notEqual(metadata.codec, 'unknown', `${relativePath} codec`)
-  console.log(`PASS ${relativePath}: ${fileStat.size} bytes, ${metadata.width}x${metadata.height}, ${metadata.duration.toFixed(3)}s, ${metadata.codec}`)
+  assert(Math.abs(metadata.duration - 1) <= 0.05, `${relativePath} duration must be approximately 1 second`)
+  assert.equal(metadata.frameRate, 24, `${relativePath} frame rate must be 24 fps`)
+  assert.equal(metadata.codec, 'avc1', `${relativePath} must use H.264 / AVC (avc1); AV1 delivery is rejected`)
+  assert.equal(metadata.pixelFormat, 'yuv420p', `${relativePath} must use browser-compatible 8-bit 4:2:0 video`)
+  console.log(`PASS ${relativePath}: ${fileStat.size} bytes, ${metadata.width}x${metadata.height}, ${metadata.duration.toFixed(3)}s, ${metadata.frameRate.toFixed(3)} fps, ${metadata.codec}, ${metadata.pixelFormat}`)
 }
