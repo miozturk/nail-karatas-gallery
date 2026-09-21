@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-027 — Human-Assisted Real Masterplan Hotspot Authoring**
+**IMP-028 — Human-Assisted Real Unit Hotspot Authoring**
 
 Task specification:
 
-`tasks/IMP-027-REAL-MASTERPLAN-HOTSPOTS.md`
+`tasks/IMP-028-REAL-UNIT-HOTSPOTS.md`
 
-Do not implement tasks beyond IMP-027.
+Do not implement tasks beyond IMP-028.
