@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-026 — Exterior Layout Stability & Transition Handoff**
+**IMP-027 — Real Masterplan Hotspot Authoring**
 
 Task specification:
 
-`tasks/IMP-026-EXTERIOR-LAYOUT-STABILITY-TRANSITION-HANDOFF.md`
+`tasks/IMP-027-REAL-MASTERPLAN-HOTSPOTS.md`
 
-Do not implement tasks beyond IMP-026.
+Do not implement tasks beyond IMP-027.
