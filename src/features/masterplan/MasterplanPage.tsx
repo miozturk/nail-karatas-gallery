@@ -5,7 +5,7 @@ import SceneStage from '../../components/SceneStage/SceneStage'
 import SceneStageImage from '../../components/SceneStage/SceneStageImage'
 import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
 import TransitionLayer from '../../components/TransitionLayer/TransitionLayer'
-import { developmentBlockPolygons } from './developmentHotspots'
+import { getMasterplanBlockPolygon } from './masterplanHotspots'
 import { useI18n } from '../../i18n/useI18n'
 import { exteriorMedia, getExteriorBlockMedia } from '../../media/exteriorMedia'
 import './MasterplanPage.css'
@@ -23,11 +23,14 @@ export default function MasterplanPage() {
   const highlightedId = interactions.at(-1)?.id ?? null
   const transitionVideo = getExteriorBlockMedia(transitionBlockId ?? highlightedId)?.forwardTransition
     ?? exteriorMedia.blocks.a.forwardTransition
-  const hotspots = blocks.map((block) => ({
-    id: block.id,
-    label: t('masterplan.hotspotLabel', { block: block.name }),
-    points: developmentBlockPolygons[block.id],
-  }))
+  const hotspots = blocks.flatMap((block) => {
+    const points = getMasterplanBlockPolygon(block.id)
+    return points ? [{
+      id: block.id,
+      label: t('masterplan.hotspotLabel', { block: block.name }),
+      points,
+    }] : []
+  })
   const enter = (source: Source, id: string) => setInteractions((current) => [
     ...current.filter((item) => item.source !== source), { source, id },
   ])

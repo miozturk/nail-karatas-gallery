@@ -1,6 +1,8 @@
 import { useState, type PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
 import SceneStage from '../../../components/SceneStage/SceneStage'
+import SceneStageImage from '../../../components/SceneStage/SceneStageImage'
+import { exteriorMedia } from '../../../media/exteriorMedia'
 import type { Point, Polygon } from '../../../types'
 import './HotspotEditor.css'
 
@@ -48,10 +50,11 @@ export default function HotspotEditor() {
     <h1>Hotspot Editor v1 — DEVELOPMENT-ONLY</h1>
     <Link to="/">Ana sayfaya dön</Link>
     <p id="canvas-help">1920 × 1440 sahnede köşe eklemek için işaretçiyle tıklayın. Kontroller klavyeyle kullanılabilir.
-      Sayfadan ayrılınca veya sayfayı yenileyince tüm polygonlar silinir.</p>
+      Polygonları yalnız gerçek Masterplan görselindeki yapıların üzerine çizin. Sayfadan ayrılınca veya sayfayı yenileyince
+      tüm polygonlar silinir.</p>
     <div className="hotspot-editor__canvas">
       <SceneStage label="Polygon çizim sahnesi" base={
-        <div className="hotspot-editor__background">DEVELOPMENT-ONLY<br />1920 × 1440</div>
+        <SceneStageImage src={exteriorMedia.masterplan} alt="Nail Karataş gerçek Masterplan görünümü" />
       } interaction={
         <svg viewBox="0 0 1920 1440" width="1920" height="1440" aria-label="Polygon çizim alanı"
           aria-describedby="canvas-help"

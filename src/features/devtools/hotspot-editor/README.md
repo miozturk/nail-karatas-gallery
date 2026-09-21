@@ -5,6 +5,9 @@
 Global menüde bağlantısı yoktur.
 
 SceneStage ortak 1920 × 1440 koordinat uzayını ve 4:3 ölçeklemeyi sağlar.
+Editör taban katmanında merkezi exterior medya manifestindeki gerçek
+`/media/scenes/project/masterplan.webp` dosyasını kullanır. Görsel ve SVG çizim
+yüzeyi aynı SceneStage koordinat katmanında birebir hizalanır.
 SVG bounding rectangle üzerinden `(clientX - left) / width * 1920` ve
 `(clientY - top) / height * 1440` hesaplanır; sonuç sınırlara kırpılır ve en yakın
 tamsayıya yuvarlanır. Letterbox boşlukları çizim yüzeyine dahil değildir.
@@ -25,4 +28,4 @@ elle kopyalama için kullanılabilir. JSON import ve özel görsel yükleme v1'e
 Çıktıyı elle kopyalayın ve gerçek render ile hizasını ayrıca gözden geçirin.
 Onaylanan koordinatların runtime verilerine entegrasyonu ayrı bir görevdir.
 Editör kaynak dosyası yazmaz, runtime polygonları değiştirmez, backend kullanmaz.
-Varsayılan zemin nötr DEVELOPMENT-ONLY görselidir; proje medyası içermez.
+Araç DEVELOPMENT-ONLY kalır; gerçek Masterplan yalnız authoring referansıdır.
