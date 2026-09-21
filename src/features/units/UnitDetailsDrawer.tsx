@@ -4,6 +4,7 @@ import {
   formatArea, formatAvailability, formatCategory, formatFloor, formatOrientation, formatUnitTypeName,
 } from '../../i18n/formatters'
 import { useI18n } from '../../i18n/useI18n'
+import UnitPlan from './UnitPlan'
 import './UnitDetailsDrawer.css'
 
 interface UnitDetailsDrawerProps {
@@ -34,10 +35,7 @@ export default function UnitDetailsDrawer({ unit, unitType, disabled }: UnitDeta
         <div><dt>{t('unit.availability')}</dt><dd>{formatAvailability(unit.availability, t)}</dd></div>
       </dl>
       <div className="unit-details-drawer__media">
-        <section className="unit-details-drawer__placeholder" aria-label={t('details.planAria')}>
-          <h3>{t('details.planTitle')}</h3>
-          <p>{t('details.planNotice')}</p>
-        </section>
+        <UnitPlan unit={unit} unitType={unitType} variant="detail" />
         <section className="unit-details-drawer__placeholder" aria-label={t('details.galleryAria')}>
           <h3>{t('details.galleryTitle')}</h3>
           <p>{t('details.galleryNotice')}</p>

@@ -65,6 +65,10 @@
   margin: var(--space-5) 0;
 }
 
+.unit-details-drawer__media > * {
+  min-width: 0;
+}
+
 .unit-details-drawer__placeholder {
   min-height: 8rem;
   padding: var(--space-4);

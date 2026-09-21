@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import type { Unit, UnitType } from '../../types'
 import { formatArea, formatCategory, formatFloor, formatUnitTypeName } from '../../i18n/formatters'
 import { useI18n } from '../../i18n/useI18n'
+import UnitPlan from './UnitPlan'
 import './UnitQuickCard.css'
 
 interface UnitQuickCardProps {
@@ -20,10 +21,7 @@ export default function UnitQuickCard({ unit, unitType, disabled }: UnitQuickCar
         <Link className="ui-action ui-action--quiet" to={`/block/${unit.blockId}`}
           aria-label={t('unit.closeAria')}>{t('unit.close')}</Link>
       </header>
-      <div className="unit-quick-card__plan">
-        <strong>{t('unit.planPreview')}</strong>
-        <small>{t('unit.planNotice')}</small>
-      </div>
+      <UnitPlan unit={unit} unitType={unitType} variant="compact" />
       <dl>
         <div><dt>{t('unit.officialNumber')}</dt><dd>{unit.unitNo}</dd></div>
         <div><dt>{t('unit.floor')}</dt><dd>{formatFloor(unit.floor, t)}</dd></div>
