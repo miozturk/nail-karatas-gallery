@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-028 — Human-Assisted Real Unit Hotspot Authoring**
+**IMP-029 — Real Unit Plan Integration & Content Cleanup**
 
 Task specification:
 
-`tasks/IMP-028-REAL-UNIT-HOTSPOTS.md`
+`tasks/IMP-029-REAL-UNIT-PLAN-INTEGRATION.md`
 
-Do not implement tasks beyond IMP-028.
+Do not implement tasks beyond IMP-029.
