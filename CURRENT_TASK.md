@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-025 — Transition Delivery Validation**
+**IMP-026 — Exterior Layout Stability & Transition Handoff**
 
 Task specification:
 
-`tasks/IMP-025-TRANSITION-DELIVERY-VALIDATION.md`
+`tasks/IMP-026-EXTERIOR-LAYOUT-STABILITY-TRANSITION-HANDOFF.md`
 
-Do not implement tasks beyond IMP-025.
+Do not implement tasks beyond IMP-026.
