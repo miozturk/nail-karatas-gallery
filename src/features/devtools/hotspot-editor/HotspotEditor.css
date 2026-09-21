@@ -8,12 +8,11 @@
 .hotspot-editor circle { fill: #fff; stroke: #92400e; stroke-width: 4; }
 .hotspot-editor label, .hotspot-editor textarea { display: block; }
 .hotspot-editor textarea { width: 100%; box-sizing: border-box; font-family: monospace; }
-.hotspot-editor input { max-width: 100%; box-sizing: border-box; }
+.hotspot-editor select { min-width: 12rem; max-width: 100%; min-height: 44px; box-sizing: border-box; }
 .hotspot-editor__actions { display: flex; flex-wrap: wrap; gap: .5rem; }
 .hotspot-editor button { min-height: 44px; }
 .hotspot-editor li { margin-block: .4rem; overflow-wrap: anywhere; }
 .hotspot-editor :focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
 
-.hotspot-editor input { min-height: 44px; }
 .hotspot-editor > a { display: inline-flex; align-items: center; min-height: 44px; }
 .hotspot-editor textarea { resize: vertical; }

@@ -6,7 +6,7 @@ import SceneStage from '../../components/SceneStage/SceneStage'
 import SceneStageImage from '../../components/SceneStage/SceneStageImage'
 import TransitionLayer from '../../components/TransitionLayer/TransitionLayer'
 import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
-import { developmentUnitPolygons } from './developmentUnitPolygons'
+import { getUnitHotspot } from './unitHotspots'
 import UnitQuickCard from '../units/UnitQuickCard'
 import UnitDetailsDrawer from '../units/UnitDetailsDrawer'
 import { formatCategory, formatFloor } from '../../i18n/formatters'
@@ -30,9 +30,10 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
   // Seed-first lookup: orphan geometry cannot produce a target, and missing
   // geometry cannot produce a clickable Unit. Never infer domain data from IDs.
   const hotspots = units.flatMap((unit) => {
-    const points = developmentUnitPolygons[unit.id]
-    return unit.blockId === blockId && unit.demoEnabled === true && points
-      ? [{ id: unit.id, points, label: t('block.hotspotLabel', {
+    const hotspot = getUnitHotspot(unit.id)
+    return unit.blockId === blockId && unit.demoEnabled === true
+      && hotspot?.blockId === unit.blockId
+      ? [{ id: unit.id, points: hotspot.points, label: t('block.hotspotLabel', {
           unit: unit.id, floor: formatFloor(unit.floor, t),
         }),
           disabled: isTransitioning }]

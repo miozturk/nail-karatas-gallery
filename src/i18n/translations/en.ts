@@ -41,7 +41,7 @@ export const en = {
   'block.hotspotGroupLabel': 'Block {block} unit targets',
   'block.hotspotLabel': 'Unit {unit}, {floor}',
   'block.transitionLabel': 'Return video to the main view',
-  'block.caption': '1920 × 1440 · 4:3 · DEVELOPMENT-ONLY: artificial unit polygons do not match real façades.',
+  'block.caption': '1920 × 1440 · 4:3 · Unit regions authored on the real Block image.',
   'unit.quickTitle': 'Selected unit: {unit}',
   'unit.closeAria': 'Close the card and return to the block',
   'unit.close': 'Close — Return to Block',

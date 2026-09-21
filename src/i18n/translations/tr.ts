@@ -39,7 +39,7 @@ export const tr = {
   'block.hotspotGroupLabel': '{block} Blok bağımsız bölüm hedefleri',
   'block.hotspotLabel': 'Bağımsız bölüm {unit}, {floor}',
   'block.transitionLabel': 'Ana görünüme geri dönüş videosu',
-  'block.caption': '1920 × 1440 · 4:3 · DEVELOPMENT-ONLY: yapay bağımsız bölüm poligonları gerçek cephelerle eşleşmez.',
+  'block.caption': '1920 × 1440 · 4:3 · Gerçek Block görseli üzerinde tanımlanmış bağımsız bölüm bölgeleri.',
   'unit.quickTitle': 'Seçili bölüm: {unit}',
   'unit.closeAria': 'Kartı kapat ve bloğa dön',
   'unit.close': 'Kapat — Bloğa dön',

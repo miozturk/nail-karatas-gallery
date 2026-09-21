@@ -41,7 +41,7 @@ export const ru = {
   'block.hotspotGroupLabel': 'Цели помещений блока {block}',
   'block.hotspotLabel': 'Помещение {unit}, {floor}',
   'block.transitionLabel': 'Видео возврата к общему виду',
-  'block.caption': '1920 × 1440 · 4:3 · DEVELOPMENT-ONLY: искусственные полигоны помещений не соответствуют реальным фасадам.',
+  'block.caption': '1920 × 1440 · 4:3 · Зоны помещений размечены на реальном изображении блока.',
   'unit.quickTitle': 'Выбранное помещение: {unit}',
   'unit.closeAria': 'Закрыть карточку и вернуться к блоку',
   'unit.close': 'Закрыть — К блоку',
