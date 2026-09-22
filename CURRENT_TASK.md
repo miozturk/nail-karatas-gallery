@@ -1,9 +1,12 @@
 # Current Task
 
-**IMP-031 — Demo Hardening, Transition Handoff & Final Rehearsal**
+**IMP-031 — Human-Assisted Demo Hardening & Transition Handoff**
 
 Task specification:
 
-`tasks/IMP-031-DEMO-HARDENING-TRANSITION-HANDOFF.md`
+`tasks/IMP-031-HUMAN-ASSISTED-DEMO-HARDENING.md`
 
-Do not implement product-expansion or post-sale premium UI work.
+Human baseline is already completed and embedded in the task.
+Do not repeat Phase A.
+Do not implement post-sale premium UI work.
+Do not begin IMP-032.

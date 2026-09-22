@@ -1,0 +1,18 @@
+AGENTS.md ve zorunlu baseline belgelerini oku.
+CURRENT_TASK.md dosyasını ve işaret ettiği IMP-031 görevini uygula.
+
+Önemli: Human baseline testi görev dosyasının içine işlendi ve zaten tamamlandı. Phase A'yı tekrar etme, aynı gözlemleri yeniden üretmek için kota harcama.
+
+Bu görev human-assisted ilerleyecek:
+- Sen transition lifecycle/root-cause analizi, kod değişikliği, teknik smoke testleri, build/lint/typecheck/staging ve ölçülebilir regresyonları yapacaksın.
+- Transition fix hazır olduğunda görevi kapatmayacaksın. `POST-FIX HUMAN TEST READY` diyerek duracaksın.
+- Ben Chrome'da altı transition yönünü 10'ar kez test edip sonucu sana vereceğim.
+- Sonuçtan sonra aynı IMP-031 içinde gerekiyorsa en küçük düzeltmeyi yapacak, ardından final doğrulama ve completion report'u tamamlayacaksın.
+
+Yeni özellik ekleme.
+Full-bleed, glass UI, premium final shell veya Nail Karataş ana-site entegrasyonu üzerinde çalışma.
+Production medya dosyalarını değiştirme.
+Home scrollbar yalnız düşük riskli, prensipli bir çözüm varsa ele alınabilir; transition stabilitesinden daha düşük önceliklidir.
+IMP-032'ye başlama.
+
+Çalışma açıklamalarını ve completion report'u Türkçe yaz.
