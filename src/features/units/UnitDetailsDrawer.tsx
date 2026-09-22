@@ -36,10 +36,6 @@ export default function UnitDetailsDrawer({ unit, unitType, disabled }: UnitDeta
       </dl>
       <div className="unit-details-drawer__media">
         <UnitPlan unit={unit} unitType={unitType} variant="detail" />
-        <section className="unit-details-drawer__placeholder" aria-label={t('details.galleryAria')}>
-          <h3>{t('details.galleryTitle')}</h3>
-          <p>{t('details.galleryNotice')}</p>
-        </section>
       </div>
       <nav aria-label={t('details.actionsLabel', { unit: unit.id })}>
         <Link className="ui-action ui-action--secondary" to={route}>{t('details.backQuickCard')}</Link>

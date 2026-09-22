@@ -21,15 +21,17 @@ export default function UnitQuickCard({ unit, unitType, disabled }: UnitQuickCar
         <Link className="ui-action ui-action--quiet" to={`/block/${unit.blockId}`}
           aria-label={t('unit.closeAria')}>{t('unit.close')}</Link>
       </header>
-      <UnitPlan unit={unit} unitType={unitType} variant="compact" />
-      <dl>
-        <div><dt>{t('unit.officialNumber')}</dt><dd>{unit.unitNo}</dd></div>
-        <div><dt>{t('unit.floor')}</dt><dd>{formatFloor(unit.floor, t)}</dd></div>
-        <div><dt>{t('unit.type')}</dt><dd>{formatUnitTypeName(unitType.name, unitType.rooms, t)}</dd></div>
-        <div><dt>{t('unit.category')}</dt><dd>{formatCategory(unitType.category, t)}</dd></div>
-        {unitType.rooms && <div><dt>{t('unit.rooms')}</dt><dd>{unitType.rooms}</dd></div>}
-        {unitType.netArea !== undefined && <div><dt>{t('unit.netArea')}</dt><dd>{formatArea(unitType.netArea, locale)}</dd></div>}
-      </dl>
+      <div className="unit-quick-card__body">
+        <UnitPlan unit={unit} unitType={unitType} variant="compact" />
+        <dl>
+          <div><dt>{t('unit.officialNumber')}</dt><dd>{unit.unitNo}</dd></div>
+          <div><dt>{t('unit.floor')}</dt><dd>{formatFloor(unit.floor, t)}</dd></div>
+          <div><dt>{t('unit.type')}</dt><dd>{formatUnitTypeName(unitType.name, unitType.rooms, t)}</dd></div>
+          <div><dt>{t('unit.category')}</dt><dd>{formatCategory(unitType.category, t)}</dd></div>
+          {unitType.rooms && <div><dt>{t('unit.rooms')}</dt><dd>{unitType.rooms}</dd></div>}
+          {unitType.netArea !== undefined && <div><dt>{t('unit.netArea')}</dt><dd>{formatArea(unitType.netArea, locale)}</dd></div>}
+        </dl>
+      </div>
       <nav aria-label={t('unit.actionsLabel', { unit: unit.id })}>
         <Link className="ui-action ui-action--primary" to={`${route}/tour`}>{t('unit.virtualTour')}</Link>
         <Link className="ui-action ui-action--secondary" to={`${route}/details`}>{t('unit.details')}</Link>

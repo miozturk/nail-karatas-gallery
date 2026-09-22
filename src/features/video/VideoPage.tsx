@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { developmentVideo } from './developmentMedia'
 import { useI18n } from '../../i18n/useI18n'
+import { projectVideo } from '../../media/projectVideo'
 import './VideoPage.css'
 
 type MediaStatus = 'loading' | 'ready' | 'error'
@@ -13,7 +13,7 @@ export default function VideoPage() {
 
   useEffect(() => {
     const video = player.current!
-    video.src = developmentVideo.src
+    video.src = projectVideo.src
     return () => {
       video.pause()
       video.removeAttribute('src')

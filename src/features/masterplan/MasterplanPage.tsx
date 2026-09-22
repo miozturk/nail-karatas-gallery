@@ -79,19 +79,11 @@ export default function MasterplanPage() {
             onBlur={(id) => leave('polygon-focus', id)}
             onActivate={activate}
           />}
-          overlay={<><svg className="masterplan__labels" viewBox="0 0 1920 1440" aria-hidden="true">
-            {hotspots.map((hotspot) => <text key={hotspot.id}
-              x={(hotspot.points[0][0] + hotspot.points[1][0]) / 2} y="720"
-              textAnchor="middle" dominantBaseline="middle" fontSize="80">
-              {blocks.find((block) => block.id === hotspot.id)?.name}
-            </text>)}
-          </svg>
-            <TransitionLayer src={transitionVideo} active={isTransitioning}
-              preloadRequested={highlightedId !== null}
-              destinationImageSrc={getExteriorBlockMedia(transitionBlockId)?.scene}
-              label={t('masterplan.transitionLabel')}
-              onComplete={resolveTransition} onFailure={resolveTransition} />
-          </>}
+          overlay={<TransitionLayer src={transitionVideo} active={isTransitioning}
+            preloadRequested={highlightedId !== null}
+            destinationImageSrc={getExteriorBlockMedia(transitionBlockId)?.scene}
+            label={t('masterplan.transitionLabel')}
+            onComplete={resolveTransition} onFailure={resolveTransition} />}
         />
         <figcaption>{t('masterplan.caption')}</figcaption>
       </figure>

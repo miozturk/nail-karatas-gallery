@@ -18,10 +18,10 @@ yerleştirir. Dekoratif görseller için `alt=""` kullanılır. Görsel oranı
 dolduracak dış sahne görselleri 4:3 olmalıdır. Medya URL'si merkezi sahne /
 medya verisinden gelmelidir.
 
-Home'daki `SceneStageProof` yalnızca `import.meta.env.DEV` koşulunda görünür.
-CSS ile oluşturulmuş nötr zemin ve (960, 720) merkez işareti geçici geliştirme
-kanıtıdır. Üretim medyası kullanılmaz. IMP-005 ile interaction alanına sahte
-geliştirme poligonları eklenmiştir; API için `../SvgHotspotLayer/README.md` dosyasına bakın.
+Geçici `SceneStageProof` örneği IMP-030 legacy audit sırasında kaldırılmıştır.
+Production Home ve Block sahneleri bu bileşimi gerçek exterior medya ve canonical
+polygon kaynaklarıyla kullanır. Hotspot API'si için
+`../SvgHotspotLayer/README.md` dosyasına bakın.
 
 Doğrulama: 1440 × 1000 viewport'ta sahne 768 × 576; 390 × 844 viewport'ta
 342 × 256,5 piksel. Her ikisinde merkez sapması (0, 0), oran 4:3; yatay

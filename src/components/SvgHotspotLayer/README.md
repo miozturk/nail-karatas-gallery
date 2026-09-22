@@ -14,6 +14,5 @@ Space sırasında odağın kaybolması bekleyen aktivasyonu iptal eder.
 Disabled poligon Tab sırasına girmez ve callback ile aktive edilemez.
 Boş SVG alanı ve disabled bölge pointer olaylarını alttaki katmana geçirir.
 
-Bağımsız `SceneStageProof` örneğindeki koordinatlar tamamen sahtedir. Üçüncü bölge disabled
-doğrulaması içindir. Hover, seçim/aktivasyon sayısı ve zemin tıklama sayısı gösterilir.
-Home artık IMP-006 Masterplan bileşimini kullanır; genel örnek Home üzerinde gösterilmez.
+Geçici `SceneStageProof` örneği IMP-030 legacy audit sırasında kaldırılmıştır.
+Production Home ve Block sahneleri canonical Masterplan ve Unit polygonlarını kullanır.

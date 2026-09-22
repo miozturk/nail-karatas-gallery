@@ -74,14 +74,8 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
             <p className="block-scene__meta">{formatCategory(block.category, t)}</p>
             <h1>{t('block.title', { block: block.name })}</h1>
           </div>
-          <button className="block-scene__home" type="button" disabled={isTransitioning}
-            onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
-            onClick={activateHome}>{t('block.home')}</button>
         </header>
         <div className="block-scene__feedback">
-          <p className="block-scene__status" role="status">{isTransitioning
-            ? t('block.statusPlaying')
-            : t('block.statusReady')}</p>
           <p className="block-scene__highlight">{t('block.highlight', { unit: highlightedUnit ?? t('block.none') })}</p>
         </div>
       </div>
@@ -101,12 +95,20 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
               label={t('block.transitionLabel')}
               onComplete={returnHome} onFailure={returnHome} />}
           />
-          {unit && unitType && (showDetails
-            ? <UnitDetailsDrawer unit={unit} unitType={unitType} disabled={isTransitioning} />
-            : <UnitQuickCard unit={unit} unitType={unitType} disabled={isTransitioning} />)}
         </div>
         <figcaption>{t('block.caption')}</figcaption>
       </figure>
+      <div className="block-scene__navigation">
+        <p className="block-scene__status" role="status">{isTransitioning
+          ? t('block.statusPlaying')
+          : t('block.statusReady')}</p>
+        <button className="block-scene__home" type="button" disabled={isTransitioning}
+          onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
+          onClick={activateHome}>{t('block.home')}</button>
+      </div>
+      {unit && unitType && (showDetails
+        ? <UnitDetailsDrawer unit={unit} unitType={unitType} disabled={isTransitioning} />
+        : <UnitQuickCard unit={unit} unitType={unitType} disabled={isTransitioning} />)}
     </>
   )
 }

@@ -36,7 +36,12 @@ const media = [
   ['/media/panoramas/dev/living-room.jpg', 'image/jpeg'],
   ['/media/panoramas/dev/hall.jpg', 'image/jpeg'],
   ['/media/panoramas/dev/bedroom.jpg', 'image/jpeg'],
-  ['/media/video/dev/project-video-proof.mp4', 'video/mp4'],
+  ['/media/video/project/video-animation.mp4', 'video/mp4'],
+]
+const removedProofMedia = [
+  '/media/transitions/dev-transition-proof.mp4',
+  '/media/transitions/dev-reverse-transition-proof.mp4',
+  '/media/video/dev/project-video-proof.mp4',
 ]
 
 async function listen(server) {
@@ -97,6 +102,11 @@ try {
   const missingAsset = await fetch(`${baseUrl}/assets/missing-staging-proof.js`)
   assert.equal(missingAsset.status, 404, 'missing file requests must not receive the SPA shell')
 
+  for (const mediaPath of removedProofMedia) {
+    const response = await fetch(`${baseUrl}${mediaPath}`)
+    assert.equal(response.status, 404, `${mediaPath} must not ship in the production output`)
+  }
+
   const assetFiles = (await readdir(resolve(distDirectory, 'assets'), { recursive: true, withFileTypes: true }))
     .filter((entry) => entry.isFile())
     .map((entry) => resolve(entry.parentPath, entry.name))
@@ -110,6 +120,7 @@ try {
     'PanoramaSpike',
     '/media/transitions/dev-transition-proof.mp4',
     '/media/transitions/dev-reverse-transition-proof.mp4',
+    '/media/video/dev/project-video-proof.mp4',
   ]) {
     assert(!productionText.includes(forbidden), `production assets must exclude ${forbidden}`)
   }
@@ -131,7 +142,7 @@ try {
   console.log(`PASS routes (${routeResults.length}): ${routeResults.join(', ')}`)
   console.log(`PASS entry assets (${assetResults.length}): ${assetResults.join(', ')}`)
   console.log(`PASS media (${mediaResults.length}): ${mediaResults.join(', ')}`)
-  console.log('PASS missing-file 404, DEV-route bundle isolation, localhost/port/filesystem hygiene')
+  console.log('PASS missing/proof-file 404, DEV-route bundle isolation, localhost/port/filesystem hygiene')
 } finally {
   await close(server)
 }
