@@ -2,9 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Outlet, Route, Routes, useParams } from 'react-router-dom'
 import { blocks, units, unitTypes } from '../data'
 import MasterplanPage from '../features/masterplan/MasterplanPage'
-import BlockPage from '../features/blocks/BlockPage'
-import UnitPage from '../features/units/UnitPage'
-import UnitDetailsPage from '../features/units/UnitDetailsPage'
+import BlockPage, { UnitOverlayRoute } from '../features/blocks/BlockPage'
 import { useI18n } from '../i18n/useI18n'
 import AppShell from './AppShell'
 import NotFoundPage from './NotFoundPage'
@@ -46,11 +44,15 @@ export default function AppRouter() {
       <Route element={<AppShell />}>
         <Route index element={<MasterplanPage />} />
         <Route path="block/:blockId" element={<BlockRoute />}>
-          <Route index element={<BlockPage />} />
-          <Route path="unit/:unitId" element={<UnitRoute />}>
-            <Route index element={<UnitPage />} />
-            <Route path="details" element={<UnitDetailsPage />} />
-            <Route path="tour" element={
+          {/* Keep the Block scene mounted while Unit and Details overlays swap. */}
+          <Route element={<BlockPage />}>
+            <Route index element={null} />
+            <Route path="unit/:unitId" element={<UnitOverlayRoute />} />
+            <Route path="unit/:unitId/details" element={<UnitOverlayRoute showDetails />} />
+          </Route>
+          {/* Tour keeps its existing full-width surface and Unit validation. */}
+          <Route path="unit/:unitId/tour" element={<UnitRoute />}>
+            <Route index element={
               <Suspense fallback={<p className="route-loading" role="status">{t('loading.tour')}</p>}><TourPage /></Suspense>
             } />
           </Route>

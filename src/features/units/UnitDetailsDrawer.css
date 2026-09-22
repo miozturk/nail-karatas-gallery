@@ -1,14 +1,19 @@
 .unit-details-drawer {
-  /* Overlap the empty stage edge without covering the development hotspots. */
-  position: relative;
+  position: fixed;
+  right: max(var(--space-4), calc((100vw - var(--content-max)) / 2 + var(--space-4)));
+  bottom: var(--space-4);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-  width: min(44rem, calc(100% - 2rem));
-  margin: var(--space-5) 1rem 0 auto;
+  width: min(44rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
   padding: var(--space-5);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-lg);
   background: var(--color-surface-elevated);
   box-shadow: var(--shadow-overlay);
+  overflow: hidden;
   overflow-wrap: anywhere;
 }
 
@@ -30,6 +35,13 @@
 .unit-details-drawer header .ui-action {
   flex: 0 1 auto;
   padding-inline: var(--space-3);
+}
+
+.unit-details-drawer__body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 
 .unit-details-drawer dl {
@@ -71,6 +83,7 @@
 }
 
 .unit-details-drawer nav {
+  flex: none;
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
@@ -79,10 +92,12 @@
 
 @media (max-width: 640px) {
   .unit-details-drawer {
-    width: 100%;
-    margin: var(--space-3) 0 0;
+    right: var(--space-3);
+    bottom: var(--space-3);
+    left: var(--space-3);
+    width: auto;
+    max-height: calc(100dvh - 1.5rem);
     padding: var(--space-4);
-    box-shadow: var(--shadow-subtle);
   }
 
   .unit-details-drawer header { align-items: flex-start; flex-direction: column; }

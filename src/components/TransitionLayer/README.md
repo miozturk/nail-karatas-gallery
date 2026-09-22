@@ -1,9 +1,12 @@
 # TransitionLayer — IMP-007
 
-Yönlendirmeden bağımsız, SceneStage overlay slotunda kullanılan HTML5 video katmanı.
+Yönlendirmeden bağımsız HTML5 video katmanı. IMP-031'den itibaren
+`ExteriorTransitionProvider` içinde AppShell ömrü boyunca kalır; route sayfaları yalnızca
+geçiş isteği ve intent preload kaynağı sağlar.
 
 - `src`: merkezi medya verisinden gelen kaynak.
 - `active`: oynatmayı başlatır; pasifken video gizli ve kaynaksız kalır.
+- `visible`: terminal kare bırakılırken oynatma/cleanup ömrünü görünürlükten ayırır.
 - `preloadRequested`: kullanıcı intent'i sonrasında aynı video elementinde gecikmeli
   kaynak hazırlığı yapar.
 - `destinationImageSrc`: active geçişle paralel native `Image.decode()` çalıştırır;
@@ -15,17 +18,23 @@ Yönlendirmeden bağımsız, SceneStage overlay slotunda kullanılan HTML5 video
 - `timeoutMs`: yükleme ve oynatma için toplam üst sınır (varsayılan 10000 ms).
   İleride daha uzun klip kullanılırsa bu sınır klibe göre ayarlanmalıdır.
 
-Çağıran bileşen her iki callback'te de `active` değerini kapatmalıdır.
+Provider her iki callback'te de hedef route'u commit eder.
 Kaynak/aktiflik/süre sınırı değişince önceki oynatma temizlenir. Callback kimliğinin
 değişmesi videoyu yeniden başlatmaz. Her oynatma en fazla bir sonuç üretir.
-Başarılı bitişte terminal kare hedef route commit'ine kadar korunur; reset unmount
-cleanup'ında yapılır. Hata ve unmount sırasında video durdurulur, zaman sıfırlanır;
+İlk kare compositor'a sunulana kadar video görünmez; bu sırada kaynak static sahne
+yerinde kalır. Başarılı bitişte terminal kare, hedef route commit'inden sonra gerçek
+hedef `<img>` yüklenmiş ve yeni SceneStage ölçeği hazır olana kadar korunur. Hedef
+sahne video altında tam bir paint aldıktan sonra katman görünmez yapılır; video reset
+ve compositor cleanup'ı ise bir sonraki paint sınırına bırakılır. Bu ayrım video →
+WebP handoff'unda katman kaldırma kaynaklı pop riskini azaltır. Hazırlık sinyali
+gelmezse 1500 ms fail-safe navigation kilidini bırakır. Hata ve unmount sırasında video durdurulur, zaman sıfırlanır;
 olay dinleyicileri ve zamanlayıcı temizlenir. Geç sonuçlanan play promise'i temizlenmiş oturumu etkilemez.
 Video muted + playsInline oynar; negatif playbackRate kullanılmaz.
 
-Masterplan hotspot ve düğmeleri aynı `activate` yolunu kullanır. Yerel ref ilk isteği
-hemen kilitler; React state düğmeleri ve hotspotları disabled yapar. Normal bitişte
-kilit çözülür ve hedef Block rotasına gidilir. Hata durumunda da aynı hedefe doğrudan
+Masterplan hotspot ve düğmeleri aynı `activate` yolunu kullanır. Provider ref'i ilk
+isteği hemen kilitler; paylaşılan state düğmeleri ve hotspotları disabled yapar. Normal
+bitişte hedef Block rotasına gidilir ve hedef sahne arkada boyandıktan sonra kilit çözülür.
+Hata durumunda da aynı hedefe doğrudan
 gidilmesi kasıtlı fail-safe davranışıdır; retry UI yoktur. Reduced-motion etkinse
 video ve kilit atlanır. IMP-024 sonrasında müşteri akışında her blok, merkezi exterior
 medya yapılandırmasındaki ayrı forward ve ayrı reverse proje klibini kullanır.

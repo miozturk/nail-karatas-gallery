@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import { blocks, units, unitTypes } from '../../data'
 import NotFoundPage from '../../app/NotFoundPage'
 import SceneStage from '../../components/SceneStage/SceneStage'
 import SceneStageImage from '../../components/SceneStage/SceneStageImage'
-import TransitionLayer from '../../components/TransitionLayer/TransitionLayer'
+import { useExteriorTransition } from '../../components/TransitionLayer/useExteriorTransition'
 import SvgHotspotLayer from '../../components/SvgHotspotLayer/SvgHotspotLayer'
 import { getUnitHotspot } from './unitHotspots'
 import UnitQuickCard from '../units/UnitQuickCard'
@@ -14,12 +14,25 @@ import { useI18n } from '../../i18n/useI18n'
 import { exteriorMedia, getExteriorBlockMedia } from '../../media/exteriorMedia'
 import './BlockPage.css'
 
-export default function BlockPage({ showDetails = false }: { showDetails?: boolean }) {
+interface BlockOverlayContext {
+  unit: (typeof units)[number] | undefined
+  unitType: (typeof unitTypes)[number] | undefined
+  disabled: boolean
+}
+
+export function UnitOverlayRoute({ showDetails = false }: { showDetails?: boolean }) {
+  const { unit, unitType, disabled } = useOutletContext<BlockOverlayContext>()
+  if (!unit || !unitType) return null
+  return showDetails
+    ? <UnitDetailsDrawer unit={unit} unitType={unitType} disabled={disabled} />
+    : <UnitQuickCard unit={unit} unitType={unitType} disabled={disabled} />
+}
+
+export default function BlockPage() {
   const { t } = useI18n()
   const { blockId, unitId } = useParams()
   const navigate = useNavigate()
-  const pending = useRef(false)
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const { isTransitioning, preloadTransition, startTransition } = useExteriorTransition()
   const [homeIntent, setHomeIntent] = useState(false)
   const [hoveredUnit, setHoveredUnit] = useState<string | null>(null)
   const [focusedUnit, setFocusedUnit] = useState<string | null>(null)
@@ -41,27 +54,25 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
   })
   const highlightedUnit = isTransitioning ? null : focusedUnit ?? hoveredUnit
   const activateUnit = (id: string) => {
-    if (pending.current || !hotspots.some((hotspot) => hotspot.id === id)) return
+    if (isTransitioning || !hotspots.some((hotspot) => hotspot.id === id)) return
     void navigate(`/block/${blockId}/unit/${id}`)
   }
 
-  const returnHome = () => {
-    if (!pending.current) return
-    pending.current = false
-    setIsTransitioning(false)
-    void navigate('/')
-  }
+  useEffect(() => {
+    preloadTransition(homeIntent ? blockMedia?.reverseTransition ?? null : null)
+    return () => preloadTransition(null)
+  }, [blockMedia?.reverseTransition, homeIntent, preloadTransition])
+
   const activateHome = () => {
-    // Protect even repeated activation before disabled is rendered.
-    if (pending.current) return
-    pending.current = true
+    if (!blockMedia) return
     setHoveredUnit(null)
     setFocusedUnit(null)
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      returnHome()
-      return
-    }
-    setIsTransitioning(true)
+    startTransition({
+      src: blockMedia.reverseTransition,
+      destinationImageSrc: exteriorMedia.masterplan,
+      to: '/',
+      label: t('block.transitionLabel'),
+    })
   }
 
   if (!block || !blockMedia || (unitId && (!unit || !unitType))) return <NotFoundPage />
@@ -89,11 +100,6 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
                 onHover={setHoveredUnit} onLeave={() => setHoveredUnit(null)}
                 onFocus={setFocusedUnit} onBlur={() => setFocusedUnit(null)}
                 onActivate={activateUnit} />}
-            overlay={<TransitionLayer src={blockMedia.reverseTransition} active={isTransitioning}
-              preloadRequested={homeIntent}
-              destinationImageSrc={exteriorMedia.masterplan}
-              label={t('block.transitionLabel')}
-              onComplete={returnHome} onFailure={returnHome} />}
           />
         </div>
         <figcaption>{t('block.caption')}</figcaption>
@@ -106,9 +112,7 @@ export default function BlockPage({ showDetails = false }: { showDetails?: boole
           onPointerEnter={() => setHomeIntent(true)} onFocus={() => setHomeIntent(true)}
           onClick={activateHome}>{t('block.home')}</button>
       </div>
-      {unit && unitType && (showDetails
-        ? <UnitDetailsDrawer unit={unit} unitType={unitType} disabled={isTransitioning} />
-        : <UnitQuickCard unit={unit} unitType={unitType} disabled={isTransitioning} />)}
+      <Outlet context={{ unit, unitType, disabled: isTransitioning } satisfies BlockOverlayContext} />
     </>
   )
 }

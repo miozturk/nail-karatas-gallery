@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useMatch } from 'react-router-dom'
 import { blocks } from '../data'
 import { useI18n } from '../i18n/useI18n'
+import { ExteriorTransitionProvider } from '../components/TransitionLayer/ExteriorTransitionProvider'
 
 const localeOptions = [
   { locale: 'tr', label: 'locale.tr' },
@@ -22,7 +23,7 @@ export default function AppShell() {
     : homeRoute || hasBlockHome ? 'app-main--exterior'
       : videoRoute ? 'app-main--video' : undefined
   return (
-    <>
+    <ExteriorTransitionProvider>
       <header className="app-header">
         <div className="app-header__inner">
           <div className="app-header__top">
@@ -43,6 +44,6 @@ export default function AppShell() {
         </div>
       </header>
       <main className={mainClassName}><Outlet /></main>
-    </>
+    </ExteriorTransitionProvider>
   )
 }

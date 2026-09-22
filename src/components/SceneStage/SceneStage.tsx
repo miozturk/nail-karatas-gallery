@@ -25,7 +25,8 @@ export default function SceneStage({ label, base, interaction, overlay }: SceneS
   }, [])
 
   return (
-    <div ref={containerRef} className="scene-stage" role="group" aria-label={label}>
+    <div ref={containerRef} className="scene-stage" role="group" aria-label={label}
+      data-ready={scale > 0}>
       <div className="scene-stage__coordinates" style={{ transform: `translate(-50%, -50%) scale(${scale})` }}>
         <div className="scene-stage__layer scene-stage__base">{base}</div>
         <div className="scene-stage__layer scene-stage__interaction">{interaction}</div>

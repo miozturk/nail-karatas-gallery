@@ -23,19 +23,21 @@ export default function UnitDetailsDrawer({ unit, unitType, disabled }: UnitDeta
         <h2 id="unit-details-title">{t('details.title', { unit: unit.id })}</h2>
         <Link className="ui-action ui-action--quiet" to={`/block/${unit.blockId}`}>{t('details.backBlock')}</Link>
       </header>
-      <dl>
-        <div><dt>{t('details.unitId')}</dt><dd>{unit.id}</dd></div>
-        <div><dt>{t('unit.officialNumber')}</dt><dd>{unit.unitNo}</dd></div>
-        <div><dt>{t('unit.floor')}</dt><dd>{formatFloor(unit.floor, t)}</dd></div>
-        <div><dt>{t('unit.type')}</dt><dd>{formatUnitTypeName(unitType.name, unitType.rooms, t)}</dd></div>
-        <div><dt>{t('unit.category')}</dt><dd>{formatCategory(unitType.category, t)}</dd></div>
-        {unitType.rooms && <div><dt>{t('unit.rooms')}</dt><dd>{unitType.rooms}</dd></div>}
-        {unitType.netArea !== undefined && <div><dt>{t('unit.netArea')}</dt><dd>{formatArea(unitType.netArea, locale)}</dd></div>}
-        {unit.orientation && <div><dt>{t('unit.orientation')}</dt><dd>{formatOrientation(unit.orientation, t)}</dd></div>}
-        <div><dt>{t('unit.availability')}</dt><dd>{formatAvailability(unit.availability, t)}</dd></div>
-      </dl>
-      <div className="unit-details-drawer__media">
-        <UnitPlan unit={unit} unitType={unitType} variant="detail" />
+      <div className="unit-details-drawer__body">
+        <dl>
+          <div><dt>{t('details.unitId')}</dt><dd>{unit.id}</dd></div>
+          <div><dt>{t('unit.officialNumber')}</dt><dd>{unit.unitNo}</dd></div>
+          <div><dt>{t('unit.floor')}</dt><dd>{formatFloor(unit.floor, t)}</dd></div>
+          <div><dt>{t('unit.type')}</dt><dd>{formatUnitTypeName(unitType.name, unitType.rooms, t)}</dd></div>
+          <div><dt>{t('unit.category')}</dt><dd>{formatCategory(unitType.category, t)}</dd></div>
+          {unitType.rooms && <div><dt>{t('unit.rooms')}</dt><dd>{unitType.rooms}</dd></div>}
+          {unitType.netArea !== undefined && <div><dt>{t('unit.netArea')}</dt><dd>{formatArea(unitType.netArea, locale)}</dd></div>}
+          {unit.orientation && <div><dt>{t('unit.orientation')}</dt><dd>{formatOrientation(unit.orientation, t)}</dd></div>}
+          <div><dt>{t('unit.availability')}</dt><dd>{formatAvailability(unit.availability, t)}</dd></div>
+        </dl>
+        <div className="unit-details-drawer__media">
+          <UnitPlan unit={unit} unitType={unitType} variant="detail" />
+        </div>
       </div>
       <nav aria-label={t('details.actionsLabel', { unit: unit.id })}>
         <Link className="ui-action ui-action--secondary" to={route}>{t('details.backQuickCard')}</Link>
