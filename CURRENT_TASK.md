@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-029 — Real Unit Plan Integration & Content Cleanup**
+**IMP-030 — Presentation Content Cleanup, Navigation Polish & Real Video Integration**
 
 Task specification:
 
-`tasks/IMP-029-REAL-UNIT-PLAN-INTEGRATION.md`
+`tasks/IMP-030-PRESENTATION-POLISH-REAL-VIDEO.md`
 
-Do not implement tasks beyond IMP-029.
+Do not implement tasks beyond IMP-030.
