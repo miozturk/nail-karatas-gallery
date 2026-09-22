@@ -1,9 +1,9 @@
 # Current Task
 
-**IMP-030 — Presentation Content Cleanup, Navigation Polish & Real Video Integration**
+**IMP-031 — Demo Hardening, Transition Handoff & Final Rehearsal**
 
 Task specification:
 
-`tasks/IMP-030-PRESENTATION-POLISH-REAL-VIDEO.md`
+`tasks/IMP-031-DEMO-HARDENING-TRANSITION-HANDOFF.md`
 
-Do not implement tasks beyond IMP-030.
+Do not implement product-expansion or post-sale premium UI work.
