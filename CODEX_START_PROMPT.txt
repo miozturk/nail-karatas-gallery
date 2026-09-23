@@ -1,18 +1,19 @@
-AGENTS.md ve zorunlu baseline belgelerini oku.
-CURRENT_TASK.md dosyasını ve işaret ettiği IMP-031 görevini uygula.
+AGENTS.md, zorunlu baseline belgeleri ve CURRENT_TASK.md dosyasını oku.
+CURRENT_TASK.md'nin işaret ettiği IMP-032 görevini uygula.
 
-Önemli: Human baseline testi görev dosyasının içine işlendi ve zaten tamamlandı. Phase A'yı tekrar etme, aynı gözlemleri yeniden üretmek için kota harcama.
+Bu görev human-assisted panorama entegrasyonudur.
 
-Bu görev human-assisted ilerleyecek:
-- Sen transition lifecycle/root-cause analizi, kod değişikliği, teknik smoke testleri, build/lint/typecheck/staging ve ölçülebilir regresyonları yapacaksın.
-- Transition fix hazır olduğunda görevi kapatmayacaksın. `POST-FIX HUMAN TEST READY` diyerek duracaksın.
-- Ben Chrome'da altı transition yönünü 10'ar kez test edip sonucu sana vereceğim.
-- Sonuçtan sonra aynı IMP-031 içinde gerekiyorsa en küçük düzeltmeyi yapacak, ardından final doğrulama ve completion report'u tamamlayacaksın.
-
-Yeni özellik ekleme.
-Full-bleed, glass UI, premium final shell veya Nail Karataş ana-site entegrasyonu üzerinde çalışma.
-Production medya dosyalarını değiştirme.
-Home scrollbar yalnız düşük riskli, prensipli bir çözüm varsa ele alınabilir; transition stabilitesinden daha düşük önceliklidir.
-IMP-032'ye başlama.
+Kritik kurallar:
+- Yalnız `BC-T01` 2+1 tipi için tek canonical panorama Tour oluştur.
+- `BC-T01-M`, 1+1 tipler ve ticari tip için bu Tour'u etkinleştirme.
+- Repo içindeki dört `public/media/panoramas/project/*.jpg` dosyasını değiştirme.
+- Panorama hotspot pitch/yaw koordinatlarını ASLA tahmin etme.
+- Önce dört sahneyi bağla, room menu/minimap/Tour akışını çalıştır.
+- Sonra DEV-only hotspot coordinate authoring yöntemi hazırla.
+- Phase A bittiğinde görevi finalize etme. `PANORAMA HOTSPOT AUTHORING READY` diyerek dur ve kullanıcıdan koordinatları bekle.
+- Kullanıcı koordinatları verdikten sonra aynı IMP-032 içinde Phase B'yi tamamla.
+- Yeni dependency ekleme.
+- Exterior/Unit hotspotları, transition sistemi, planlar ve video üzerinde çalışma.
+- IMP-033'e başlama.
 
 Çalışma açıklamalarını ve completion report'u Türkçe yaz.

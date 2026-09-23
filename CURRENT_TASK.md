@@ -1,12 +1,11 @@
 # Current Task
 
-**IMP-031 — Human-Assisted Demo Hardening & Transition Handoff**
+**IMP-032 — Human-Assisted 2+1 Panorama Tour Integration**
 
 Task specification:
 
-`tasks/IMP-031-HUMAN-ASSISTED-DEMO-HARDENING.md`
+`tasks/IMP-032-HUMAN-ASSISTED-2PLUS1-PANORAMA.md`
 
-Human baseline is already completed and embedded in the task.
-Do not repeat Phase A.
-Do not implement post-sale premium UI work.
-Do not begin IMP-032.
+This task is intentionally human-assisted.
+Do not guess panorama hotspot coordinates.
+Do not start IMP-033.
