@@ -3,8 +3,9 @@ declare module 'pannellum'
 interface PannellumViewer {
   getScene(): string
   loadScene(id: string): void
-  on(event: 'scenechange' | 'error', listener: (value: string) => void): void
-  off(event: 'scenechange' | 'error', listener: (value: string) => void): void
+  mouseEventToCoords(event: MouseEvent): [number, number]
+  on(event: 'scenechange' | 'error' | 'load', listener: (value: string) => void): void
+  off(event: 'scenechange' | 'error' | 'load', listener: (value: string) => void): void
   destroy(): void
 }
 

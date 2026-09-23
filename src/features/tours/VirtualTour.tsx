@@ -12,6 +12,7 @@ export default function VirtualTour({ tour }: { tour: PanoramaTourDefinition }) 
   const [active, setActive] = useState<string | null>(null)
   const [error, setError] = useState('')
   const [collapsed, setCollapsed] = useState(false)
+  const [picked, setPicked] = useState<{ sourceSceneId: string; pitch: number; yaw: number } | null>(null)
 
   useEffect(() => {
     let disposed = false
@@ -59,6 +60,12 @@ export default function VirtualTour({ tour }: { tour: PanoramaTourDefinition }) 
     }
   }
 
+  function pickCoordinate(event: React.MouseEvent<HTMLDivElement>) {
+    if (!import.meta.env.DEV || !event.shiftKey) return
+    const coordinates = adapter.current?.getCoordinatesAt(event.nativeEvent)
+    if (coordinates) setPicked(coordinates)
+  }
+
   const activeRoom = tour.scenes.find((scene) => scene.id === active)
   return <>
     <nav className="unit-tour__rooms" aria-label={t('tour.roomsLabel')}>
@@ -70,7 +77,8 @@ export default function VirtualTour({ tour }: { tour: PanoramaTourDefinition }) 
       : !error ? t('tour.starting') : t('tour.unavailableStatus')}</p>
     {error && <p className="unit-tour__error" role="alert">{error}</p>}
     <div className="unit-tour__stage">
-      <div ref={host} className="unit-tour__viewer" role="region" aria-label={t('tour.viewerLabel')} />
+      <div ref={host} className="unit-tour__viewer" role="region" aria-label={t('tour.viewerLabel')}
+        onClick={pickCoordinate} />
       <section className={`unit-tour__minimap${collapsed ? ' unit-tour__minimap--collapsed' : ''}`}
         aria-label={t('tour.minimapLabel')}>
         <button type="button" aria-expanded={!collapsed} aria-controls="tour-minimap"
@@ -80,11 +88,7 @@ export default function VirtualTour({ tour }: { tour: PanoramaTourDefinition }) 
         <div id="tour-minimap" hidden={collapsed}>
           <p>{t('tour.minimapNotice')}</p>
           <div className="unit-tour__map">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M23 28 L50 70 L77 28" fill="none" stroke="currentColor" strokeWidth="1" />
-            </svg>
             {tour.scenes.map((scene) => <button key={scene.id} type="button"
-              style={{ left: `${scene.minimap!.x}%`, top: `${scene.minimap!.y}%` }}
               disabled={!active || !!error} aria-pressed={active === scene.id}
               aria-label={t('tour.viewpointLabel', { room: scene.name })} onClick={() => navigate(scene.id)}>
               <span aria-hidden="true">{active === scene.id ? '●' : '○'}</span> {scene.name}
@@ -93,5 +97,10 @@ export default function VirtualTour({ tour }: { tour: PanoramaTourDefinition }) 
         </div>
       </section>
     </div>
+    {import.meta.env.DEV && <div className="unit-tour__authoring">
+      <strong>DEV · Hotspot koordinatı</strong>
+      <p>Panorama üzerinde Shift+tık: kaynak sahne, pitch ve yaw değerini gösterir. Değeri seçip kopyalayın.</p>
+      <output>{picked ? `sourceSceneId: ${picked.sourceSceneId}, pitch: ${picked.pitch.toFixed(4)}, yaw: ${picked.yaw.toFixed(4)}` : 'Henüz konum seçilmedi.'}</output>
+    </div>}
   </>
 }

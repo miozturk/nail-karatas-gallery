@@ -7,5 +7,6 @@ export interface PanoramaAdapter {
   getActiveScene(): string | null
   onSceneChange(callback: (sceneId: string) => void): () => void
   onError(callback: (message: string) => void): () => void
+  getCoordinatesAt(event: MouseEvent): { sourceSceneId: string; pitch: number; yaw: number } | null
   destroy(): void
 }

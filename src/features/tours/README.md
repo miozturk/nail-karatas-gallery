@@ -1,4 +1,24 @@
-# IMP-015 — Virtual Tour UI
+# Virtual Tour UI
+
+## IMP-032 (güncel durum)
+
+- `projectTour.ts` tek canonical `BC-T01` Tour tanımını ve dört proje JPG
+  sahnesini içerir. B-304 ile C-401 aynı tanımı kullanır; diğer UnitType'lar
+  eşleşmez ve mevcut tur-yok durumuna gider.
+- Oda menüsü dört sahnenin tamamına erişir. Minimap'teki düğmeler ölçülmüş
+  plan koordinatları değil, dört bakış noktası için temsili seçim alanıdır.
+- Oda içindeki altı hotspot yalnızca Phase B'de verilen insan koordinatlarını
+  kullanır; tüm sahnelere erişim için oda menüsü korunur.
+- Pannellum sahne hotspot'ları adapter içinde hedef oda adıyla `aria-label`,
+  `role=button`, klavye odağı ve Enter/Space etkinleştirmesi kazanır.
+- DEV Tour'da panorama üzerinde Shift+tık, Pannellum adapter'ının
+  `mouseEventToCoords` yöntemiyle `sourceSceneId`, `pitch` ve `yaw` gösterir.
+  Production build'de authoring arayüzü bulunmaz.
+- `bathroom.jpg` Phase B öncesinde kullanıcı tarafından 7000×3500 olarak
+  düzeltildi; dört JPG'nin tamamı 2:1'dir. Entegrasyon sırasında dosyalar
+  değiştirilmedi.
+
+## IMP-015 tarihsel uygulama kaydı
 
 ## Uygulama
 

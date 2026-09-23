@@ -67,6 +67,9 @@ const roomKeys: Readonly<Record<string, TranslationKey>> = {
   'living-room': 'room.living-room',
   hall: 'room.hall',
   bedroom: 'room.bedroom',
+  'bedroom-master': 'room.bedroom-master',
+  'bedroom-single': 'room.bedroom-single',
+  bathroom: 'room.bathroom',
 }
 
 export function formatRoomName(id: string, fallback: string, t: Translate): string {

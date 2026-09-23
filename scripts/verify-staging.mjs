@@ -33,9 +33,10 @@ const media = [
   ['/media/plans/project/plan-bc-t02.png', 'image/png'],
   ['/media/plans/project/plan-bc-t02-m.png', 'image/png'],
   ['/media/plans/project/plan-ticari.png', 'image/png'],
-  ['/media/panoramas/dev/living-room.jpg', 'image/jpeg'],
-  ['/media/panoramas/dev/hall.jpg', 'image/jpeg'],
-  ['/media/panoramas/dev/bedroom.jpg', 'image/jpeg'],
+  ['/media/panoramas/project/living-room.jpg', 'image/jpeg'],
+  ['/media/panoramas/project/bedroom-master.jpg', 'image/jpeg'],
+  ['/media/panoramas/project/bedroom-single.jpg', 'image/jpeg'],
+  ['/media/panoramas/project/bathroom.jpg', 'image/jpeg'],
   ['/media/video/project/video-animation.mp4', 'video/mp4'],
 ]
 const removedProofMedia = [
@@ -118,6 +119,7 @@ try {
     '/__dev/panorama-spike',
     'HotspotEditor',
     'PanoramaSpike',
+    'DEV · Hotspot koordinatı',
     '/media/transitions/dev-transition-proof.mp4',
     '/media/transitions/dev-reverse-transition-proof.mp4',
     '/media/video/dev/project-video-proof.mp4',

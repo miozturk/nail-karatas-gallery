@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { blocks, units, unitTypes } from '../../data'
 import NotFoundPage from '../../app/NotFoundPage'
-import { getDevelopmentTour } from './developmentTours'
+import { getProjectTour } from './projectTour'
 import VirtualTour from './VirtualTour'
 import TourHelp from './TourHelp'
 import { formatFloor, formatUnitTypeName, localizeTour } from '../../i18n/formatters'
@@ -16,7 +16,7 @@ export default function TourPage() {
   const block = blocks.find((item) => item.id === blockId)
   const unit = units.find((item) => item.id === unitId && item.blockId === blockId)
   const unitType = unitTypes.find((item) => item.id === unit?.unitTypeId)
-  const tour = unitType ? getDevelopmentTour(unitType.id) : undefined
+  const tour = unitType ? getProjectTour(unitType.id) : undefined
   const localizedTour = tour ? localizeTour(tour, t) : undefined
   if (!block || !unit || !unitType) return <NotFoundPage />
 

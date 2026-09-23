@@ -21,6 +21,26 @@ export class PannellumAdapter implements PanoramaAdapter {
     this.errors.forEach((callback) => callback(message))
   }
 
+  private hotspotKeydown = (event: KeyboardEvent) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    event.preventDefault()
+    event.stopPropagation()
+    const target = event.currentTarget as HTMLElement
+    target.click()
+  }
+
+  private labelHotspots = () => {
+    this.host?.querySelectorAll<HTMLElement>('.pnlm-hotspot-base.pnlm-scene').forEach((element) => {
+      if (element.getAttribute('role') === 'button') return
+      const label = element.textContent?.trim()
+      if (!label) return
+      element.setAttribute('role', 'button')
+      element.setAttribute('aria-label', label)
+      element.tabIndex = 0
+      element.addEventListener('keydown', this.hotspotKeydown)
+    })
+  }
+
   mount(element: HTMLElement) {
     if (this.host === element) return
     this.disposeViewer()
@@ -56,6 +76,7 @@ export class PannellumAdapter implements PanoramaAdapter {
       this.sceneIds = ids
       this.viewer.on('scenechange', this.sceneChanged)
       this.viewer.on('error', this.failed)
+      this.viewer.on('load', this.labelHotspots)
     } catch (error) {
       this.disposeViewer()
       throw error
@@ -81,10 +102,17 @@ export class PannellumAdapter implements PanoramaAdapter {
     return () => { this.errors.delete(callback) }
   }
 
+  getCoordinatesAt(event: MouseEvent) {
+    if (!this.viewer || !this.active) return null
+    const [pitch, yaw] = this.viewer.mouseEventToCoords(event)
+    return { sourceSceneId: this.active, pitch, yaw }
+  }
+
   private disposeViewer() {
     if (this.viewer) {
       this.viewer.off('scenechange', this.sceneChanged)
       this.viewer.off('error', this.failed)
+      this.viewer.off('load', this.labelHotspots)
       this.viewer.destroy()
     }
     this.viewer = null

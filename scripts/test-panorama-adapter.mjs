@@ -12,6 +12,7 @@ const window = { pannellum: { viewer(host, config) {
   const instance = {
     config, destroyed: false, scene: config.default.firstScene, loads: 0,
     getScene() { return this.scene },
+    mouseEventToCoords(event) { assert.equal(event.marker, 'pick'); return [12.5, -34.25] },
     loadScene(id) { this.loads++; this.scene = id; listeners.get('scenechange')?.(id) },
     on(event, callback) { listeners.set(event, callback) },
     off(event, callback) { assert.equal(listeners.get(event), callback); listeners.delete(event) },
@@ -28,7 +29,14 @@ const context = { exports: {}, window, require: (name) => {
 } }
 vm.runInNewContext(compiled, context)
 const adapter = new context.exports.PannellumAdapter()
-const host = { children: 0 }
+const hotspot = {
+  textContent: 'B', attrs: {}, clicks: 0, listeners: new Map(),
+  getAttribute(name) { return this.attrs[name] ?? null },
+  setAttribute(name, value) { this.attrs[name] = value },
+  addEventListener(name, listener) { this.listeners.set(name, listener) },
+  click() { this.clicks++ },
+}
+const host = { children: 0, querySelectorAll: () => [hotspot] }
 const tour = { initialSceneId: 'a', scenes: [
   { id: 'a', name: 'A', panoramaImage: '/a.jpg', initialView: { yaw: 1, pitch: 2, hfov: 90 }, hotspots: [{ targetSceneId: 'b', label: 'B', pitch: 3, yaw: 4 }] },
   { id: 'b', name: 'B', panoramaImage: '/b.jpg', hotspots: [] },
@@ -42,8 +50,17 @@ const errors = []
 const unsubscribeError = adapter.onError((message) => errors.push(message))
 adapter.loadTour(tour)
 assert.equal(adapter.getActiveScene(), 'a')
+assert.deepEqual({ ...adapter.getCoordinatesAt({ marker: 'pick' }) },
+  { sourceSceneId: 'a', pitch: 12.5, yaw: -34.25 })
 assert.deepEqual(changes, ['a'])
 const first = instances[0]
+first.emit('load')
+assert.equal(hotspot.attrs.role, 'button')
+assert.equal(hotspot.attrs['aria-label'], 'B')
+assert.equal(hotspot.tabIndex, 0)
+hotspot.listeners.get('keydown')({ key: 'Enter', currentTarget: hotspot,
+  preventDefault() {}, stopPropagation() {} })
+assert.equal(hotspot.clicks, 1)
 assert.equal(first.config.scenes.a.panorama, '/a.jpg')
 assert.equal(first.config.scenes.a.yaw, 1)
 assert.equal(first.config.scenes.a.hotSpots[0].sceneId, 'b')
@@ -77,6 +94,7 @@ adapter.onSceneChange(() => assert.fail('destroy must remove subscribers'))
 adapter.destroy()
 adapter.destroy()
 assert.equal(adapter.getActiveScene(), null)
+assert.equal(adapter.getCoordinatesAt({ marker: 'pick' }), null)
 assert.equal(host.children, 0)
 for (let cycle = 0; cycle < 3; cycle++) {
   adapter.mount(host)
@@ -85,4 +103,4 @@ for (let cycle = 0; cycle < 3; cycle++) {
   adapter.destroy()
   assert.equal(host.children, 0)
 }
-console.log('PASS: mapping, navigation, validation, unsubscribe, replacement, idempotent destroy and 3 remounts')
+console.log('PASS: mapping, navigation, coordinate picking, validation, unsubscribe, replacement, idempotent destroy and 3 remounts')

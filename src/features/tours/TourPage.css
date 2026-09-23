@@ -96,6 +96,11 @@
   outline-offset: 3px;
 }
 
+.unit-tour__viewer .pnlm-hotspot-base:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
 .unit-tour__status {
   min-height: 1.5rem;
   margin-bottom: var(--space-3);
@@ -168,32 +173,38 @@
 }
 
 .unit-tour__map {
-  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
   width: 100%;
-  height: 10.5rem;
-  overflow: hidden;
+  min-height: 10.5rem;
+  padding: var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-page);
 }
 
-.unit-tour__map svg {
-  width: 100%;
-  height: 100%;
-  color: var(--color-border-strong);
-}
-
 .unit-tour__map button {
-  position: absolute;
-  width: min(6.75rem, 42%);
+  width: 100%;
   min-width: 44px;
   padding: 0.35rem;
-  transform: translate(-50%, -50%);
   background: var(--color-surface-elevated);
   font-size: 0.68rem;
   line-height: 1.15;
   white-space: normal;
 }
+
+.unit-tour__authoring {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px dashed var(--color-border-strong);
+  overflow-wrap: anywhere;
+}
+
+.unit-tour__authoring p { margin: var(--space-2) 0; }
+.unit-tour__authoring output { user-select: text; font-family: monospace; }
 
 .tour-help {
   box-sizing: border-box;
