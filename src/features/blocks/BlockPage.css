@@ -48,6 +48,28 @@
   box-shadow: var(--shadow-subtle);
 }
 
+.block-scene .svg-hotspot-layer__polygon[data-hovered='true']:not([aria-disabled='true']) {
+  fill: rgb(255 59 48 / 22%);
+  stroke: #ff3b30;
+  stroke-width: 3px;
+}
+
+.block-scene .svg-hotspot-layer__polygon[aria-pressed='true']:not([aria-disabled='true']) {
+  fill: rgb(255 59 48 / 30%);
+  stroke: #ff3b30;
+  stroke-width: 4px;
+}
+
+.block-scene .svg-hotspot-layer__polygon:focus-visible:not([aria-disabled='true']) {
+  fill: rgb(255 59 48 / 22%);
+  stroke: #ff3b30;
+  stroke-width: 4px;
+}
+
+.block-scene .svg-hotspot-layer__polygon[aria-pressed='true']:focus-visible:not([aria-disabled='true']) {
+  fill: rgb(255 59 48 / 30%);
+}
+
 .block-scene figcaption {
   margin-top: var(--exterior-caption-gap, var(--space-3));
   color: var(--color-text-muted);
